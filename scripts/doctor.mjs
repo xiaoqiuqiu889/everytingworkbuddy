@@ -93,6 +93,15 @@ if (!existsSync(MCP)) {
   }
 }
 
+// ---------- 5. extensibility overlay scaffold ----------
+console.log("\n[extensibility] user/ 覆盖层脚手架");
+const userReadme = path.join(EFW, "user", "README.md");
+if (!existsSync(userReadme)) {
+  warn("EFW 源缺失 user/README.md（覆盖层机制不可用；更新到最新 EFW）");
+} else {
+  pass("user/README.md 存在（用户覆盖层机制可用）");
+}
+
 console.log("");
 if (failed > 0) {
   console.log(`RESULT: ${failed} 失败 / ${warned} 警告 \u2717  修复失败项后重跑 node scripts/install.mjs`);

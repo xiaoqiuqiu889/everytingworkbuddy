@@ -75,12 +75,14 @@ EFW 把研发纪律固化进 WorkBuddy 的记忆与技能，让**每次对话自
 ```
 EFW/
 ├── README.md            # 本文件：定位、映射、清单
+├── EXTENSIBILITY.md     # 可拓展性指南（user/ 覆盖层用法）
 ├── install.md           # 一步步落地指引
 ├── agents/              # 9 个子代理提示词（可复用调度素材）
 ├── skills/              # 核心研发工作流技能（源文件，安装到用户级）
 ├── rules/               # 6 份研发准则（安全/编码/测试/Git/委派/性能）
 ├── mcp/                 # MCP 连接器推荐清单 + 授权指引
-├── scripts/             # install.mjs 一键安装器 / verify-efw.mjs 自检 / build_experts.py 专家包生成
+├── user/                # ★ 你的个人拓展层（技能/子代理/准则/MCP，覆盖底座、重装不丢）
+├── scripts/             # install.mjs 一键安装器 / verify-efw.mjs 自检 / doctor.mjs 诊断 / build_experts.py 专家包生成
 └── automations/         # 定时任务定义（替代 hooks）
 ```
 
@@ -93,6 +95,16 @@ EFW/
 - [ ] **Automations** — 按需创建定时任务
 
 详细步骤见 [install.md](./install.md)。
+
+## 可拓展性（Extensibility）
+
+EFW 不是装死配置：你的个人定制全部走 **`user/` 覆盖层**，与底座分离、重装不丢、同名覆盖底座。
+
+- 加自己的技能 / 子代理 / 准则 / MCP → 丢进 `user/` 对应目录，重跑 `node scripts/install.mjs` 即生效
+- 改某个底座技能 → 同名放 `user/skills/<同名>/` 覆盖，别直接改底座（`git pull` 更新会冲掉）
+- 更新底座：`git pull` + 重跑安装，`user/` 原样保留
+
+完整玩法见 [EXTENSIBILITY.md](./EXTENSIBILITY.md)。
 
 ## 设计原则
 

@@ -104,15 +104,88 @@ async function installAgents() {
   }
 }
 
+// ---------- 5. User overlay（用户拓展层，重装不丢、同名覆盖底座）----------
+const USER_ROOT = path.join(EFW_ROOT, 'user');
+const USTART = '<!-- EFW-USER-RULES-START -->';
+const UEND = '<!-- EFW-USER-RULES-END -->';
+
+async function installUserSkills() {
+  console.log('\n[user/skills]');
+  const srcRoot = path.join(USER_ROOT, 'skills');
+  if (!(await exists(srcRoot))) { note('user/skills 不存在，跳过'); return; }
+  const dstRoot = path.join(WB, 'skills');
+  await ensureDir(dstRoot);
+  for (const name of await fs.readdir(srcRoot)) {
+    const src = path.join(srcRoot, name);
+    if (!((await fs.stat(src)).isDirectory())) continue;
+    await fs.cp(src, path.join(dstRoot, name), { recursive: true });
+    done(`~/.workbuddy/skills/${name}（用户覆盖/新增）`);
+  }
+}
+
+async function installUserAgents() {
+  console.log('\n[user/agents]');
+  const srcRoot = path.join(USER_ROOT, 'agents');
+  if (!(await exists(srcRoot))) { note('user/agents 不存在，跳过'); return; }
+  const dstRoot = path.join(WB, 'agents');
+  await ensureDir(dstRoot);
+  for (const f of (await fs.readdir(srcRoot)).filter((f) => f.endsWith('.md') && f !== 'README.md')) {
+    await fs.copyFile(path.join(srcRoot, f), path.join(dstRoot, f));
+    done(`~/.workbuddy/agents/${f}（用户）`);
+  }
+}
+
+async function installUserMcp() {
+  console.log('\n[user/mcp]');
+  const src = path.join(USER_ROOT, 'mcp', 'mcp-servers.json');
+  if (!(await exists(src))) { note('user/mcp 不存在，跳过'); return; }
+  const dst = path.join(WB, 'mcp.json');
+  const servers = JSON.parse(await fs.readFile(src, 'utf8')).mcpServers || {};
+  const cur = (await exists(dst)) ? JSON.parse(await fs.readFile(dst, 'utf8')) : { mcpServers: {} };
+  if (!cur.mcpServers) cur.mcpServers = {};
+  for (const [name, conf] of Object.entries(servers)) {
+    const txt = JSON.stringify(conf);
+    if (/YOUR_|<|>|REPLACE_ME|API_KEY_HERE/.test(txt)) { note(`跳过含占位符的 ${name}`); continue; }
+    cur.mcpServers[name] = conf;
+    done(`~/.workbuddy/mcp.json <- ${name}（用户）`);
+  }
+  await fs.writeFile(dst, JSON.stringify(cur, null, 2) + '\n', 'utf8');
+}
+
+async function installUserRules() {
+  console.log('\n[user/rules]');
+  const srcRoot = path.join(USER_ROOT, 'rules');
+  if (!(await exists(srcRoot))) { note('user/rules 不存在，跳过'); return; }
+  const files = (await fs.readdir(srcRoot)).filter((f) => f.endsWith('.md') && f !== 'README.md');
+  if (files.length === 0) { note('user/rules 为空，跳过'); return; }
+  let body = `${USTART}\n## 我的研发准则（用户自定义，EFW 重装不丢）\n`;
+  for (const f of files) {
+    const txt = (await fs.readFile(path.join(srcRoot, f), 'utf8')).trim();
+    body += `\n### ${f.replace(/\.md$/, '')}\n${txt}\n`;
+  }
+  body += UEND + '\n';
+  const memPath = path.join(WB, 'MEMORY.md');
+  let content = (await exists(memPath)) ? await fs.readFile(memPath, 'utf8') : '';
+  const cleaned = content
+    .replace(new RegExp('\\n?' + USTART + '[\\s\\S]*?' + UEND + '\\n?'), '\n')
+    .replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '') + '\n';
+  await fs.writeFile(memPath, cleaned + '\n' + body, 'utf8');
+  done(`~/.workbuddy/MEMORY.md 已写入用户准则块（${files.length} 个）`);
+}
+
 async function main() {
   console.log('EFW 一键安装器');
   console.log(`EFW_ROOT = ${EFW_ROOT}`);
   console.log(`TARGET   = ${WB}`);
   await ensureDir(WB);
-  await installSkills();
-  await installRules();
-  await installMcp();
-  await installAgents();
+  await installSkills();        // 底座技能（先）
+  await installUserSkills();    // 用户技能（后，同名覆盖底座）
+  await installRules();         // 底座准则块
+  await installUserRules();     // 用户准则块（独立标记，重装不丢）
+  await installMcp();           // 底座 MCP
+  await installUserMcp();       // 用户 MCP
+  await installAgents();        // 底座子代理
+  await installUserAgents();    // 用户子代理
   console.log(`\nRESULT: ${ok} 完成 / ${skip} 跳过 / ${fail} 失败`);
   if (fail > 0) process.exit(1);
 }
