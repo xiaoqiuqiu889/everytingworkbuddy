@@ -87,7 +87,8 @@ git show --stat <远端独有commit哈希>
 ```bash
 # a) 环境变量（CI/沙箱常注入）
 for v in GH_TOKEN GITHUB_TOKEN GH_PAT GITHUB_PAT GIT_TOKEN; do
-  [ -n "$(printenv $v)" ] && echo "found $v" && TOKEN="$(printenv $v)"
+  val=$(printenv "$v" || true)
+  if [ -n "$val" ]; then TOKEN="$val"; fi   # 用 if，别用 &&：末次判空会让循环返回 1
 done
 # b) gh CLI（若已登录，有独立 token 存储）
 command -v gh >/dev/null && gh auth token 2>/dev/null   # 有输出即可用
@@ -95,6 +96,8 @@ command -v gh >/dev/null && gh auth token 2>/dev/null   # 有输出即可用
 git config --get-all credential.helper                  # 先看配了啥 helper
 printf 'protocol=https\nhost=github.com\n\n' | git credential fill 2>/dev/null | awk -F= '/^password=/{print $2}'
 ```
+
+> ⚠️ **别把探测塞进 `&&` 链**：`for ...; do [ -n .. ] && TOKEN=..; done` 在末次判空时循环返回 1，若整段用 `&&` 串起来会**短路**（表现为空输出 + exit 1，看着像失败其实没跑）。探测写成独立多行 / 用 `if`，push 判断再单独 `if [ -n "$TOKEN" ]`。
 
 ## token 取不到怎么办（降级方案）
 
