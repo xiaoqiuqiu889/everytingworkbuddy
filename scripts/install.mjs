@@ -40,6 +40,7 @@ const SKILLS = [
   'efw',
   'efw-tdd-workflow', 'efw-plan-feature', 'efw-code-review', 'efw-build-fix',
   'efw-refactor-clean', 'efw-security-review', 'efw-verify', 'efw-checkpoint', 'efw-learn',
+  'efw-github-push',
   'efw-profile',
 ];
 
@@ -97,6 +98,7 @@ const RULES_BLOCK = `${START}
 | 验收/自检/收尾 | \`efw-verify\` | 所有任务的交付前自检 |
 | 存快照/断点保存 | \`efw-checkpoint\` | 复杂任务中途存档 |
 | 提炼沉淀/复盘 | \`efw-learn\` | 任务结束后的经验固化 |
+| 推 GitHub/push 卡住 | \`efw-github-push\` | 沙箱/无头环境 git push 卡凭据时的非交互推送流程 |
 | 设计/原型/PPT/视觉 | \`huashu-design\` + \`md-to-html-report\` + 第一层框架 | 设计类任务走专业 skill，但**仍需套第一层思考框架**（先想再做+质量标准+自检） |
 | 文档/报告/长文 | \`docx\`/\`pptx\`/\`md-to-html-report\` + \`efw-doc-updater\`(agent) | 专业 skill 干活，第一层框架管质量 |
 | 数据/分析/报表 | \`xlsx\`/\`data-analysis\`/\`data-viz\` + agent-data-engineer | 同上 |

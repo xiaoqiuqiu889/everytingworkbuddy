@@ -36,6 +36,7 @@ const SKILLS = [
   "efw",
   "efw-tdd-workflow", "efw-plan-feature", "efw-code-review", "efw-build-fix",
   "efw-refactor-clean", "efw-security-review", "efw-verify", "efw-checkpoint", "efw-learn",
+  "efw-github-push",
   "efw-profile",
 ];
 

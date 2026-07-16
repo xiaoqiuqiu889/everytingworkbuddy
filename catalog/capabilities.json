@@ -1408,6 +1408,28 @@
       "activate": "call_skill"
     },
     {
+      "id": "efw-github-push",
+      "type": "skill",
+      "title": "沙箱 GitHub 推送",
+      "summary": "沙箱/无头环境 git push 卡凭据时，非交互取 token 临时推送、推完还原干净。",
+      "triggers": [
+        "推到github",
+        "push上去",
+        "提交到远端",
+        "推送代码",
+        "git push 卡住",
+        "推不上去",
+        "沙箱推送",
+        "push 被拒"
+      ],
+      "tags": [
+        "工程",
+        "git",
+        "部署"
+      ],
+      "activate": "call_skill"
+    },
+    {
       "id": "github",
       "type": "skill",
       "title": "GitHub 操作",
