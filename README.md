@@ -14,16 +14,13 @@
 > 🔗 https://github.com/xiaoqiuqiu889/everytingworkbuddy
 > 「把这个工程在我的电脑中实现一遍」
 
-它自动 **克隆 → 安装 → 自检**，全套战力一次装满。
-（CodeBuddy 用户：让它跑 `node scripts/install.mjs --product codebuddy`，装进 `~/.codebuddy/`。）
-
 **第二口 · 觉醒** —— 开个新会话，报上你的身份：
 
 > 「我是一名 **游戏策划**，平时 **写设计文档、做数值系统和竞品拆解**，让 EFW 帮我升级下 workbuddy。」
 
 EFW 当场 **检索最趁手的能力 → 排好优先级 → 刻进你的档案**。往后每次开工，助手都记得你是谁、该抄哪把家伙。
 
-**收尾 · 通电（手动一步）** —— 两个增强连接器（`context7` 查最新文档、`sequential-thinking` 深度推理）出于安全机制需你亲手激活：
+**第三口 · 通电** —— 两个增强连接器（`context7` 查最新文档、`sequential-thinking` 深度推理）出于安全机制需你亲手激活：
 
 > 左侧边栏 →「连接器」→ 找到 `context7` 和 `sequential-thinking` → 各点一次「信任」（无需密钥）。
 
