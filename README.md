@@ -2,8 +2,6 @@
 
 > 🍶 **为 WorkBuddy 准备的翡翠剂** —— 干了这杯翡翠剂，WorkBuddy 更强大。
 >
-> *（逆战世界观彩蛋：翡翠剂是逆行者出征前吞下的强化剂；EFW 就是给 WorkBuddy 的这一剂。）*
-
 > 对标 [Everything Claude Code](https://github.com/worldflowai/everything-claude-code)（Claude Code 的配置全家桶），为 **WorkBuddy / CodeBuddy** 重新打造的「开箱即用的全能工作助手配置包」。
 
 EFW 把一套经过实战打磨的工作流、能力索引和使用纪律，用 WorkBuddy / CodeBuddy 原生机制一次性装好。你不用懂任何配置，装完直接说人话就能用。
