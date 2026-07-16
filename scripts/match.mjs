@@ -5,7 +5,7 @@
 //   echo "我是安全工程师" | node scripts/match.mjs --json
 //
 // 检索来源（自增长，不封顶）：
-//   1) catalog/capabilities.json —— EFW 策展能力库（用户价值导向，基于 WorkBuddy 生态公开使用热度 + 多角色覆盖调研，持续丰富，当前 150 条；非以单一用户本地已装为准）
+//   1) catalog/capabilities.json —— EFW 策展能力库（用户价值导向，基于 WorkBuddy 生态公开使用热度 + 多角色覆盖调研，持续丰富，当前 300 级条；非以单一用户本地已装为准）
 //   2) 已装技能目录 —— 同时扫描 ~/.workbuddy/skills 与 ~/.codebuddy/skills（跨产品兼容，自动发现你装的全部技能，含 WorkBuddy/CodeBuddy 内置技能）
 //   3) EFW/user/skills、EFW/user/agents —— 你自己拓展的能力
 // 对输入自述做 触发词/标签/语义 token 重叠 打分，输出最匹配的能力及理由。

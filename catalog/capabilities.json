@@ -2703,6 +2703,2649 @@
         "优化"
       ],
       "activate": "call_skill"
+    },
+    {
+      "id": "outlook",
+      "type": "skill",
+      "title": "Outlook 邮件管理",
+      "summary": "收发、分类、规则与会议邀请管理 Outlook 邮箱。",
+      "triggers": [
+        "outlook",
+        "邮件管理",
+        "收发邮件"
+      ],
+      "tags": [
+        "办公",
+        "邮件",
+        "协作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "gmail",
+      "type": "skill",
+      "title": "Gmail 邮件管理",
+      "summary": "标签、过滤、草稿与附件自动化处理 Gmail。",
+      "triggers": [
+        "gmail",
+        "谷歌邮箱",
+        "邮件"
+      ],
+      "tags": [
+        "办公",
+        "邮件",
+        "协作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "jira",
+      "type": "skill",
+      "title": "Jira 项目管理",
+      "summary": "Issue、 Sprint、看板与报表的创建与同步。",
+      "triggers": [
+        "jira",
+        "需求管理",
+        "敏捷"
+      ],
+      "tags": [
+        "办公",
+        "项目管理",
+        "研发"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "trello",
+      "type": "skill",
+      "title": "Trello 看板",
+      "summary": "卡片、清单与自动化规则的看板管理。",
+      "triggers": [
+        "trello",
+        "看板",
+        "任务"
+      ],
+      "tags": [
+        "办公",
+        "项目管理"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "notion",
+      "type": "skill",
+      "title": "Notion 笔记知识库",
+      "summary": "页面、数据库与模板的读写与编排。",
+      "triggers": [
+        "notion",
+        "笔记",
+        "知识库"
+      ],
+      "tags": [
+        "办公",
+        "知识管理"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "zoom",
+      "type": "skill",
+      "title": "Zoom 会议",
+      "summary": "会议预约、录制、字幕与纪要自动化。",
+      "triggers": [
+        "zoom",
+        "视频会议",
+        "会议"
+      ],
+      "tags": [
+        "办公",
+        "会议",
+        "协作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "dingtalk",
+      "type": "skill",
+      "title": "钉钉办公",
+      "summary": "审批、打卡、公告与群机器人联动。",
+      "triggers": [
+        "钉钉",
+        "dingtalk",
+        "OA"
+      ],
+      "tags": [
+        "办公",
+        "协作",
+        "政务"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "drawio",
+      "type": "skill",
+      "title": "流程图 / 架构图",
+      "summary": "流程图、时序图、ER 图与架构图绘制。",
+      "triggers": [
+        "流程图",
+        "drawio",
+        "架构图"
+      ],
+      "tags": [
+        "设计",
+        "图表",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "xmind",
+      "type": "skill",
+      "title": "思维导图",
+      "summary": "结构化头脑风暴与思维导图生成。",
+      "triggers": [
+        "思维导图",
+        "xmind",
+        "脑图"
+      ],
+      "tags": [
+        "设计",
+        "思考",
+        "效率"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "qrcode",
+      "type": "skill",
+      "title": "二维码生成",
+      "summary": "文本/链接/名片生成与解析二维码。",
+      "triggers": [
+        "二维码",
+        "qrcode",
+        "条码"
+      ],
+      "tags": [
+        "工具",
+        "办公"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "resume",
+      "type": "skill",
+      "title": "简历生成与优化",
+      "summary": "按岗位 JD 生成、润色、排版简历。",
+      "triggers": [
+        "简历",
+        "resume",
+        "求职"
+      ],
+      "tags": [
+        "办公",
+        "写作",
+        "求职"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "contract-review",
+      "type": "skill",
+      "title": "合同审查",
+      "summary": "条款风险、缺失项与合规点自动标注。",
+      "triggers": [
+        "合同审查",
+        "审合同",
+        "条款"
+      ],
+      "tags": [
+        "法务",
+        "办公",
+        "合规"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "transcription",
+      "type": "skill",
+      "title": "语音转写",
+      "summary": "会议/访谈录音转文字并打时间戳。",
+      "triggers": [
+        "语音转写",
+        "转录",
+        "字幕"
+      ],
+      "tags": [
+        "工具",
+        "会议",
+        "媒体"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "translation-pro",
+      "type": "skill",
+      "title": "专业翻译 / 本地化",
+      "summary": "多语种互译与术语一致本地化。",
+      "triggers": [
+        "翻译",
+        "本地化",
+        "多语"
+      ],
+      "tags": [
+        "工具",
+        "写作",
+        "国际化"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "calendar-pro",
+      "type": "skill",
+      "title": "日程 / 日历管理",
+      "summary": "跨账号日程冲突检测与排程。",
+      "triggers": [
+        "日程",
+        "日历",
+        "排程"
+      ],
+      "tags": [
+        "办公",
+        "效率"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "reminder",
+      "type": "skill",
+      "title": "提醒 / 待办",
+      "summary": "自然语言建提醒、待办与周期任务。",
+      "triggers": [
+        "提醒",
+        "待办",
+        "todo"
+      ],
+      "tags": [
+        "工具",
+        "效率"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "api-test",
+      "type": "skill",
+      "title": "API 测试 / 联调",
+      "summary": "接口调试、断言、集合与 Mock。",
+      "triggers": [
+        "api 测试",
+        "接口联调",
+        "postman"
+      ],
+      "tags": [
+        "研发",
+        "测试",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "docker",
+      "type": "skill",
+      "title": "容器化 / Docker",
+      "summary": "镜像构建、Compose 与容器排错。",
+      "triggers": [
+        "docker",
+        "容器",
+        "镜像"
+      ],
+      "tags": [
+        "研发",
+        "运维",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "kubernetes",
+      "type": "skill",
+      "title": "K8s 编排",
+      "summary": "部署、伸缩、服务与集群排障。",
+      "triggers": [
+        "kubernetes",
+        "k8s",
+        "编排"
+      ],
+      "tags": [
+        "研发",
+        "运维",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "cicd",
+      "type": "skill",
+      "title": "CI/CD 流水线",
+      "summary": "构建、测试、发布流水线编排。",
+      "triggers": [
+        "cicd",
+        "流水线",
+        "发布"
+      ],
+      "tags": [
+        "研发",
+        "运维",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "terraform",
+      "type": "skill",
+      "title": "基础设施即代码",
+      "summary": "Terraform 资源编排与状态管理。",
+      "triggers": [
+        "terraform",
+        "iac",
+        "基础设施"
+      ],
+      "tags": [
+        "研发",
+        "运维",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "sql-query",
+      "type": "skill",
+      "title": "自然语言转 SQL",
+      "summary": "把业务问题转成 SQL 并跑数。",
+      "triggers": [
+        "自然语言查数",
+        "nl2sql",
+        "查数据库"
+      ],
+      "tags": [
+        "数据",
+        "研发",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "regex",
+      "type": "skill",
+      "title": "正则生成 / 调试",
+      "summary": "按描述生成并测试正则表达式。",
+      "triggers": [
+        "正则",
+        "regex",
+        "匹配"
+      ],
+      "tags": [
+        "工具",
+        "研发"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "debug",
+      "type": "skill",
+      "title": "调试 / 排错",
+      "summary": "定位报错根因并给出修复。",
+      "triggers": [
+        "调试",
+        "排错",
+        "报错"
+      ],
+      "tags": [
+        "研发",
+        "工程",
+        "质量"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "perf",
+      "type": "skill",
+      "title": "性能优化",
+      "summary": "瓶颈分析、缓存与查询优化建议。",
+      "triggers": [
+        "性能优化",
+        "调优",
+        "瓶颈"
+      ],
+      "tags": [
+        "研发",
+        "工程",
+        "质量"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tech-writer",
+      "type": "skill",
+      "title": "技术文档撰写",
+      "summary": "API 文档、SDK 文档与术语表。",
+      "triggers": [
+        "技术文档",
+        "api 文档",
+        "sdk"
+      ],
+      "tags": [
+        "写作",
+        "研发",
+        "文档"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "dashboard",
+      "type": "skill",
+      "title": "数据大屏 / 看板",
+      "summary": "可视化看板与实时大屏搭建。",
+      "triggers": [
+        "数据大屏",
+        "看板",
+        "可视化"
+      ],
+      "tags": [
+        "数据",
+        "设计",
+        "报表"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "ab-test",
+      "type": "skill",
+      "title": "A/B 测试分析",
+      "summary": "实验设计、显著性检验与结论。",
+      "triggers": [
+        "ab 测试",
+        "实验",
+        "显著性"
+      ],
+      "tags": [
+        "数据",
+        "增长",
+        "分析"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "user-analytics",
+      "type": "skill",
+      "title": "用户行为分析",
+      "summary": "漏斗、留存、路径与分群洞察。",
+      "triggers": [
+        "用户行为",
+        "漏斗",
+        "留存"
+      ],
+      "tags": [
+        "数据",
+        "增长",
+        "分析"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "figma",
+      "type": "skill",
+      "title": "Figma 设计协作",
+      "summary": "读取/生成 Figma 设计与标注。",
+      "triggers": [
+        "figma",
+        "UI 设计",
+        "原型"
+      ],
+      "tags": [
+        "设计",
+        "前端",
+        "协作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "sketch",
+      "type": "skill",
+      "title": "Sketch 设计",
+      "summary": "Symbol、组件与切图导出。",
+      "triggers": [
+        "sketch",
+        "UI",
+        "切图"
+      ],
+      "tags": [
+        "设计",
+        "前端"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "brand-design",
+      "type": "skill",
+      "title": "品牌视觉设计",
+      "summary": "Logo、VI 与品牌规范生成。",
+      "triggers": [
+        "品牌设计",
+        "vi",
+        "logo"
+      ],
+      "tags": [
+        "设计",
+        "品牌",
+        "营销"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "illustration",
+      "type": "skill",
+      "title": "插画生成",
+      "summary": "配图、故事插画与风格化绘制。",
+      "triggers": [
+        "插画",
+        "配图",
+        "illustration"
+      ],
+      "tags": [
+        "设计",
+        "创意",
+        "内容"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "infographic",
+      "type": "skill",
+      "title": "信息图",
+      "summary": "数据故事化信息图排版。",
+      "triggers": [
+        "信息图",
+        "infographic",
+        "图文"
+      ],
+      "tags": [
+        "设计",
+        "数据",
+        "内容"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "motion",
+      "type": "skill",
+      "title": "动效 / 动画",
+      "summary": "Lottie、GIF 与转场动画。",
+      "triggers": [
+        "动效",
+        "动画",
+        "lottie"
+      ],
+      "tags": [
+        "设计",
+        "创意",
+        "视频"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "typography",
+      "type": "skill",
+      "title": "字体 / 排印",
+      "summary": "中英文排版、字阶与可读性。",
+      "triggers": [
+        "字体",
+        "排印",
+        "typography"
+      ],
+      "tags": [
+        "设计",
+        "排版"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "baidu-seo-checker",
+      "type": "skill",
+      "title": "百度 SEO 收录检查",
+      "summary": "站点收录、合规与排名体检。",
+      "triggers": [
+        "baidu seo",
+        "收录检查",
+        "seo"
+      ],
+      "tags": [
+        "营销",
+        "搜索",
+        "工具"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "xiaohongshu",
+      "type": "skill",
+      "title": "小红书内容",
+      "summary": "笔记选题、正文与封面文案。",
+      "triggers": [
+        "小红书",
+        "种草",
+        "笔记"
+      ],
+      "tags": [
+        "营销",
+        "内容",
+        "社媒"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "douyin",
+      "type": "skill",
+      "title": "抖音 / 短视频脚本",
+      "summary": "脚本、分镜与标题生成。",
+      "triggers": [
+        "抖音",
+        "短视频",
+        "脚本"
+      ],
+      "tags": [
+        "营销",
+        "内容",
+        "视频"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "wechat-article",
+      "type": "skill",
+      "title": "公众号文章",
+      "summary": "长文选题、结构与排版。",
+      "triggers": [
+        "公众号",
+        "微信文章",
+        "推文"
+      ],
+      "tags": [
+        "营销",
+        "内容",
+        "写作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "ad-copy",
+      "type": "skill",
+      "title": "广告投放文案",
+      "summary": "信息流、搜索与电商广告文案。",
+      "triggers": [
+        "广告文案",
+        "投放",
+        "copy"
+      ],
+      "tags": [
+        "营销",
+        "广告",
+        "内容"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "landing-page",
+      "type": "skill",
+      "title": "落地页生成",
+      "summary": "转化型落地页文案与结构。",
+      "triggers": [
+        "落地页",
+        "landing",
+        "转化"
+      ],
+      "tags": [
+        "营销",
+        "网页",
+        "内容"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "email-marketing",
+      "type": "skill",
+      "title": "邮件营销",
+      "summary": "EDM 序列、分层与 A/B 文案。",
+      "triggers": [
+        "邮件营销",
+        "edm",
+        "群发"
+      ],
+      "tags": [
+        "营销",
+        "邮件",
+        "增长"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "white-paper",
+      "type": "skill",
+      "title": "白皮书",
+      "summary": "行业白皮书结构与撰写。",
+      "triggers": [
+        "白皮书",
+        "行业报告",
+        "研究"
+      ],
+      "tags": [
+        "写作",
+        "研究",
+        "营销"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "speech",
+      "type": "skill",
+      "title": "演讲稿",
+      "summary": "开场、结构与金句打磨。",
+      "triggers": [
+        "演讲稿",
+        "发言",
+        "汇报"
+      ],
+      "tags": [
+        "写作",
+        "表达"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "podcast",
+      "type": "skill",
+      "title": "播客脚本",
+      "summary": "大纲、对话与 show notes。",
+      "triggers": [
+        "播客",
+        "podcast",
+        "音频"
+      ],
+      "tags": [
+        "内容",
+        "媒体",
+        "写作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "screenplay",
+      "type": "skill",
+      "title": "剧本 / 脚本",
+      "summary": "分场、对白与分镜脚本。",
+      "triggers": [
+        "剧本",
+        "脚本",
+        "分镜"
+      ],
+      "tags": [
+        "内容",
+        "创意",
+        "写作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "ecommerce",
+      "type": "skill",
+      "title": "电商运营",
+      "summary": "选品、详情页、活动与转化。",
+      "triggers": [
+        "电商",
+        "淘宝",
+        "运营"
+      ],
+      "tags": [
+        "营销",
+        "商业",
+        "数据"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "medical",
+      "type": "skill",
+      "title": "医疗健康问答",
+      "summary": "症状初筛、用药与就医建议（非诊断）。",
+      "triggers": [
+        "医疗",
+        "健康",
+        "用药"
+      ],
+      "tags": [
+        "垂直",
+        "咨询",
+        "生活"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "education",
+      "type": "skill",
+      "title": "课件 / 作业批改",
+      "summary": "课件生成、题库与批改反馈。",
+      "triggers": [
+        "课件",
+        "作业批改",
+        "教学"
+      ],
+      "tags": [
+        "垂直",
+        "教育",
+        "写作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "legal-doc",
+      "type": "skill",
+      "title": "法律文书生成",
+      "summary": "起诉状、协议、函件的起草。",
+      "triggers": [
+        "法律文书",
+        "起诉状",
+        "协议"
+      ],
+      "tags": [
+        "法务",
+        "写作",
+        "合规"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tax",
+      "type": "skill",
+      "title": "税务计算",
+      "summary": "个税、增值税与汇算清缴。",
+      "triggers": [
+        "税务",
+        "报税",
+        "个税"
+      ],
+      "tags": [
+        "金融",
+        "财务",
+        "垂直"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "realestate",
+      "type": "skill",
+      "title": "房产分析",
+      "summary": "楼盘对比、估值与贷款测算。",
+      "triggers": [
+        "房产",
+        "房贷",
+        "估值"
+      ],
+      "tags": [
+        "垂直",
+        "金融",
+        "生活"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "travel",
+      "type": "skill",
+      "title": "旅行规划",
+      "summary": "行程、预算与攻略生成。",
+      "triggers": [
+        "旅行",
+        "行程",
+        "攻略"
+      ],
+      "tags": [
+        "垂直",
+        "生活",
+        "效率"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "customer-service",
+      "type": "skill",
+      "title": "智能客服",
+      "summary": "问答、工单与话术生成。",
+      "triggers": [
+        "客服",
+        "工单",
+        "话术"
+      ],
+      "tags": [
+        "商业",
+        "运营",
+        "效率"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "media-monitor",
+      "type": "skill",
+      "title": "舆情监控",
+      "summary": "品牌声量、情感与危机预警。",
+      "triggers": [
+        "舆情",
+        "声量",
+        "监控"
+      ],
+      "tags": [
+        "营销",
+        "研究",
+        "数据"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "agent-security-pentester",
+      "type": "agent",
+      "title": "安全渗透子代理",
+      "summary": "授权范围内的渗透测试与风险验证。",
+      "triggers": [
+        "渗透",
+        "pentest",
+        "安全测试"
+      ],
+      "tags": [
+        "代理",
+        "安全",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-devops",
+      "type": "agent",
+      "title": "DevOps 子代理",
+      "summary": "CI/CD、容器与可观测性运维。",
+      "triggers": [
+        "devops",
+        "运维代理",
+        "sre"
+      ],
+      "tags": [
+        "代理",
+        "运维",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-data-engineer",
+      "type": "agent",
+      "title": "数据工程子代理",
+      "summary": "管道、建模与数仓设计。",
+      "triggers": [
+        "数据工程",
+        "数仓",
+        "etl"
+      ],
+      "tags": [
+        "代理",
+        "数据",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-qa",
+      "type": "agent",
+      "title": "测试子代理",
+      "summary": "用例设计、自动化与回归。",
+      "triggers": [
+        "测试代理",
+        "qa",
+        "用例"
+      ],
+      "tags": [
+        "代理",
+        "测试",
+        "质量"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-scrum-master",
+      "type": "agent",
+      "title": "敏捷子代理",
+      "summary": "Sprint 规划、复盘与阻塞清除。",
+      "triggers": [
+        "scrum",
+        "敏捷教练",
+        "sprint"
+      ],
+      "tags": [
+        "代理",
+        "项目管理",
+        "研发"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-ux-researcher",
+      "type": "agent",
+      "title": "用户研究子代理",
+      "summary": "访谈、问卷与洞察归纳。",
+      "triggers": [
+        "用户研究",
+        "uxr",
+        "访谈"
+      ],
+      "tags": [
+        "代理",
+        "设计",
+        "研究"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-growth",
+      "type": "agent",
+      "title": "增长子代理",
+      "summary": "漏斗、拉新与留存策略。",
+      "triggers": [
+        "增长",
+        "growth",
+        "拉新"
+      ],
+      "tags": [
+        "代理",
+        "增长",
+        "营销"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-customer-success",
+      "type": "agent",
+      "title": "客户成功子代理",
+      "summary": "续费、健康度与成功计划。",
+      "triggers": [
+        "客户成功",
+        "cs",
+        "续费"
+      ],
+      "tags": [
+        "代理",
+        "商业",
+        "运营"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-teacher",
+      "type": "agent",
+      "title": "教学子代理",
+      "summary": "备课、讲解与练习设计。",
+      "triggers": [
+        "教学",
+        "老师",
+        "备课"
+      ],
+      "tags": [
+        "代理",
+        "教育",
+        "写作"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-recruiter",
+      "type": "agent",
+      "title": "招聘子代理",
+      "summary": "JD、筛选与面试题。",
+      "triggers": [
+        "招聘",
+        "recruiter",
+        "猎头"
+      ],
+      "tags": [
+        "代理",
+        "hr",
+        "商业"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-medical",
+      "type": "agent",
+      "title": "医疗顾问子代理",
+      "summary": "健康科普与就医指引（非诊断）。",
+      "triggers": [
+        "医疗顾问",
+        "健康",
+        "分诊"
+      ],
+      "tags": [
+        "代理",
+        "医疗",
+        "咨询"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-translator",
+      "type": "agent",
+      "title": "翻译子代理",
+      "summary": "多语互译与术语校订。",
+      "triggers": [
+        "翻译代理",
+        "本地化",
+        "多语"
+      ],
+      "tags": [
+        "代理",
+        "写作",
+        "国际化"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-copywriter",
+      "type": "agent",
+      "title": "文案子代理",
+      "summary": "品牌与转化文案创作。",
+      "triggers": [
+        "文案代理",
+        "copywriter",
+        "写手"
+      ],
+      "tags": [
+        "代理",
+        "营销",
+        "写作"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-social-media",
+      "type": "agent",
+      "title": "社媒运营子代理",
+      "summary": "选题、排期与互动。",
+      "triggers": [
+        "社媒代理",
+        "运营",
+        "内容"
+      ],
+      "tags": [
+        "代理",
+        "营销",
+        "内容"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-product-manager",
+      "type": "agent",
+      "title": "产品子代理",
+      "summary": "需求、优先级与路线图。",
+      "triggers": [
+        "产品代理",
+        "pm",
+        "需求"
+      ],
+      "tags": [
+        "代理",
+        "产品",
+        "商业"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-designer",
+      "type": "agent",
+      "title": "设计子代理",
+      "summary": "视觉与交互方案产出。",
+      "triggers": [
+        "设计代理",
+        "ui",
+        "视觉"
+      ],
+      "tags": [
+        "代理",
+        "设计",
+        "创意"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-researcher",
+      "type": "agent",
+      "title": "调研子代理",
+      "summary": "资料搜集、交叉验证与综述。",
+      "triggers": [
+        "调研代理",
+        "研究",
+        "综述"
+      ],
+      "tags": [
+        "代理",
+        "研究",
+        "写作"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-ops-analyst",
+      "type": "agent",
+      "title": "运营分析子代理",
+      "summary": "指标、复盘与策略建议。",
+      "triggers": [
+        "运营代理",
+        "ops",
+        "复盘"
+      ],
+      "tags": [
+        "代理",
+        "运营",
+        "数据"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-financial-analyst",
+      "type": "agent",
+      "title": "金融分析子代理",
+      "summary": "财报、估值与行业比较。",
+      "triggers": [
+        "金融代理",
+        "分析师",
+        "财报"
+      ],
+      "tags": [
+        "代理",
+        "金融",
+        "投资"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-legal-counsel",
+      "type": "agent",
+      "title": "法务子代理",
+      "summary": "合同、合规与风险审查。",
+      "triggers": [
+        "法务代理",
+        "合规",
+        "合同"
+      ],
+      "tags": [
+        "代理",
+        "法务",
+        "合规"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-quant-trader",
+      "type": "agent",
+      "title": "量化子代理",
+      "summary": "策略回测与因子研究。",
+      "triggers": [
+        "量化",
+        "quant",
+        "回测"
+      ],
+      "tags": [
+        "代理",
+        "金融",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-tax-advisor",
+      "type": "agent",
+      "title": "税务子代理",
+      "summary": "筹划、申报与合规。",
+      "triggers": [
+        "税务代理",
+        "报税",
+        "筹划"
+      ],
+      "tags": [
+        "代理",
+        "金融",
+        "财务"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-supply-chain",
+      "type": "agent",
+      "title": "供应链子代理",
+      "summary": "采购、库存与履约优化。",
+      "triggers": [
+        "供应链",
+        "采购",
+        "库存"
+      ],
+      "tags": [
+        "代理",
+        "制造",
+        "运营"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-logistics",
+      "type": "agent",
+      "title": "物流子代理",
+      "summary": "路由、时效与成本优化。",
+      "triggers": [
+        "物流",
+        "路由",
+        "履约"
+      ],
+      "tags": [
+        "代理",
+        "运营",
+        "制造"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-ecommerce-ops",
+      "type": "agent",
+      "title": "电商运营子代理",
+      "summary": "选品、活动与转化提升。",
+      "triggers": [
+        "电商代理",
+        "运营",
+        "选品"
+      ],
+      "tags": [
+        "代理",
+        "商业",
+        "营销"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-hr-bp",
+      "type": "agent",
+      "title": "HRBP 子代理",
+      "summary": "绩效、文化与员工沟通。",
+      "triggers": [
+        "hrbp",
+        "绩效",
+        "员工"
+      ],
+      "tags": [
+        "代理",
+        "hr",
+        "商业"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-pr",
+      "type": "agent",
+      "title": "公关子代理",
+      "summary": "媒体稿、危机与声誉。",
+      "triggers": [
+        "公关",
+        "pr",
+        "声誉"
+      ],
+      "tags": [
+        "代理",
+        "营销",
+        "写作"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-risk-officer",
+      "type": "agent",
+      "title": "风险子代理",
+      "summary": "信用、市场与操作风险。",
+      "triggers": [
+        "风险",
+        "risk",
+        "风控"
+      ],
+      "tags": [
+        "代理",
+        "金融",
+        "合规"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-ml-engineer",
+      "type": "agent",
+      "title": "机器学习子代理",
+      "summary": "特征、训练与上线。",
+      "triggers": [
+        "ml",
+        "机器学习",
+        "模型"
+      ],
+      "tags": [
+        "代理",
+        "数据",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-backend-dev",
+      "type": "agent",
+      "title": "后端子代理",
+      "summary": "服务、API 与数据库设计。",
+      "triggers": [
+        "后端代理",
+        "api",
+        "服务"
+      ],
+      "tags": [
+        "代理",
+        "研发",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "rule-compliance",
+      "type": "rule",
+      "title": "合规准则",
+      "summary": "广告法、数据法与行业合规红线。",
+      "triggers": [
+        "合规规则",
+        "广告法",
+        "监管"
+      ],
+      "tags": [
+        "规则",
+        "合规",
+        "法务"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-performance",
+      "type": "rule",
+      "title": "性能准则",
+      "summary": "响应、资源与复杂度预算约束。",
+      "triggers": [
+        "性能规则",
+        "性能预算",
+        "优化"
+      ],
+      "tags": [
+        "规则",
+        "工程",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-accessibility",
+      "type": "rule",
+      "title": "无障碍准则",
+      "summary": "WCAG 对比度、语义与键盘可达。",
+      "triggers": [
+        "无障碍",
+        "a11y",
+        "wcag"
+      ],
+      "tags": [
+        "规则",
+        "设计",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-i18n",
+      "type": "rule",
+      "title": "国际化准则",
+      "summary": "多语、时区与本地化一致性。",
+      "triggers": [
+        "国际化",
+        "i18n",
+        "本地化"
+      ],
+      "tags": [
+        "规则",
+        "工程",
+        "国际化"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-cost",
+      "type": "rule",
+      "title": "成本准则",
+      "summary": "资源、调用与 token 成本控制。",
+      "triggers": [
+        "成本规则",
+        "降本",
+        "预算"
+      ],
+      "tags": [
+        "规则",
+        "工程",
+        "效率"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-deploy",
+      "type": "rule",
+      "title": "部署准则",
+      "summary": "灰度、回滚与变更评审。",
+      "triggers": [
+        "部署规则",
+        "灰度",
+        "回滚"
+      ],
+      "tags": [
+        "规则",
+        "运维",
+        "工程"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-data",
+      "type": "rule",
+      "title": "数据准则",
+      "summary": "建模、血缘与质量门槛。",
+      "triggers": [
+        "数据规则",
+        "数仓",
+        "质量"
+      ],
+      "tags": [
+        "规则",
+        "数据",
+        "工程"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-ui",
+      "type": "rule",
+      "title": "UI 准则",
+      "summary": "一致性、层级与反馈的设计规范。",
+      "triggers": [
+        "ui 规则",
+        "设计规范",
+        "视觉"
+      ],
+      "tags": [
+        "规则",
+        "设计",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-content",
+      "type": "rule",
+      "title": "内容准则",
+      "summary": "事实、来源标注与可核验。",
+      "triggers": [
+        "内容规则",
+        "事实",
+        "来源"
+      ],
+      "tags": [
+        "规则",
+        "写作",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-api",
+      "type": "rule",
+      "title": "API 准则",
+      "summary": "版本、幂等与错误契约。",
+      "triggers": [
+        "api 规则",
+        "接口规范",
+        "契约"
+      ],
+      "tags": [
+        "规则",
+        "工程",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-logging",
+      "type": "rule",
+      "title": "日志准则",
+      "summary": "结构化、脱敏与可追溯。",
+      "triggers": [
+        "日志规则",
+        "log",
+        "脱敏"
+      ],
+      "tags": [
+        "规则",
+        "工程",
+        "运维"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-observability",
+      "type": "rule",
+      "title": "可观测性准则",
+      "summary": "指标、链路与告警闭环。",
+      "triggers": [
+        "可观测",
+        "监控",
+        "告警"
+      ],
+      "tags": [
+        "规则",
+        "运维",
+        "工程"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-ethics",
+      "type": "rule",
+      "title": "伦理准则",
+      "summary": "公平、透明与以人为本。",
+      "triggers": [
+        "伦理",
+        "公平",
+        "以人为本"
+      ],
+      "tags": [
+        "规则",
+        "合规",
+        "安全"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "slack-mcp",
+      "type": "mcp",
+      "title": "Slack MCP",
+      "summary": "消息、频道与 Bot 集成。",
+      "triggers": [
+        "slack",
+        "协作集成",
+        "bot"
+      ],
+      "tags": [
+        "mcp",
+        "协作",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "jira-mcp",
+      "type": "mcp",
+      "title": "Jira MCP",
+      "summary": "Issue 与 Sprint 双向同步。",
+      "triggers": [
+        "jira 集成",
+        "需求同步",
+        "敏捷"
+      ],
+      "tags": [
+        "mcp",
+        "项目管理",
+        "研发"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "salesforce-mcp",
+      "type": "mcp",
+      "title": "Salesforce MCP",
+      "summary": "客户、商机与报表读写。",
+      "triggers": [
+        "salesforce",
+        "crm",
+        "客户"
+      ],
+      "tags": [
+        "mcp",
+        "商业",
+        "crm"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "postgres-mcp",
+      "type": "mcp",
+      "title": "PostgreSQL MCP",
+      "summary": "库表查询与变更。",
+      "triggers": [
+        "postgres",
+        "pg",
+        "数据库"
+      ],
+      "tags": [
+        "mcp",
+        "数据",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "mysql-mcp",
+      "type": "mcp",
+      "title": "MySQL MCP",
+      "summary": "库表查询与变更。",
+      "triggers": [
+        "mysql",
+        "数据库",
+        "查数"
+      ],
+      "tags": [
+        "mcp",
+        "数据",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "redis-mcp",
+      "type": "mcp",
+      "title": "Redis MCP",
+      "summary": "缓存读写与键管理。",
+      "triggers": [
+        "redis",
+        "缓存",
+        "kv"
+      ],
+      "tags": [
+        "mcp",
+        "数据",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "supabase-mcp",
+      "type": "mcp",
+      "title": "Supabase MCP",
+      "summary": "表、鉴权与函数集成。",
+      "triggers": [
+        "supabase",
+        "baas",
+        "数据库"
+      ],
+      "tags": [
+        "mcp",
+        "数据",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "vercel-mcp",
+      "type": "mcp",
+      "title": "Vercel MCP",
+      "summary": "部署、域名与环境管理。",
+      "triggers": [
+        "vercel",
+        "部署",
+        "前端"
+      ],
+      "tags": [
+        "mcp",
+        "运维",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "stripe-mcp",
+      "type": "mcp",
+      "title": "Stripe MCP",
+      "summary": "支付、订阅与对账。",
+      "triggers": [
+        "stripe",
+        "支付",
+        "订阅"
+      ],
+      "tags": [
+        "mcp",
+        "金融",
+        "商业"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "figma-mcp",
+      "type": "mcp",
+      "title": "Figma MCP",
+      "summary": "设计稿读取与变量同步。",
+      "triggers": [
+        "figma 集成",
+        "设计稿",
+        "标注"
+      ],
+      "tags": [
+        "mcp",
+        "设计",
+        "前端"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "exa-mcp",
+      "type": "mcp",
+      "title": "Exa 搜索 MCP",
+      "summary": "语义化联网检索。",
+      "triggers": [
+        "exa",
+        "搜索",
+        "联网"
+      ],
+      "tags": [
+        "mcp",
+        "搜索",
+        "研究"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "browserbase-mcp",
+      "type": "mcp",
+      "title": "Browserbase MCP",
+      "summary": "云端浏览器自动化。",
+      "triggers": [
+        "browserbase",
+        "云浏览器",
+        "自动化"
+      ],
+      "tags": [
+        "mcp",
+        "浏览器",
+        "工程"
+      ],
+      "activate": "connect_mcp"
+    },
+    {
+      "id": "security-expert",
+      "type": "expert",
+      "title": "安全专家",
+      "summary": "渗透、合规与威胁建模顾问。",
+      "triggers": [
+        "安全专家",
+        "安全顾问",
+        "渗透"
+      ],
+      "tags": [
+        "专家",
+        "安全",
+        "工程"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "devops-expert",
+      "type": "expert",
+      "title": "运维专家",
+      "summary": "CI/CD、容器与稳定性顾问。",
+      "triggers": [
+        "运维专家",
+        "devops 顾问",
+        "sre"
+      ],
+      "tags": [
+        "专家",
+        "运维",
+        "工程"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "data-engineer-expert",
+      "type": "expert",
+      "title": "数据工程专家",
+      "summary": "管道、建模与治理顾问。",
+      "triggers": [
+        "数据工程专家",
+        "数仓顾问",
+        "etl"
+      ],
+      "tags": [
+        "专家",
+        "数据",
+        "工程"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "qa-expert",
+      "type": "expert",
+      "title": "测试专家",
+      "summary": "质量策略与自动化顾问。",
+      "triggers": [
+        "测试专家",
+        "qa 顾问",
+        "质量"
+      ],
+      "tags": [
+        "专家",
+        "测试",
+        "质量"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "growth-expert",
+      "type": "expert",
+      "title": "增长专家",
+      "summary": "拉新、留存与变现顾问。",
+      "triggers": [
+        "增长专家",
+        "growth 顾问",
+        "变现"
+      ],
+      "tags": [
+        "专家",
+        "增长",
+        "营销"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "customer-success-expert",
+      "type": "expert",
+      "title": "客户成功专家",
+      "summary": "续费与健康度顾问。",
+      "triggers": [
+        "客户成功专家",
+        "cs 顾问",
+        "续费"
+      ],
+      "tags": [
+        "专家",
+        "商业",
+        "运营"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "teacher-expert",
+      "type": "expert",
+      "title": "教育专家",
+      "summary": "教学法与课程设计顾问。",
+      "triggers": [
+        "教育专家",
+        "教学顾问",
+        "备课"
+      ],
+      "tags": [
+        "专家",
+        "教育",
+        "写作"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "recruiter-expert",
+      "type": "expert",
+      "title": "招聘专家",
+      "summary": "人才评估与面试设计顾问。",
+      "triggers": [
+        "招聘专家",
+        "猎头顾问",
+        "面试"
+      ],
+      "tags": [
+        "专家",
+        "hr",
+        "商业"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "medical-expert",
+      "type": "expert",
+      "title": "医疗专家",
+      "summary": "健康科普与就医指引顾问。",
+      "triggers": [
+        "医疗专家",
+        "健康顾问",
+        "分诊"
+      ],
+      "tags": [
+        "专家",
+        "医疗",
+        "咨询"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "translator-expert",
+      "type": "expert",
+      "title": "翻译专家",
+      "summary": "多语与本地化顾问。",
+      "triggers": [
+        "翻译专家",
+        "本地化顾问",
+        "多语"
+      ],
+      "tags": [
+        "专家",
+        "写作",
+        "国际化"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "social-media-expert",
+      "type": "expert",
+      "title": "社媒专家",
+      "summary": "平台运营与内容策略顾问。",
+      "triggers": [
+        "社媒专家",
+        "运营顾问",
+        "内容"
+      ],
+      "tags": [
+        "专家",
+        "营销",
+        "内容"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "pr-expert",
+      "type": "expert",
+      "title": "公关专家",
+      "summary": "媒体关系与声誉顾问。",
+      "triggers": [
+        "公关专家",
+        "pr 顾问",
+        "声誉"
+      ],
+      "tags": [
+        "专家",
+        "营销",
+        "写作"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "quant-expert",
+      "type": "expert",
+      "title": "量化专家",
+      "summary": "策略与因子研究顾问。",
+      "triggers": [
+        "量化专家",
+        "quant 顾问",
+        "回测"
+      ],
+      "tags": [
+        "专家",
+        "金融",
+        "工程"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "tax-expert",
+      "type": "expert",
+      "title": "税务专家",
+      "summary": "筹划与申报顾问。",
+      "triggers": [
+        "税务专家",
+        "报税顾问",
+        "筹划"
+      ],
+      "tags": [
+        "专家",
+        "金融",
+        "财务"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "supply-chain-expert",
+      "type": "expert",
+      "title": "供应链专家",
+      "summary": "采购与库存优化顾问。",
+      "triggers": [
+        "供应链专家",
+        "采购顾问",
+        "库存"
+      ],
+      "tags": [
+        "专家",
+        "制造",
+        "运营"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "logistics-expert",
+      "type": "expert",
+      "title": "物流专家",
+      "summary": "路由与履约顾问。",
+      "triggers": [
+        "物流专家",
+        "路由顾问",
+        "履约"
+      ],
+      "tags": [
+        "专家",
+        "运营",
+        "制造"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "ecommerce-expert",
+      "type": "expert",
+      "title": "电商专家",
+      "summary": "选品与转化顾问。",
+      "triggers": [
+        "电商专家",
+        "运营顾问",
+        "选品"
+      ],
+      "tags": [
+        "专家",
+        "商业",
+        "营销"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "realestate-expert",
+      "type": "expert",
+      "title": "房产专家",
+      "summary": "估值与贷款顾问。",
+      "triggers": [
+        "房产专家",
+        "估值顾问",
+        "房贷"
+      ],
+      "tags": [
+        "专家",
+        "垂直",
+        "金融"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "media-expert",
+      "type": "expert",
+      "title": "媒体专家",
+      "summary": "舆情与内容分发顾问。",
+      "triggers": [
+        "媒体专家",
+        "舆情顾问",
+        "分发"
+      ],
+      "tags": [
+        "专家",
+        "营销",
+        "研究"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "research-expert",
+      "type": "expert",
+      "title": "研究专家",
+      "summary": "课题设计与方法论顾问。",
+      "triggers": [
+        "研究专家",
+        "方法论顾问",
+        "综述"
+      ],
+      "tags": [
+        "专家",
+        "研究",
+        "写作"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "ml-expert",
+      "type": "expert",
+      "title": "机器学习专家",
+      "summary": "建模与上线顾问。",
+      "triggers": [
+        "ml 专家",
+        "模型顾问",
+        "特征"
+      ],
+      "tags": [
+        "专家",
+        "数据",
+        "工程"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "backend-expert",
+      "type": "expert",
+      "title": "后端专家",
+      "summary": "架构与服务设计顾问。",
+      "triggers": [
+        "后端专家",
+        "api 顾问",
+        "服务"
+      ],
+      "tags": [
+        "专家",
+        "研发",
+        "工程"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "ux-expert",
+      "type": "expert",
+      "title": "体验专家",
+      "summary": "交互与可用性顾问。",
+      "triggers": [
+        "体验专家",
+        "ux 顾问",
+        "可用性"
+      ],
+      "tags": [
+        "专家",
+        "设计",
+        "研究"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "brand-expert",
+      "type": "expert",
+      "title": "品牌专家",
+      "summary": "定位与视觉语言顾问。",
+      "triggers": [
+        "品牌专家",
+        "定位顾问",
+        "vi"
+      ],
+      "tags": [
+        "专家",
+        "设计",
+        "营销"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "content-expert",
+      "type": "expert",
+      "title": "内容专家",
+      "summary": "选题与叙事顾问。",
+      "triggers": [
+        "内容专家",
+        "叙事顾问",
+        "选题"
+      ],
+      "tags": [
+        "专家",
+        "写作",
+        "营销"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "seo-expert",
+      "type": "expert",
+      "title": "SEO 专家",
+      "summary": "收录与排名策略顾问。",
+      "triggers": [
+        "seo 专家",
+        "搜索顾问",
+        "排名"
+      ],
+      "tags": [
+        "专家",
+        "营销",
+        "搜索"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "ads-expert",
+      "type": "expert",
+      "title": "投放专家",
+      "summary": "渠道与出价策略顾问。",
+      "triggers": [
+        "投放专家",
+        "广告顾问",
+        "出价"
+      ],
+      "tags": [
+        "专家",
+        "营销",
+        "广告"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "risk-expert",
+      "type": "expert",
+      "title": "风控专家",
+      "summary": "信用与市场风险顾问。",
+      "triggers": [
+        "风控专家",
+        "风险顾问",
+        "信用"
+      ],
+      "tags": [
+        "专家",
+        "金融",
+        "合规"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "audit-expert",
+      "type": "expert",
+      "title": "审计专家",
+      "summary": "财报与内控审计顾问。",
+      "triggers": [
+        "审计专家",
+        "内控顾问",
+        "财报"
+      ],
+      "tags": [
+        "专家",
+        "金融",
+        "财务"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "valuation-expert",
+      "type": "expert",
+      "title": "估值专家",
+      "summary": "DCF 与可比公司估值顾问。",
+      "triggers": [
+        "估值专家",
+        "dcf 顾问",
+        "建模"
+      ],
+      "tags": [
+        "专家",
+        "金融",
+        "投资"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "accessibility-expert",
+      "type": "expert",
+      "title": "无障碍专家",
+      "summary": "WCAG 与包容性设计顾问。",
+      "triggers": [
+        "无障碍专家",
+        "a11y 顾问",
+        "包容"
+      ],
+      "tags": [
+        "专家",
+        "设计",
+        "质量"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "localization-expert",
+      "type": "expert",
+      "title": "本地化专家",
+      "summary": "多语产品适配顾问。",
+      "triggers": [
+        "本地化专家",
+        "多语顾问",
+        "适配"
+      ],
+      "tags": [
+        "专家",
+        "写作",
+        "国际化"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "sales-expert",
+      "type": "expert",
+      "title": "销售专家",
+      "summary": "线索转化与话术顾问。",
+      "triggers": [
+        "销售专家",
+        "线索顾问",
+        "话术"
+      ],
+      "tags": [
+        "专家",
+        "商业",
+        "增长"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "customer-support-expert",
+      "type": "expert",
+      "title": "客服专家",
+      "summary": "服务流程与满意度顾问。",
+      "triggers": [
+        "客服专家",
+        "服务顾问",
+        "满意度"
+      ],
+      "tags": [
+        "专家",
+        "商业",
+        "运营"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "sustainability-expert",
+      "type": "expert",
+      "title": "可持续专家",
+      "summary": "ESG 与碳排顾问。",
+      "triggers": [
+        "可持续专家",
+        "esg 顾问",
+        "碳排"
+      ],
+      "tags": [
+        "专家",
+        "合规",
+        "战略"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "wf-incident",
+      "type": "workflow",
+      "title": "事故复盘流",
+      "summary": "告警→定位→复盘→沉淀预案。",
+      "triggers": [
+        "事故复盘",
+        "故障",
+        "复盘"
+      ],
+      "tags": [
+        "工作流",
+        "运维",
+        "安全"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-onboarding",
+      "type": "workflow",
+      "title": "新人入职流",
+      "summary": "账号、文档与任务自动分发。",
+      "triggers": [
+        "入职",
+        "onboarding",
+        "新人"
+      ],
+      "tags": [
+        "工作流",
+        "hr",
+        "协作"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-release",
+      "type": "workflow",
+      "title": "发布门禁流",
+      "summary": "测试→评审→灰度→发布。",
+      "triggers": [
+        "发布",
+        "门禁",
+        "灰度"
+      ],
+      "tags": [
+        "工作流",
+        "研发",
+        "运维"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-backup",
+      "type": "workflow",
+      "title": "备份容灾流",
+      "summary": "定时备份与可恢复校验。",
+      "triggers": [
+        "备份",
+        "容灾",
+        "定时"
+      ],
+      "tags": [
+        "工作流",
+        "运维",
+        "安全"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-lead-gen",
+      "type": "workflow",
+      "title": "获客流水线",
+      "summary": "线索抓取→清洗→评分→分配。",
+      "triggers": [
+        "获客",
+        "线索",
+        "leads"
+      ],
+      "tags": [
+        "工作流",
+        "增长",
+        "商业"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-content-localize",
+      "type": "workflow",
+      "title": "内容本地化流",
+      "summary": "一稿多语与地区适配。",
+      "triggers": [
+        "本地化",
+        "多语",
+        "适配"
+      ],
+      "tags": [
+        "工作流",
+        "内容",
+        "国际化"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-data-pipeline",
+      "type": "workflow",
+      "title": "数据管道流",
+      "summary": "抽取→清洗→建模→服务。",
+      "triggers": [
+        "数据管道",
+        "etl",
+        "建模"
+      ],
+      "tags": [
+        "工作流",
+        "数据",
+        "自动化"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-compliance-check",
+      "type": "workflow",
+      "title": "合规体检流",
+      "summary": "文案/代码合规自动扫描。",
+      "triggers": [
+        "合规体检",
+        "扫描",
+        "合规"
+      ],
+      "tags": [
+        "工作流",
+        "合规",
+        "安全"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-customer-feedback",
+      "type": "workflow",
+      "title": "反馈闭环流",
+      "summary": "收集→分类→跟进→回访。",
+      "triggers": [
+        "反馈",
+        "回访",
+        "闭环"
+      ],
+      "tags": [
+        "工作流",
+        "运营",
+        "商业"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "wf-knowledge-sync",
+      "type": "workflow",
+      "title": "知识同步流",
+      "summary": "多源知识定期聚合去重。",
+      "triggers": [
+        "知识同步",
+        "聚合",
+        "去重"
+      ],
+      "tags": [
+        "工作流",
+        "知识管理",
+        "自动化"
+      ],
+      "activate": "auto"
     }
   ]
 }
