@@ -56,7 +56,7 @@ if (!existsSync(MEMORY)) {
   hasEnd ? pass("包含 EFW-RULES-END") : fail("缺失 EFW-RULES-END");
   if (hasStart && hasEnd) {
     const block = txt.split("<!-- EFW-RULES-START -->")[1].split("<!-- EFW-RULES-END -->")[0];
-    block.includes("Skill 触发纪律") ? pass("准则块含 Skill 触发纪律") : fail("准则块缺 Skill 触发纪律");
+    block.includes("能力触发纪律") ? pass("准则块含 能力触发纪律") : fail("准则块缺 能力触发纪律");
     block.includes("efw") ? pass("准则块含 efw 统一入口") : warn("准则块未提 efw");
   }
 }

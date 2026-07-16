@@ -60,16 +60,50 @@ async function installSkills() {
 const START = '<!-- EFW-RULES-START -->';
 const END = '<!-- EFW-RULES-END -->';
 const RULES_BLOCK = `${START}
-## EFW 研发准则（工程/写代码场景生效，效仿 Everything Claude Code）
-- 完整配置包在 \`${EFW_ROOT}\`（agents / skills / rules / mcp / automations）。做软件工程任务时遵循以下红线；非研发场景（写作/设计/查询等）不受此约束。
+## EFW 思考与执行纪律（效仿 Everything Claude Code）
+
+> ⚠️ **这是全局纪律，对所有实质性任务生效**——不只是写代码。设计方案、写报告、做分析、画原型、排计划……任何需要"思考→产出→验收"的任务，都要过一遍下面的框架。
+
+### 第一层：通用思考框架（所有任务必走）
+
+- **先想再做**：收到任何实质性任务（不是简单问答/查资料），先用 efw-plan-feature 或 agent-planner 做一次拆解：目标是什么、交付物长什么样、分几步、每步的验收标准。哪怕只花 30 秒想清楚再动手，也比闷头干回头返工强。
+- **质量标准前置**：动手前明确"做到什么程度算合格"。设计任务=视觉规范/交互完整性/响应式/可访问性；文档=术语准确/事实可核验/结构清晰；数据=来源标注/口径一致/结论有依据；代码=TDD/审查/安全（见第二层）。**没有标准就先问，不要自己猜。**
+- **产出必须自检**：做完后跑一遍 efw-verify（或等效自检）：对照开工时的验收标准逐条勾选；缺什么补什么。不做"交差了事"的半成品。
+- **做完要沉淀**：有价值的经验/模式/踩坑记录，用 efw-learn 写入长期记忆。下次同类任务直接复用，不从零开始。
+
+### 第二层：工程专项约束（仅写代码/改代码场景额外遵守）
+
+> 下面这些只在碰代码时生效。做设计/写文案/做分析不需要遵守这一层。
+
 - 安全：绝不硬编码密钥/token/密码，一律走环境变量；\`.env\` 不进库；外部输入零信任（防注入/XSS/路径穿越）；示例不写真实凭据。
 - 编码：不可变优先、小函数小文件、命名达意、早返回减嵌套、显式错误处理不吞异常；一致性 > 个人偏好；不写 YAGNI 抽象。
 - 测试：新功能/修 bug 先写测试（TDD：RED→GREEN→REFACTOR）；关键路径覆盖 ≥80%；测行为不测实现；不为绿色删测试。
 - Git：语义化提交 \`type(scope): subject\`；提交小而聚焦；不 \`--force\` 共享分支、不 \`--no-verify\`（除非用户明确要求）。
 - 委派：广域搜索/探索用只读子代理（Explore/Plan），改代码用 general-purpose；子代理 prompt 必须自包含；产出要亲自核对。
 - 上下文预算：不要一次性启用所有 MCP/连接器；每项目启用 <10 个，活动工具 <80；简单任务用 lite 模型、复杂推理用 reasoning。
-- 可用研发技能（已装用户级，共 9 个研发流程技能 + efw 统一入口 + efw-profile 能力检索）：\`efw\`（自动路由） / \`efw-tdd-workflow\` / \`efw-plan-feature\` / \`efw-code-review\` / \`efw-build-fix\` / \`efw-refactor-clean\` / \`efw-security-review\` / \`efw-verify\` / \`efw-checkpoint\` / \`efw-learn\` / \`efw-profile\`（说「我是…/我需要…」自动检索并写档案）\`。
-- **Skill 触发纪律（核心诉求）**：收到研发类需求时，**先**对照 9 个 efw-* 的 description（或说「用 efw」由统一入口自动路由）判断是否匹配，**主动加载并遵守**——不要求用户喊"用 efw-xxx"。常见映射：规划/方案→efw-plan-feature，TDD/先写测试→efw-tdd-workflow，审查/PR→efw-code-review，构建报错→efw-build-fix，重构/死代码→efw-refactor-clean，安全/漏洞→efw-security-review，收尾验证→efw-verify，存快照→efw-checkpoint，提炼沉淀→efw-learn。请求模糊时**主动问一句**而不是乱猜。
+
+### 第三层：能力触发纪律（全领域，不限于研发）
+
+> 收到**任何**实质任务时，先判断下面哪个 efw 能力能帮上忙，**主动加载**——不要求用户喊名字。
+
+| 任务类型 | 应触发的 EFW 能力 | 说明 |
+| --- | --- | --- |
+| 规划/方案/拆解 | \`efw-plan-feature\` 或 \`agent-planner\` | 不管是产品方案、设计方案、运营方案还是工程方案 |
+| 写测试/红绿灯 | \`efw-tdd-workflow\` | 仅代码场景 |
+| 审查/评审/质检 | \`efw-code-review\` | 代码 PR / 设计稿评审 / 文档审校 都适用 |
+| 报错/构建失败 | \`efw-build-fix\` | 编译报错/部署失败/流水线卡住 |
+| 重构/清理/优化 | \`efw-refactor-clean\` | 代码重构 / 文档瘦身 / 流程精简 |
+| 安全/漏洞/合规 | \`efw-security-review\` | 代码漏洞 / 数据合规 / 内容合规检查 |
+| 验收/自检/收尾 | \`efw-verify\` | 所有任务的交付前自检 |
+| 存快照/断点保存 | \`efw-checkpoint\` | 复杂任务中途存档 |
+| 提炼沉淀/复盘 | \`efw-learn\` | 任务结束后的经验固化 |
+| 设计/原型/PPT/视觉 | \`huashu-design\` + \`md-to-html-report\` + 第一层框架 | 设计类任务走专业 skill，但**仍需套第一层思考框架**（先想再做+质量标准+自检） |
+| 文档/报告/长文 | \`docx\`/\`pptx\`/\`md-to-html-report\` + \`efw-doc-updater\`(agent) | 专业 skill 干活，第一层框架管质量 |
+| 数据/分析/报表 | \`xlsx\`/\`data-analysis\`/\`data-viz\` + agent-data-engineer | 同上 |
+
+- **模糊时主动问一句**，不要乱猜。用户没说清楚需求时，先问清再动手。
+- 说「用 efw」或说身份（如「我是游戏策划」）→ 用 \`efw-profile\` 自动检索匹配的能力组合。
+- 完整配置包在 \`${EFW_ROOT}\`（agents / skills / rules / mcp / automations / catalog 306 条索引）。
 ${END}
 `;
 
@@ -83,7 +117,7 @@ async function installRules() {
     .replace(/\n?## EFW 研发准则[^\n]*\n(?:- .*\n)*/, '\n');
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '') + '\n';
   await fs.writeFile(memPath, cleaned + '\n' + RULES_BLOCK, 'utf8');
-  done(`${RH}/MEMORY.md 已写入/刷新 EFW 研发准则`);
+  done(`${RH}/MEMORY.md 已写入/刷新 EFW 思考纪律`);
   if (PRODUCT === 'codebuddy') {
     note('CodeBuddy 的自动记忆在 memery/ 目录、不自动读 MEMORY.md；若要让研发准则每会话自动生效，请把上面写入的 EFW 研发准则块内容，手动粘贴进你的 CodeBuddy 记忆。');
   }
