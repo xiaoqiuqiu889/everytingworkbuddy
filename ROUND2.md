@@ -1,3 +1,7 @@
+> 📌 **这是 EFW 早期的设计过程存档（内部规划稿），不是使用文档。** 记录了 EFW v1 对标 everything-claude-code 时的差距分析与开发计划，多数条目已落地。想上手请看 [`README.md`](./README.md) 与 [`install.md`](./install.md)；想扩展请看 [`EXTENSIBILITY.md`](./EXTENSIBILITY.md)。保留此文件仅为追溯设计决策的来龙去脉。
+
+---
+
 # EFW 第二轮拆解 · 可执行开发计划
 
 > 目标锁定（来自你的三条确认）：

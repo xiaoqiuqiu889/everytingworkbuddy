@@ -116,10 +116,17 @@ async function loadCapabilities() {
 
   // 2) 动态发现已装技能
   const installed = await discoverInstalledSkills();
+  const installedIds = new Set(installed.map((s) => s.id));
   const curatedIds = new Set(caps.map((c) => c.id));
+  // 给 curated 的 skill 条目标记本机是否真的装了——用于区分「现在可用」vs「推荐安装」
+  for (const c of caps) {
+    if (c.type === 'skill') c.ready = installedIds.has(c.id);
+    else if (['expert', 'mcp'].includes(c.type)) c.ready = false; // 专家/MCP 需侧栏点开或信任，非即时可触发
+    else c.ready = true; // agent/rule/workflow 视为随对话可用
+  }
   for (const s of installed) {
     if (curatedIds.has(s.id)) continue; // curated 优先（triggers 更精准）
-    caps.push(s);
+    caps.push({ ...s, ready: true });
   }
 
   // 3) 动态纳入 user/ 下用户自建能力（覆盖底座之外的个人拓展）
@@ -153,21 +160,29 @@ function score(cap, q) {
   let s = 0;
   const reasons = [];
 
-  // 精准层：显式 triggers / tags
+  // 精准层：显式 triggers（按长度加权——多字口语短语命中比单字更可信）
   for (const t of cap.triggers || []) {
-    if (query.includes(t.toLowerCase())) { s += 3; reasons.push(`触发词「${t}」`); }
+    const tl = t.toLowerCase();
+    if (query.includes(tl)) {
+      // 2 字以内 +4，3-4 字 +6，5 字以上 +9：让"帮我看看这段代码"这类长口语强命中
+      const w = tl.length >= 5 ? 9 : (tl.length >= 3 ? 6 : 4);
+      s += w;
+      reasons.push(`触发词「${t}」`);
+    }
   }
   for (const tg of cap.tags || []) {
     if (query.includes(tg.toLowerCase())) { s += 2; reasons.push(`标签「${tg}」`); }
   }
 
   // 模糊层：中文 bigram + 英文词 token 重叠（让无 triggers 的发现型技能也能命中）
+  // 关键：单个 bigram 重叠噪声很大（如"代码"命中一堆无关条目），故 0.5 权重并封顶，
+  //       仅作为"精准层未命中时的兜底"，不喧宾夺主。
   const hay = tokenize([cap.summary, cap.title, cap.id, (cap.triggers || []).join(' '), (cap.tags || []).join(' ')].join(' '));
   const qTokens = tokenize(q);
   const ov = new Set();
   for (const tk of qTokens) if (hay.has(tk)) ov.add(tk);
   if (ov.size > 0) {
-    s += ov.size; // 每个共享 token +1
+    s += Math.min(ov.size * 0.5, 3); // 每个共享 token +0.5，最多 +3，避免泛词堆分
     reasons.push(`语义「${[...ov].slice(0, 4).join('/')}」`);
   }
 
@@ -206,7 +221,12 @@ async function main() {
   const ranked = caps
     .map((c) => ({ cap: c, ...score(c, q) }))
     .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score || (a.cap.source === 'curated' ? -1 : 1))
+    // 同分时：本机可用(ready) 优先于 需安装；再 curated 优先于动态发现
+    .sort((a, b) =>
+      b.score - a.score ||
+      (a.cap.ready === b.cap.ready ? 0 : a.cap.ready ? -1 : 1) ||
+      (a.cap.source === 'curated' ? -1 : 1)
+    )
     .slice(0, opts.top);
 
   if (opts.json) {
@@ -215,7 +235,7 @@ async function main() {
       totalIndexed: caps.length,
       installedDiscovered: totalInstalled,
       count: ranked.length,
-      matches: ranked.map((x) => ({ ...x.cap, score: x.score, reasons: x.reasons })),
+      matches: ranked.map((x) => ({ ...x.cap, ready: !!x.cap.ready, score: x.score, reasons: x.reasons })),
     }, null, 2));
     return;
   }
@@ -225,15 +245,24 @@ async function main() {
     console.log('未命中具体能力。建议从通用能力起步：efw（入口）/ efw-learn（沉淀）/ efw-profile（再细化你的画像）。');
     return;
   }
-  console.log(`匹配到 ${ranked.length} 项能力：\n`);
-  ranked.forEach((x, i) => {
+  const readyList = ranked.filter((x) => x.cap.ready);
+  const needList = ranked.filter((x) => !x.cap.ready);
+  const render = (x, i) => {
     const label = activateLabels[x.cap.activate] || x.cap.activate;
     const src = SOURCE_LABEL[x.cap.source] || x.cap.source || '';
     console.log(`${i + 1}. [${x.cap.type}] ${x.cap.title}  (${x.cap.id})  ·  ${src}`);
     console.log(`   摘要：${x.cap.summary}`);
     console.log(`   启用：${label}`);
     console.log(`   命中：${x.reasons.join('、')}\n`);
-  });
+  };
+  if (readyList.length) {
+    console.log(`✅ 现在就能用（${readyList.length} 项，直接说需求即可触发）：\n`);
+    readyList.forEach(render);
+  }
+  if (needList.length) {
+    console.log(`📦 推荐安装 / 授权后可用（${needList.length} 项，需先装技能 / 侧栏点开专家 / 连接器信任）：\n`);
+    needList.forEach(render);
+  }
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

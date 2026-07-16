@@ -1,6 +1,6 @@
 ---
 name: efw-security-review
-description: "Security review to find vulnerabilities and secret leaks, graded by risk. Use when the user asks for a security review, audit, or invokes /security-review. Covers secrets, injection, auth, data protection, dependencies."
+description: "安全审查：按风险级别找漏洞和密钥泄露，覆盖注入、XSS、鉴权、数据保护、依赖。当用户说\"安全审查/查漏洞/有没有密钥泄露/权限校验够不够/安全审计/安全隐患\"时触发。Security review graded by risk."
 description_zh: "安全审查：漏洞与密钥泄露，按风险分级"
 description_en: "Security review: vulnerabilities and secret leaks"
 version: 1.0.0

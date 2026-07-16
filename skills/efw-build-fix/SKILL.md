@@ -1,6 +1,6 @@
 ---
 name: efw-build-fix
-description: "Diagnose and fix build/compile errors at the root cause instead of suppressing them. Use when a build fails, compilation errors appear, or the user invokes /build-fix. Fixes one error at a time and re-verifies."
+description: "定位并修复构建/编译/打包错误，从根因入手而非压制报错，一次修一个再重新验证。当用户说\"构建挂了/编译报错/打包失败/CI 红了/build 不过/报错了怎么办\"时触发。Fix build/compile errors at root cause."
 description_zh: "定位并修复构建/编译错误，一次一个，重新验证"
 description_en: "Fix build/compile errors at root cause"
 version: 1.0.0

@@ -1,6 +1,6 @@
 ---
 name: efw-checkpoint
-description: "Save current verification state as a recoverable snapshot so a later session can resume. Use when pausing mid-work. Mirrors everything-claude-code /checkpoint."
+description: "保存当前进度为可恢复快照，方便下次续上。当用户说\"先存个档/存快照/暂停一下/下次接着做/保存进度\"时触发。Checkpoint current state for resume."
 description_zh: "保存当前验证状态为可恢复快照"
 description_en: "Checkpoint current verification state"
 version: 1.0.0

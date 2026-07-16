@@ -103,6 +103,7 @@ const RULES_BLOCK = `${START}
 
 - **模糊时主动问一句**，不要乱猜。用户没说清楚需求时，先问清再动手。
 - 说「用 efw」或说身份（如「我是游戏策划」）→ 用 \`efw-profile\` 自动检索匹配的能力组合。
+- **启用方式差异**：技能（skill）说需求即触发；子代理（agent）由主 AI 调度；专家（expert）需用户从左侧「专家」面板点开；MCP/连接器需在连接器面板「信任/授权」。推荐能力时要按这四类分别说明怎么启用，别让用户以为都能立刻触发。
 - 完整配置包在 \`${EFW_ROOT}\`（agents / skills / rules / mcp / automations / catalog 306 条索引）。
 ${END}
 `;

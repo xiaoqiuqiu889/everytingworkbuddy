@@ -1,6 +1,6 @@
 ---
 name: efw-code-review
-description: "Review code for correctness, readability, maintainability, and consistency. Use when the user asks for a code review, wants feedback on a diff/PR, or invokes /code-review. Outputs findings graded by severity with fixes."
+description: "代码审查：从正确性、可读性、可维护性审查代码或 diff/PR，按严重级别给出问题和修复建议。当用户说\"看看这段代码/审一下/code review/PR 有没有问题/代码质量怎么样/帮我review\"时触发。Review code graded by severity with fixes."
 description_zh: "代码审查：正确性/可读性/可维护性，按severity分级"
 description_en: "Code review graded by severity with fixes"
 version: 1.0.0

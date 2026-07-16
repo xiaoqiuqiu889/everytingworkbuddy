@@ -13,7 +13,7 @@ node "（EFW 根目录）/scripts/install.mjs"
 ```
 
 - 跨平台（Windows / macOS / Linux），**幂等**：可重复运行，已存在则刷新。
-- 装完自动把 9 个 efw-* 技能装到用户级、把研发准则写入 MEMORY.md、把无密钥 MCP 合入 mcp.json、把 9 个子代理提示词复制到用户级。
+- 装完自动把 11 个 efw-* 技能（9 个研发流程技能 + `efw` 统一入口 + `efw-profile` 能力检索）装到用户级、把思考纪律写入 MEMORY.md、把无密钥 MCP 合入 mcp.json、把 9 个子代理提示词复制到用户级。
 - 下面「手动操作 3 步」仅在你想**只装一部分**或排查问题时使用。
 
 ---
@@ -22,8 +22,8 @@ node "（EFW 根目录）/scripts/install.mjs"
 
 | 项目 | 状态 | 位置 |
 | --- | --- | --- |
-| 9 个研发工作流 Skills | ✅ 已安装并登记 | `~/.workbuddy/skills/efw-*` |
-| 研发准则核心红线 | ✅ 已并入用户级记忆（全局生效） | `~/.workbuddy/MEMORY.md` |
+| 11 个 Skills（9 流程 + `efw` 入口 + `efw-profile` 检索） | ✅ 已安装并登记 | `~/.workbuddy/skills/efw-*` |
+| 三层思考与执行纪律（通用框架 + 工程约束 + 能力触发） | ✅ 已并入用户级记忆（全局生效） | `~/.workbuddy/MEMORY.md` |
 | 2 个无密钥第三方 MCP | ✅ 已写入配置 | `~/.workbuddy/mcp.json` |
 | 9 个子代理提示词 | ✅ 就位（按需复用） | `EFW/agents/` |
 | 6 份完整准则 + MCP 指引 + Automation 模板 | ✅ 就位 | `EFW/rules/`、`EFW/mcp/`、`EFW/automations/` |
@@ -61,7 +61,7 @@ node "（EFW 根目录）/scripts/install.mjs"
 | 派专项子代理 | 参考 `agents/` 里的角色，如「按 architect 提示词做技术选型」 |
 | 查最新库文档 | MCP 启用后自动可用（context7） |
 
-准则（安全/编码/测试/Git/委派/性能）已在记忆中，做研发任务时会自动遵循，无需每次提醒。
+三层纪律已在记忆中：第一层通用思考框架（所有任务：先想再做→质量标准→自检→沉淀）自动生效；第二层工程约束（安全/编码/测试/Git/委派/性能）在写代码时叠加；第三层按需求自动匹配该用哪个能力。无需每次提醒。
 
 ---
 
@@ -72,7 +72,7 @@ EFW 是用户级全局配置，新项目无需重装，只需**约定怎么用**
 自检（确认本机 EFW 组件齐全）：
 
 ```bash
-node "D:/codebuddycn/EFW/scripts/verify-efw.mjs"
+node "（EFW 根目录）/scripts/verify-efw.mjs"
 # 全绿 → EFW v1 components present and consistent.
 ```
 

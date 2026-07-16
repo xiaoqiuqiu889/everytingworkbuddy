@@ -6,12 +6,14 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HOME = homedir();
 const SKILLS_HOME = path.join(HOME, ".workbuddy", "skills");
 const MEMORY = path.join(HOME, ".workbuddy", "MEMORY.md");
 const MCP = path.join(HOME, ".workbuddy", "mcp.json");
-const EFW = "D:/codebuddycn/EFW";
+const EFW = path.resolve(__dirname, ".."); // scripts/.. -> EFW 根（跨机器可移植，勿硬编码绝对路径）
 
 const AGENTS = [
   "planner", "architect", "tdd-guide", "code-reviewer", "security-reviewer",
@@ -24,6 +26,7 @@ const SKILLS = [
   "efw",
   "efw-tdd-workflow", "efw-plan-feature", "efw-code-review", "efw-build-fix",
   "efw-refactor-clean", "efw-security-review", "efw-verify", "efw-checkpoint", "efw-learn",
+  "efw-profile",
 ];
 
 let failed = 0;

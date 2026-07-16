@@ -1,6 +1,6 @@
 ---
 name: efw-plan-feature
-description: "Break a feature or requirement into an executable implementation plan before coding. Use when the user asks to plan a feature, design an approach, or invokes /plan. Produces file-level steps with acceptance criteria and risks."
+description: "先规划再动手：把功能或需求拆成可执行的实现计划，产出带文件级步骤、验收标准和风险点的方案。当用户说\"这个需求怎么做/帮我拆一下/先规划/设计方案/技术选型/分几步/怎么实现\"时触发。Plan a feature into executable steps before coding."
 description_zh: "把需求拆成可执行的实现计划，先规划后编码"
 description_en: "Plan a feature into executable steps before coding"
 version: 1.0.0

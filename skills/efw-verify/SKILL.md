@@ -1,6 +1,6 @@
 ---
 name: efw-verify
-description: "Run the verification loop: tests → coverage → red returns to fix. Use after implementation or before declaring done. Mirrors everything-claude-code /verify."
+description: "交付前验证循环：跑测试→看覆盖率→红了回到修复。当用户说\"验收一下/检查下有没有漏/做完了确认/能交付了吗/跑测试确认\"时触发。Verification loop before declaring done."
 description_zh: "验证循环：跑测试→看覆盖率→红则回到修复"
 description_en: "Verification loop: tests, coverage, fix on red"
 version: 1.0.0

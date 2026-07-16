@@ -1,6 +1,6 @@
 ---
 name: efw-refactor-clean
-description: "Refactor code and remove dead code without changing external behavior. Use when the user asks to clean up, refactor, or remove dead/duplicate code, or invokes /refactor-clean. Requires test safety net and small steps."
+description: "重构与死代码清理，保持外部行为不变、小步验证。当用户说\"清理一下/重构/太乱了/删死代码/合并重复逻辑/坏味道/优化结构\"时触发，需有测试兜底。Refactor and remove dead code, behavior-preserving."
 description_zh: "重构与死代码清理，行为不变、小步验证"
 description_en: "Refactor and remove dead code, behavior-preserving"
 version: 1.0.0

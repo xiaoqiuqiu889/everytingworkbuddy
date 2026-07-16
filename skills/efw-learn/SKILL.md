@@ -1,6 +1,6 @@
 ---
 name: efw-learn
-description: "Extract reusable patterns from the session into memory. Use at end of a productive session. Mirrors everything-claude-code /learn."
+description: "从本次会话提炼可复用模式写入长期记忆，供下次同类任务复用。当用户说\"复盘一下/总结经验/记下来/沉淀/提炼套路/以后别再踩坑\"时触发。Extract reusable patterns from the session into memory."
 description_zh: "从会话提炼可复用模式写入记忆"
 description_en: "Learn: extract session patterns into memory"
 version: 1.0.0

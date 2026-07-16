@@ -1,6 +1,6 @@
 ---
 name: efw-tdd-workflow
-description: "Test-driven development workflow. Use when the user wants to implement a feature or fix using TDD, asks for tests first, or invokes /tdd. Guides RED-GREEN-REFACTOR with 80%+ coverage on critical paths."
+description: "测试驱动开发：先写失败测试再实现，走 RED→GREEN→REFACTOR，关键路径覆盖 80%+。当用户说\"先写测试/测试驱动/TDD/边写边测/用tdd做\"时触发。Test-driven development workflow."
 description_zh: "测试驱动开发工作流，RED-GREEN-REFACTOR 循环"
 description_en: "TDD workflow: RED-GREEN-REFACTOR loop"
 version: 1.0.0
