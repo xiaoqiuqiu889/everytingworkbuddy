@@ -8,13 +8,21 @@
 
 ## 🚀 最简安装：把链接发给 WorkBuddy 就行
 
-**你什么都不用装。** 直接把这个仓库链接发给你的 WorkBuddy：
+**你不用手动搬文件。** 直接把这个仓库链接发给你的 WorkBuddy：
 
 > https://github.com/xiaoqiuqiu889/everytingworkbuddy
 
-说一句「把这个工程在我的电脑中实现一遍」，它会自动 **克隆仓库 → 运行安装器 → 自检到全绿**，把整套研发配置装进你的 WorkBuddy。
+说一句「把这个工程在我的电脑中实现一遍」，它会自动 **克隆仓库 → 运行安装器 → 自检到全绿**，一次性装好：
 
-唯一需要你点一下的：在**连接器面板**里「信任」 `context7` / `sequential-thinking` 两个 MCP（不填密钥）。
+- ✅ **9 个研发技能**（plan / tdd / review / build-fix / refactor / security / verify / checkpoint / learn）
+- ✅ **6 份研发准则**（自动注入用户级记忆，每会话生效）
+- ✅ **2 个 MCP** 配置（context7 + sequential-thinking）
+- ✅ **9 个子代理提示词**（作为参考素材就位）
+
+还需你手动 2 步：
+
+1. 在**连接器面板**里「信任」 `context7` / `sequential-thinking` 两个 MCP（不填密钥）——不信任则这两个能力不生效。
+2. 想要「专家中心」里可一键拉起的 9 个专家？再说一句「把 agents 下的 9 个子代理转成专家」即可（脚本已含，见 `scripts/build_experts.py`）。
 
 （想手动 / 逐步装？见 [install.md](./install.md)。）
 
@@ -44,17 +52,17 @@ EFW 做的事：把 Everything Claude Code 每一类配置的**价值**，映射
 2. **MCP 不手填密钥** —— WorkBuddy 内置 60+ 官方连接器，通过界面「信任/授权」启用。`mcp.json` 只用于连接器里没有的第三方 MCP。
 3. **hooks 优先用 Automation 替代** —— WorkBuddy 的自动化以定时任务（Automation）为主，会话级事件钩子需按产品能力核实。
 
-## 用了之后，WorkBuddy 好在哪（可量化）
+## 用了之后，WorkBuddy 好在哪（按场景）
 
 EFW 把研发纪律固化进 WorkBuddy 的记忆与技能，让**每次对话自动走对流程**，少走弯路：
 
-| 场景 | 投入变化 | 谁在起作用 |
-| --- | --- | --- |
-| 构建 / 编译报错定位 | ~25min → ~8min（**-68%**） | `efw-build-fix` 强制先定位根因，杜绝"能编过但没修好"的假修复 |
-| 新功能返工率 | ~40% → ~15%（**-62%**） | `efw-plan-feature` 先规划 + `efw-tdd-workflow` 先写测试，需求跑偏在第一步被拦 |
-| 代码审查漏检 | 腰斩以上 | `efw-code-review` + `efw-security-review` 用固定清单查安全 / 边界 / 密钥硬编码 |
-| 第三方库 API 核对 | 来回 4 次 → 1 次 | `context7` MCP 直接拉最新官方文档（需信任启用） |
-| 新人 / 新项目上手 | ~3 天 → ~1.5 天（**-50%**） | 规范显式化并自动注入，少口口相传 |
+| 场景 | 谁在起作用 |
+| --- | --- |
+| 构建 / 编译报错定位 | `efw-build-fix` 强制先定位根因，杜绝"能编过但没修好"的假修复 |
+| 新功能返工率 | `efw-plan-feature` 先规划 + `efw-tdd-workflow` 先写测试，需求跑偏在第一步被拦 |
+| 代码审查漏检 | `efw-code-review` + `efw-security-review` 用固定清单查安全 / 边界 / 密钥硬编码 |
+| 第三方库 API 核对 | `context7` MCP 直接拉最新官方文档（需信任启用） |
+| 新人 / 新项目上手 | 规范显式化并自动注入，少口口相传 |
 
 两条不体现在耗时、但最关键的收益：
 
