@@ -25,6 +25,7 @@ const SKILLS = [
   "efw",
   "efw-tdd-workflow", "efw-plan-feature", "efw-code-review", "efw-build-fix",
   "efw-refactor-clean", "efw-security-review", "efw-verify", "efw-checkpoint", "efw-learn",
+  "efw-profile",
 ];
 
 let failed = 0, warned = 0;
@@ -100,6 +101,21 @@ if (!existsSync(userReadme)) {
   warn("EFW 源缺失 user/README.md（覆盖层机制不可用；更新到最新 EFW）");
 } else {
   pass("user/README.md 存在（用户覆盖层机制可用）");
+}
+
+// ---------- 6. capability catalog ----------
+console.log("\n[catalog] 能力索引");
+const catalogPath = path.join(EFW, "catalog", "capabilities.json");
+if (!existsSync(catalogPath)) {
+  warn("EFW 源缺失 catalog/capabilities.json（检索机制不可用；更新到最新 EFW）");
+} else {
+  try {
+    const c = JSON.parse(readFileSync(catalogPath, "utf8"));
+    const n = (c.capabilities || []).length;
+    n > 0 ? pass(`catalog 合法，含 ${n} 条能力索引`) : warn("catalog 无能力条目");
+  } catch (e) {
+    fail("catalog/capabilities.json 不是合法 JSON: " + e.message);
+  }
 }
 
 console.log("");

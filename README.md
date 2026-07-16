@@ -14,10 +14,11 @@
 
 说一句「把这个工程在我的电脑中实现一遍」，它会自动 **克隆仓库 → 运行安装器 → 自检到全绿**，一次性装好：
 
-- ✅ **9 个研发技能**（plan / tdd / review / build-fix / refactor / security / verify / checkpoint / learn）
+- ✅ **11 个技能**（9 研发流程 / `efw` 自动路由 / `efw-profile` 个人能力检索）
 - ✅ **6 份研发准则**（自动注入用户级记忆，每会话生效）
 - ✅ **2 个 MCP** 配置（context7 + sequential-thinking）
 - ✅ **9 个子代理提示词**（作为参考素材就位）
+- ✅ **能力索引 + 检索器**：你说「我是…/我需要…」，自动检索并写入个人档案，开箱即用
 
 还需你手动 2 步：
 
@@ -52,6 +53,27 @@ EFW 做的事：把 Everything Claude Code 每一类配置的**价值**，映射
 2. **MCP 不手填密钥** —— WorkBuddy 内置 60+ 官方连接器，通过界面「信任/授权」启用。`mcp.json` 只用于连接器里没有的第三方 MCP。
 3. **hooks 优先用 Automation 替代** —— WorkBuddy 的自动化以定时任务（Automation）为主，会话级事件钩子需按产品能力核实。
 
+## 能力检索（Profile）：开箱即用的「懂你」机制
+
+EFW 不止是一堆配置——它内置一套**能力索引 + 检索器**，让你不用背技能名、不用读文档，说一句「我是谁、我做什么」就能拿到最该用的能力组合。
+
+**怎么用**
+
+1. 新会话里说一句，例如：「我是前端开发，做组件库，常做代码评审和 TDD」。
+2. 触发 `efw-profile`（说「用 efw 帮我看看该配哪些能力」也行），它从 `catalog/capabilities.json` 里语义匹配出 top 能力，按 **技能 / 子代理 / 准则 / MCP / 专家** 分组，并说明每项「为什么适合你 + 怎么启用」。
+3. 它会把你的画像 + 推荐能力写入 `~/.workbuddy/MEMORY.md` 的 `<!-- EFW-PROFILE-START/END -->` 块——**每会话自动注入**，之后 agent 都知道你是谁、该优先用哪些能力。
+
+**索引里有什么**
+
+`catalog/capabilities.json` 已索引 **37 条能力**：11 个技能、9 个子代理、6 份准则、2 个 MCP、9 个专家。每条带 `triggers`（触发词）、`tags`（角色/工作维度）、`activate`（启用方式）。想确定性排序时也可直接跑：
+
+```bash
+node scripts/match.mjs "我是前端，做组件库，常写测试"
+# 或 echo "我是安全工程师" | node scripts/match.mjs --json
+```
+
+`match.mjs` 会**动态扫描 `user/` 下你自建的技能/子代理**一并纳入排序——所以你拓展的能力也会自动被检索到（见[可拓展性](#可拓展性extensibility)）。
+
 ## 用了之后，WorkBuddy 好在哪（按场景）
 
 EFW 把研发纪律固化进 WorkBuddy 的记忆与技能，让**每次对话自动走对流程**，少走弯路：
@@ -78,11 +100,12 @@ EFW/
 ├── EXTENSIBILITY.md     # 可拓展性指南（user/ 覆盖层用法）
 ├── install.md           # 一步步落地指引
 ├── agents/              # 9 个子代理提示词（可复用调度素材）
-├── skills/              # 核心研发工作流技能（源文件，安装到用户级）
+├── skills/              # 核心研发工作流技能（源文件，含 efw-profile 检索入口，安装到用户级）
 ├── rules/               # 6 份研发准则（安全/编码/测试/Git/委派/性能）
 ├── mcp/                 # MCP 连接器推荐清单 + 授权指引
-├── user/                # ★ 你的个人拓展层（技能/子代理/准则/MCP，覆盖底座、重装不丢）
-├── scripts/             # install.mjs 一键安装器 / verify-efw.mjs 自检 / doctor.mjs 诊断 / build_experts.py 专家包生成
+├── catalog/             # ★ 能力索引（capabilities.json，检索机制的数据源）
+├── user/                # ★ 你的个人拓展层（技能/子代理/准则/MCP，覆盖底座、重装不丢、自动被检索）
+├── scripts/             # install.mjs 一键安装器 / verify-efw.mjs 自检 / doctor.mjs 诊断 / match.mjs 检索器 / build_experts.py 专家包生成
 └── automations/         # 定时任务定义（替代 hooks）
 ```
 
@@ -103,6 +126,7 @@ EFW 不是装死配置：你的个人定制全部走 **`user/` 覆盖层**，与
 - 加自己的技能 / 子代理 / 准则 / MCP → 丢进 `user/` 对应目录，重跑 `node scripts/install.mjs` 即生效
 - 改某个底座技能 → 同名放 `user/skills/<同名>/` 覆盖，别直接改底座（`git pull` 更新会冲掉）
 - 更新底座：`git pull` + 重跑安装，`user/` 原样保留
+- **你加的能力自动可被检索**：`node scripts/match.mjs` 与 `efw-profile` 会动态扫描 `user/skills`、`user/agents`，无需手动登记进索引
 
 完整玩法见 [EXTENSIBILITY.md](./EXTENSIBILITY.md)。
 

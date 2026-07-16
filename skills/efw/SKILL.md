@@ -1,6 +1,6 @@
 ---
 name: efw
-description: "EFW 统一入口。收到研发类需求时自动路由到合适的 efw-* 子技能（plan-feature / tdd-workflow / code-review / build-fix / refactor-clean / security-review / verify / checkpoint / learn）。用户说「用 efw」或「efw」时触发，也可用于「该用哪个 efw 技能」的咨询。"
+description: "EFW 统一入口。收到研发类需求时自动路由到合适的 efw-* 子技能（plan-feature / tdd-workflow / code-review / build-fix / refactor-clean / security-review / verify / checkpoint / learn / profile）。用户说「用 efw」或「efw」时触发，也可用于「该用哪个 efw 技能」或「我该用哪些能力」的咨询。"
 description_zh: "EFW 统一入口，自动路由 9 个研发技能"
 description_en: "EFW entry point: route to the right efw-* skill"
 version: 1.0.0
@@ -24,6 +24,7 @@ agent_created: true
 | 收尾 / 验证 / 跑测试 / 覆盖率 / 宣布完成 | `efw-verify` |
 | 暂停 / 中断 / 存快照 / 下次接着干 | `efw-checkpoint` |
 | 提炼 / 沉淀 / 学习 / 可复用模式 | `efw-learn` |
+| 我是… / 我需要… / 我该用哪些能力 / 帮我检索能力 | `efw-profile`（自动检索并写入个人档案） |
 
 ## 用法
 

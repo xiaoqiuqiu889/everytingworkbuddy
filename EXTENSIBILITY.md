@@ -87,10 +87,28 @@ node scripts/doctor.mjs    # 自检
 - **小修小改** → 用上面的 `user/` 覆盖层，零冲突。
 - **大改 / 想长期持有某套底座** → 直接 fork 本仓库，改底座也行。`user/` 仍保留你的私有件，pull 上游时按需 merge。
 
+## 你的能力会自动被检索
+
+你放进 `user/` 的能力，**不用手动登记**就能被检索机制发现：
+
+- `node scripts/match.mjs "我是…"` 与 `efw-profile` 技能会**动态扫描** `user/skills/`、`user/agents/`，把你的自建技能/子代理和底座能力一起排序。
+- 所以「拓展 → 被推荐」是自动闭环：你加了 `user/skills/my-tool`，下次说「我是做 XX 的」就会出现在推荐里。
+
+### 把画像沉淀进你的 fork（可选）
+
+`efw-profile` 默认把画像写进 `~/.workbuddy/MEMORY.md`（用户级，开箱即用）。
+若你想把同一份画像带进自己 fork 的仓库（随仓库走、可提交），复制内容到：
+
+```
+user/rules/00-profile.md
+```
+
+重跑 `node scripts/install.mjs` 后，它会进 MEMORY.md 的**用户准则块**（`<!-- EFW-USER-RULES-START/END -->`），重装不丢、与底座准则分离。
+
 ## 自检
 
 ```bash
-node scripts/doctor.mjs     # 含 [extensibility] 段，确认 user/ 覆盖层机制存在
+node scripts/doctor.mjs     # 含 [extensibility] 与 [catalog] 段，确认覆盖层与能力索引均合法
 ```
 
 ## 注意
