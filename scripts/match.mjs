@@ -3,8 +3,12 @@
 // 用法：
 //   node scripts/match.mjs "我是前端，做组件库，常写测试"
 //   echo "我是安全工程师" | node scripts/match.mjs --json
-// 读取 catalog/capabilities.json（底座索引），并动态扫描 user/ 下用户自建能力，
-// 对输入的自述做 触发词/标签/摘要 打分，输出最匹配的能力及理由。
+//
+// 检索来源（自增长，不封顶）：
+//   1) catalog/capabilities.json —— EFW 精心标注的 37 条内置能力（triggers/tags 精准）
+//   2) ~/.workbuddy/skills/*/SKILL.md —— 你机器上已安装的全部技能（自动发现，含 WorkBuddy 内置技能）
+//   3) EFW/user/skills、EFW/user/agents —— 你自己拓展的能力
+// 对输入自述做 触发词/标签/语义 token 重叠 打分，输出最匹配的能力及理由。
 // 跨平台；Exit 0。
 
 import { promises as fs } from 'node:fs';
@@ -16,7 +20,160 @@ const EFW = path.resolve(__dirname, '..');
 const CATALOG = path.join(EFW, 'catalog', 'capabilities.json');
 const USER = path.join(EFW, 'user');
 
+const HOME = process.env.USERPROFILE || process.env.HOME || '';
+// 已装技能目录候选：用户级真实目录 + 打包后可能的相邻目录
+const SKILLS_CANDIDATES = [
+  HOME ? path.join(HOME, '.workbuddy', 'skills') : null,
+  path.resolve(__dirname, '..', '..'), // 打包进 ~/.workbuddy/skills/efw-profile/ 时 = ~/.workbuddy/skills
+].filter(Boolean);
+
 const exists = async (p) => { try { await fs.access(p); return true; } catch { return false; } };
+const compact = (s) => (s || '').replace(/\s+/g, ' ').trim();
+
+// 简易 YAML frontmatter 解析：取 name / description（兼容引号与多行折叠）
+async function parseSkillFrontmatter(file) {
+  try {
+    const raw = await fs.readFile(file, 'utf8');
+    const m = raw.match(/^---\s*\n([\s\S]*?)\n---/);
+    if (!m) {
+      // 无 frontmatter：拿首个 # 标题与首段当 name/summary
+      const h = raw.match(/^#\s+(.+)$/m);
+      const firstLine = (raw.split('\n').find((l) => l.trim() && !l.startsWith('#')) || '').trim();
+      return { name: h ? h[1].trim() : path.basename(path.dirname(file)), description: firstLine };
+    }
+    const block = m[1];
+    const pick = (key) => {
+      // 行内：key: value
+      const line = block.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
+      if (line) {
+        let v = line[1].trim();
+        if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+        return v;
+      }
+      // 折叠块：key: \n  "多行..."
+      const folded = block.match(new RegExp(`^${key}:\\s*\\n\\s*["']([\\s\\S]*?)["']`, 'm'));
+      if (folded) return folded[1].replace(/\n/g, ' ').trim();
+      return '';
+    };
+    const name = pick('name');
+    const description = pick('description');
+    return {
+      name: name || path.basename(path.dirname(file)),
+      description: compact(description),
+    };
+  } catch {
+    return { name: path.basename(path.dirname(file)), description: '' };
+  }
+}
+
+// 把文本拆成可比较的 token 集合：中文按 2-gram，英文/数字按词
+function tokenize(text) {
+  const t = (text || '').toLowerCase();
+  const tokens = new Set();
+  const cjk = t.match(/[一-鿿]+/g) || [];
+  for (const run of cjk) {
+    if (run.length === 1) tokens.add(run);
+    else for (let i = 0; i < run.length - 1; i++) tokens.add(run.slice(i, i + 2));
+  }
+  for (const w of t.match(/[a-z0-9]{3,}/g) || []) tokens.add(w);
+  return tokens;
+}
+
+async function discoverInstalledSkills() {
+  const found = [];
+  const seen = new Set();
+  for (const dir of SKILLS_CANDIDATES) {
+    if (!(await exists(dir))) continue;
+    let entries;
+    try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { continue; }
+    for (const e of entries) {
+      if (!e.isDirectory()) continue;
+      const skillDir = path.join(dir, e.name);
+      const skillFile = path.join(skillDir, 'SKILL.md');
+      if (!(await exists(skillFile))) continue;
+      if (seen.has(e.name)) continue; // 同 id 只取首个（用户级优先）
+      seen.add(e.name);
+      const { name, description } = await parseSkillFrontmatter(skillFile);
+      found.push({
+        id: e.name,
+        type: 'skill',
+        title: name || e.name,
+        summary: description || `${name} 技能`,
+        triggers: [],
+        tags: [],
+        activate: 'call_skill',
+        source: 'installed',
+      });
+    }
+  }
+  return found;
+}
+
+async function loadCapabilities() {
+  const data = JSON.parse(await fs.readFile(CATALOG, 'utf8'));
+  const caps = (data.capabilities || []).map((c) => ({ ...c, source: c.source || 'curated' }));
+
+  // 2) 动态发现已装技能
+  const installed = await discoverInstalledSkills();
+  const curatedIds = new Set(caps.map((c) => c.id));
+  for (const s of installed) {
+    if (curatedIds.has(s.id)) continue; // curated 优先（triggers 更精准）
+    caps.push(s);
+  }
+
+  // 3) 动态纳入 user/ 下用户自建能力（覆盖底座之外的个人拓展）
+  if (await exists(USER)) {
+    const sk = path.join(USER, 'skills');
+    if (await exists(sk)) {
+      for (const name of await fs.readdir(sk)) {
+        const d = path.join(sk, name);
+        if ((await fs.stat(d)).isDirectory() && await exists(path.join(d, 'SKILL.md'))) {
+          if (curatedIds.has(name)) continue;
+          caps.push({ id: name, type: 'skill', title: `用户技能 ${name}`, summary: 'user/ 下自建技能', triggers: [name], tags: ['通用'], activate: 'call_skill', source: 'user' });
+        }
+      }
+    }
+    const ag = path.join(USER, 'agents');
+    if (await exists(ag)) {
+      for (const f of await fs.readdir(ag)) {
+        if (f.endsWith('.md') && f !== 'README.md') {
+          const id = f.replace(/\.md$/, '');
+          if (curatedIds.has(id)) continue;
+          caps.push({ id, type: 'agent', title: `用户子代理 ${f}`, summary: 'user/ 下自建子代理', triggers: [id], tags: ['通用'], activate: 'schedule', source: 'user' });
+        }
+      }
+    }
+  }
+  return { caps, activateLabels: data.activate || {}, totalInstalled: installed.length };
+}
+
+function score(cap, q) {
+  const query = q.toLowerCase();
+  let s = 0;
+  const reasons = [];
+
+  // 精准层：显式 triggers / tags
+  for (const t of cap.triggers || []) {
+    if (query.includes(t.toLowerCase())) { s += 3; reasons.push(`触发词「${t}」`); }
+  }
+  for (const tg of cap.tags || []) {
+    if (query.includes(tg.toLowerCase())) { s += 2; reasons.push(`标签「${tg}」`); }
+  }
+
+  // 模糊层：中文 bigram + 英文词 token 重叠（让无 triggers 的发现型技能也能命中）
+  const hay = tokenize([cap.summary, cap.title, cap.id, (cap.triggers || []).join(' '), (cap.tags || []).join(' ')].join(' '));
+  const qTokens = tokenize(q);
+  const ov = new Set();
+  for (const tk of qTokens) if (hay.has(tk)) ov.add(tk);
+  if (ov.size > 0) {
+    s += ov.size; // 每个共享 token +1
+    reasons.push(`语义「${[...ov].slice(0, 4).join('/')}」`);
+  }
+
+  // 整段摘要被查询包含（兜底）
+  if ((cap.summary || '').toLowerCase().includes(query) && query.length > 1) { s += 1; }
+  return { score: s, reasons: [...new Set(reasons)] };
+}
 
 function parseArgs(argv) {
   const opts = { json: false, top: 8 };
@@ -30,75 +187,39 @@ function parseArgs(argv) {
   return { opts, query: rest.join(' ').trim() };
 }
 
-async function loadCapabilities() {
-  const data = JSON.parse(await fs.readFile(CATALOG, 'utf8'));
-  const caps = data.capabilities || [];
-  // 动态纳入 user/ 下的用户自建能力
-  if (await exists(USER)) {
-    const sk = path.join(USER, 'skills');
-    if (await exists(sk)) {
-      for (const name of await fs.readdir(sk)) {
-        const d = path.join(sk, name);
-        if ((await fs.stat(d)).isDirectory() && await exists(path.join(d, 'SKILL.md'))) {
-          caps.push({ id: name, type: 'skill', title: `用户技能 ${name}`, summary: 'user/ 下自建技能', triggers: [name], tags: ['通用'], activate: 'call_skill' });
-        }
-      }
-    }
-    const ag = path.join(USER, 'agents');
-    if (await exists(ag)) {
-      for (const f of await fs.readdir(ag)) {
-        if (f.endsWith('.md') && f !== 'README.md') {
-          caps.push({ id: f.replace(/\.md$/, ''), type: 'agent', title: `用户子代理 ${f}`, summary: 'user/ 下自建子代理', triggers: [f.replace(/\.md$/, '')], tags: ['通用'], activate: 'schedule' });
-        }
-      }
-    }
-  }
-  return { caps, activateLabels: data.activate || {} };
-}
-
-function score(cap, q) {
-  const query = q.toLowerCase();
-  let s = 0;
-  const reasons = [];
-  for (const t of cap.triggers || []) {
-    if (query.includes(t.toLowerCase())) { s += 3; reasons.push(`触发词「${t}」`); }
-  }
-  for (const tg of cap.tags || []) {
-    if (query.includes(tg.toLowerCase())) { s += 2; reasons.push(`标签「${tg}」`); }
-  }
-  if ((cap.summary || '').toLowerCase().includes(query) && query.length > 1) { s += 1; }
-  // 英文单词重叠（摘要 vs 查询）
-  const qw = new Set(query.split(/[^a-z0-9]+/).filter((w) => w.length > 2));
-  for (const w of qw) {
-    if ((cap.summary || '').toLowerCase().includes(w)) { s += 1; reasons.push(`关键词「${w}」`); }
-  }
-  return { score: s, reasons: [...new Set(reasons)] };
-}
+const SOURCE_LABEL = { curated: '内置', installed: '已装技能', user: '用户自建' };
 
 async function main() {
   const { opts, query } = parseArgs(process.argv.slice(2));
-  if (!query) {
-    const stdin = await new Promise((res) => {
+  let q = query;
+  if (!q) {
+    q = await new Promise((res) => {
       let d = ''; process.stdin.on('data', (c) => (d += c)); process.stdin.on('end', () => res(d.trim()));
     });
-    query = stdin;
   }
-  if (!query) {
+  if (!q) {
     console.error('用法: node scripts/match.mjs "我是…做…"  [--json] [--top N]');
     process.exit(2);
   }
-  const { caps, activateLabels } = await loadCapabilities();
+  const { caps, activateLabels, totalInstalled } = await loadCapabilities();
   const ranked = caps
-    .map((c) => ({ cap: c, ...score(c, query) }))
+    .map((c) => ({ cap: c, ...score(c, q) }))
     .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || (a.cap.source === 'curated' ? -1 : 1))
     .slice(0, opts.top);
 
   if (opts.json) {
-    console.log(JSON.stringify({ query, count: ranked.length, matches: ranked.map((x) => ({ ...x.cap, score: x.score, reasons: x.reasons })), }, null, 2));
+    console.log(JSON.stringify({
+      query: q,
+      totalIndexed: caps.length,
+      installedDiscovered: totalInstalled,
+      count: ranked.length,
+      matches: ranked.map((x) => ({ ...x.cap, score: x.score, reasons: x.reasons })),
+    }, null, 2));
     return;
   }
-  console.log(`\n检索自述：${query}\n`);
+  console.log(`\n检索自述：${q}`);
+  console.log(`索引规模：${caps.length} 条（内置 + 已装技能动态纳入 ${totalInstalled} 个）\n`);
   if (ranked.length === 0) {
     console.log('未命中具体能力。建议从通用能力起步：efw（入口）/ efw-learn（沉淀）/ efw-profile（再细化你的画像）。');
     return;
@@ -106,7 +227,8 @@ async function main() {
   console.log(`匹配到 ${ranked.length} 项能力：\n`);
   ranked.forEach((x, i) => {
     const label = activateLabels[x.cap.activate] || x.cap.activate;
-    console.log(`${i + 1}. [${x.cap.type}] ${x.cap.title}  (${x.cap.id})`);
+    const src = SOURCE_LABEL[x.cap.source] || x.cap.source || '';
+    console.log(`${i + 1}. [${x.cap.type}] ${x.cap.title}  (${x.cap.id})  ·  ${src}`);
     console.log(`   摘要：${x.cap.summary}`);
     console.log(`   启用：${label}`);
     console.log(`   命中：${x.reasons.join('、')}\n`);

@@ -14,9 +14,16 @@ version: 1.0.0
 - 想确认自己该优先启用哪些技能/专家/MCP
 
 ## 检索索引（必读）
-本技能同目录下的 `catalog/capabilities.json` 是能力索引：每条含 `type`（skill/agent/rule/mcp/expert）、`title`、`summary`、`triggers`（触发词）、`tags`（角色/工作维度）、`activate`（启用方式）。
-- 读取它，按用户自述与 `triggers`/`tags` **语义匹配**，排出 top 能力。
-- 若能在 EFW 仓库根找到 `scripts/match.mjs`，也可运行 `node <EFW>/scripts/match.mjs "<用户自述>"` 做确定性排序作为辅助。
+本技能同目录下的 `catalog/capabilities.json` 是**内置能力索引**：每条含 `type`（skill/agent/rule/mcp/expert）、`title`、`summary`、`triggers`（触发词）、`tags`（角色/工作维度）、`activate`（启用方式）。
+
+**索引不是封顶的**——真正的检索由 `scripts/match.mjs` 完成，它除了读这份内置索引，还会：
+- **动态发现你机器上已安装的全部技能**（`~/.workbuddy/skills/*/SKILL.md`，解析 frontmatter 的 name/description 自动纳入），含 WorkBuddy 内置技能（如 game-analysis / pptx-generator / minimax-xlsx / 市场研究等）；
+- 动态扫描 `EFW/user/` 下你自建的技能/子代理；
+- 三者合并去重（内置优先），用「触发词 +3 / 标签 +2 / 中文 bigram + 英文词 语义重叠 +1」打分排序。
+
+因此**索引规模随用户已装技能自增长**（实测 85+ 条），不会卡在固定数字——这对非研发用户（如游戏策划）尤其关键，他们最需要的往往是生态技能而非研发技能。
+
+- 优先运行 `node <EFW>/scripts/match.mjs "<用户自述>"` 做确定性检索（它已包含上述全部来源）；无脚本时再退回到只读本索引。
 
 ## 流程
 1. **采集自述**（不啰嗦）：角色、工作内容、技术栈、偏好、痛点。信息足够就不追问；明显缺失（如完全没提技术方向）才问 1 个关键问题。

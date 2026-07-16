@@ -95,14 +95,16 @@ EFW 不止是一堆配置——它内置一套**能力索引 + 检索器**，让
 
 **索引里有什么**
 
-`catalog/capabilities.json` 已索引 **37 条能力**：11 个技能、9 个子代理、6 份准则、2 个 MCP、9 个专家。每条带 `triggers`（触发词）、`tags`（角色/工作维度）、`activate`（启用方式）。想确定性排序时也可直接跑：
+`catalog/capabilities.json` 内置标注 **55 条能力**（11 技能 + 9 子代理 + 6 准则 + 2 MCP + 9 专家 + 18 个生态技能如 game-analysis/pptx/xlsx/市场研究等）。每条带 `triggers`（触发词）、`tags`（角色/工作维度）、`activate`（启用方式）。
+
+但这份清单**不是上限**——`match.mjs` 会再**动态发现你机器上已安装的全部技能**（`~/.workbuddy/skills/*`，含 WorkBuddy 内置技能）并解析其 `SKILL.md` 自动纳入检索。实测索引规模 **85 条**，且**随你安装新技能自增长**，不会卡在固定数字上。想确定性排序时也可直接跑：
 
 ```bash
 node scripts/match.mjs "我是前端，做组件库，常写测试"
 # 或 echo "我是安全工程师" | node scripts/match.mjs --json
 ```
 
-`match.mjs` 会**动态扫描 `user/` 下你自建的技能/子代理**一并纳入排序——所以你拓展的能力也会自动被检索到（见[可拓展性](#可拓展性extensibility)）。
+`match.mjs` 会**动态扫描 `user/` 下你自建的技能/子代理**，以及你机器上已安装的全部技能（`~/.workbuddy/skills/*`），一并纳入排序——所以你拓展的能力、以及 WorkBuddy 生态里的其他技能，都会自动被检索到（见[可拓展性](#可拓展性extensibility)）。
 
 ## 用了之后，WorkBuddy 好在哪（按场景）
 

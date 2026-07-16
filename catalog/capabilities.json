@@ -1,7 +1,26 @@
 {
   "version": "1.0.0",
   "description": "EFW 能力索引：agent 据此检索用户所需能力。每条含 type/title/summary/triggers/tags/activate。",
-  "tags": ["前端", "后端", "全栈", "测试", "质量", "安全", "架构", "规划", "重构", "调试", "性能", "文档", "自动化", "学习", "通用", "数据", "游戏", "发布"],
+  "tags": [
+    "前端",
+    "后端",
+    "全栈",
+    "测试",
+    "质量",
+    "安全",
+    "架构",
+    "规划",
+    "重构",
+    "调试",
+    "性能",
+    "文档",
+    "自动化",
+    "学习",
+    "通用",
+    "数据",
+    "游戏",
+    "发布"
+  ],
   "activate": {
     "call_skill": "对话中直接调用该技能（喊名或自动触发）",
     "schedule": "作为子代理提示词，用 Agent/Task 调度复用",
@@ -15,8 +34,16 @@
       "type": "skill",
       "title": "EFW 统一入口（自动路由）",
       "summary": "收到研发类需求时，自动判断并路由到对应的 efw-* 技能。",
-      "triggers": ["用 efw", "路由", "该用哪个技能", "自动选技能", "帮我选流程"],
-      "tags": ["通用"],
+      "triggers": [
+        "用 efw",
+        "路由",
+        "该用哪个技能",
+        "自动选技能",
+        "帮我选流程"
+      ],
+      "tags": [
+        "通用"
+      ],
       "activate": "call_skill"
     },
     {
@@ -24,8 +51,21 @@
       "type": "skill",
       "title": "功能规划",
       "summary": "把功能/需求拆成可执行计划（架构 + 任务清单），先规划再动手。",
-      "triggers": ["规划功能", "做方案", "拆任务", "需求分析", "设计功能", "怎么实现"],
-      "tags": ["规划", "架构", "前端", "后端", "通用"],
+      "triggers": [
+        "规划功能",
+        "做方案",
+        "拆任务",
+        "需求分析",
+        "设计功能",
+        "怎么实现"
+      ],
+      "tags": [
+        "规划",
+        "架构",
+        "前端",
+        "后端",
+        "通用"
+      ],
       "activate": "call_skill"
     },
     {
@@ -33,8 +73,20 @@
       "type": "skill",
       "title": "TDD 工作流",
       "summary": "测试驱动开发：先写失败测试再实现，RED→GREEN→REFACTOR。",
-      "triggers": ["TDD", "先写测试", "测试驱动", "写测试", "实现功能", "修 bug"],
-      "tags": ["测试", "质量", "前端", "后端"],
+      "triggers": [
+        "TDD",
+        "先写测试",
+        "测试驱动",
+        "写测试",
+        "实现功能",
+        "修 bug"
+      ],
+      "tags": [
+        "测试",
+        "质量",
+        "前端",
+        "后端"
+      ],
       "activate": "call_skill"
     },
     {
@@ -42,8 +94,20 @@
       "type": "skill",
       "title": "代码评审",
       "summary": "按固定清单审查正确性/可读性/安全性/边界，给出可落地修改建议。",
-      "triggers": ["代码评审", "审查代码", "review", "看代码", "找问题", "帮我看这段代码"],
-      "tags": ["质量", "测试", "前端", "后端"],
+      "triggers": [
+        "代码评审",
+        "审查代码",
+        "review",
+        "看代码",
+        "找问题",
+        "帮我看这段代码"
+      ],
+      "tags": [
+        "质量",
+        "测试",
+        "前端",
+        "后端"
+      ],
       "activate": "call_skill"
     },
     {
@@ -51,8 +115,19 @@
       "type": "skill",
       "title": "构建报错修复",
       "summary": "构建/编译报错时先定位根因，杜绝「能编过但没修好」的假修复。",
-      "triggers": ["构建报错", "编译错误", "构建失败", "跑不通", "build error", "依赖问题"],
-      "tags": ["调试", "前端", "后端"],
+      "triggers": [
+        "构建报错",
+        "编译错误",
+        "构建失败",
+        "跑不通",
+        "build error",
+        "依赖问题"
+      ],
+      "tags": [
+        "调试",
+        "前端",
+        "后端"
+      ],
       "activate": "call_skill"
     },
     {
@@ -60,8 +135,20 @@
       "type": "skill",
       "title": "重构清理",
       "summary": "重构与删除死代码，保持外部行为不变，改善结构可读性。",
-      "triggers": ["重构", "清理代码", "死代码", "优化结构", "refactor", "整理"],
-      "tags": ["重构", "质量", "前端", "后端"],
+      "triggers": [
+        "重构",
+        "清理代码",
+        "死代码",
+        "优化结构",
+        "refactor",
+        "整理"
+      ],
+      "tags": [
+        "重构",
+        "质量",
+        "前端",
+        "后端"
+      ],
       "activate": "call_skill"
     },
     {
@@ -69,8 +156,18 @@
       "type": "skill",
       "title": "安全审查",
       "summary": "专查密钥硬编码/.env 进库/注入/XSS/路径穿越等风险，按风险定级。",
-      "triggers": ["安全审查", "漏洞", "密钥硬编码", "安全检查", "security", "会不会泄露"],
-      "tags": ["安全", "质量"],
+      "triggers": [
+        "安全审查",
+        "漏洞",
+        "密钥硬编码",
+        "安全检查",
+        "security",
+        "会不会泄露"
+      ],
+      "tags": [
+        "安全",
+        "质量"
+      ],
       "activate": "call_skill"
     },
     {
@@ -78,8 +175,19 @@
       "type": "skill",
       "title": "验证闭环",
       "summary": "收尾验证：跑测试→看覆盖率→红了就修，不到绿不收工。",
-      "triggers": ["验证", "收尾", "测试覆盖率", "验收", "verify", "确认没问题"],
-      "tags": ["测试", "质量", "通用"],
+      "triggers": [
+        "验证",
+        "收尾",
+        "测试覆盖率",
+        "验收",
+        "verify",
+        "确认没问题"
+      ],
+      "tags": [
+        "测试",
+        "质量",
+        "通用"
+      ],
       "activate": "call_skill"
     },
     {
@@ -87,8 +195,17 @@
       "type": "skill",
       "title": "进度快照",
       "summary": "干一半要停时存可恢复快照，下次能接着干。",
-      "triggers": ["存快照", "存档", "暂停", "checkpoint", "恢复进度"],
-      "tags": ["通用", "学习"],
+      "triggers": [
+        "存快照",
+        "存档",
+        "暂停",
+        "checkpoint",
+        "恢复进度"
+      ],
+      "tags": [
+        "通用",
+        "学习"
+      ],
       "activate": "call_skill"
     },
     {
@@ -96,8 +213,18 @@
       "type": "skill",
       "title": "经验提炼",
       "summary": "从会话中提炼可复用模式/踩坑，沉淀进记忆或技能。",
-      "triggers": ["总结", "提炼", "沉淀经验", "学到了什么", "learn", "复盘"],
-      "tags": ["学习", "通用"],
+      "triggers": [
+        "总结",
+        "提炼",
+        "沉淀经验",
+        "学到了什么",
+        "learn",
+        "复盘"
+      ],
+      "tags": [
+        "学习",
+        "通用"
+      ],
       "activate": "call_skill"
     },
     {
@@ -105,8 +232,18 @@
       "type": "skill",
       "title": "个人能力检索（Profile）",
       "summary": "用户自述角色与工作后，自动检索并推荐最匹配的能力组合，写入个人档案。",
-      "triggers": ["我是", "我需要", "我是谁", "我的角色", "帮我检索能力", "我该用哪些能力"],
-      "tags": ["通用", "规划"],
+      "triggers": [
+        "我是",
+        "我需要",
+        "我是谁",
+        "我的角色",
+        "帮我检索能力",
+        "我该用哪些能力"
+      ],
+      "tags": [
+        "通用",
+        "规划"
+      ],
       "activate": "call_skill"
     },
     {
@@ -114,8 +251,17 @@
       "type": "agent",
       "title": "规划子代理",
       "summary": "把模糊目标拆成带验收标准的执行计划，广域调研后给方案。",
-      "triggers": ["规划", "方案", "拆解", "计划", "路线图"],
-      "tags": ["规划", "架构"],
+      "triggers": [
+        "规划",
+        "方案",
+        "拆解",
+        "计划",
+        "路线图"
+      ],
+      "tags": [
+        "规划",
+        "架构"
+      ],
       "activate": "schedule"
     },
     {
@@ -123,8 +269,18 @@
       "type": "agent",
       "title": "架构子代理",
       "summary": "做技术选型与系统设计，权衡方案并产出架构决策。",
-      "triggers": ["架构", "设计", "技术选型", "系统", "模块划分"],
-      "tags": ["架构", "后端", "前端"],
+      "triggers": [
+        "架构",
+        "设计",
+        "技术选型",
+        "系统",
+        "模块划分"
+      ],
+      "tags": [
+        "架构",
+        "后端",
+        "前端"
+      ],
       "activate": "schedule"
     },
     {
@@ -132,8 +288,16 @@
       "type": "agent",
       "title": "TDD 引导子代理",
       "summary": "指导测试驱动开发，先写失败用例再实现。",
-      "triggers": ["TDD", "测试", "先写测试", "用例设计"],
-      "tags": ["测试", "质量"],
+      "triggers": [
+        "TDD",
+        "测试",
+        "先写测试",
+        "用例设计"
+      ],
+      "tags": [
+        "测试",
+        "质量"
+      ],
       "activate": "schedule"
     },
     {
@@ -141,8 +305,16 @@
       "type": "agent",
       "title": "代码评审子代理",
       "summary": "按清单评审代码，聚焦正确性/可读性/可维护性。",
-      "triggers": ["评审", "审查", "review", "挑毛病"],
-      "tags": ["质量", "测试"],
+      "triggers": [
+        "评审",
+        "审查",
+        "review",
+        "挑毛病"
+      ],
+      "tags": [
+        "质量",
+        "测试"
+      ],
       "activate": "schedule"
     },
     {
@@ -150,8 +322,16 @@
       "type": "agent",
       "title": "安全评审子代理",
       "summary": "专查注入/XSS/越权/密钥泄露等安全缺陷。",
-      "triggers": ["安全", "漏洞", "密钥", "渗透", "权限"],
-      "tags": ["安全"],
+      "triggers": [
+        "安全",
+        "漏洞",
+        "密钥",
+        "渗透",
+        "权限"
+      ],
+      "tags": [
+        "安全"
+      ],
       "activate": "schedule"
     },
     {
@@ -159,8 +339,15 @@
       "type": "agent",
       "title": "构建报错排查子代理",
       "summary": "定位构建/编译/依赖报错根因并给修复。",
-      "triggers": ["构建报错", "编译错误", "依赖问题", "linker"],
-      "tags": ["调试"],
+      "triggers": [
+        "构建报错",
+        "编译错误",
+        "依赖问题",
+        "linker"
+      ],
+      "tags": [
+        "调试"
+      ],
       "activate": "schedule"
     },
     {
@@ -168,8 +355,17 @@
       "type": "agent",
       "title": "端到端测试子代理",
       "summary": "设计与执行 e2e/集成/冒烟测试，验证关键链路。",
-      "triggers": ["e2e", "端到端测试", "集成测试", "冒烟", "链路验证"],
-      "tags": ["测试", "质量"],
+      "triggers": [
+        "e2e",
+        "端到端测试",
+        "集成测试",
+        "冒烟",
+        "链路验证"
+      ],
+      "tags": [
+        "测试",
+        "质量"
+      ],
       "activate": "schedule"
     },
     {
@@ -177,8 +373,16 @@
       "type": "agent",
       "title": "重构清理子代理",
       "summary": "识别并消除死代码/重复，改善结构不破坏行为。",
-      "triggers": ["重构", "清理", "死代码", "去重"],
-      "tags": ["重构", "质量"],
+      "triggers": [
+        "重构",
+        "清理",
+        "死代码",
+        "去重"
+      ],
+      "tags": [
+        "重构",
+        "质量"
+      ],
       "activate": "schedule"
     },
     {
@@ -186,8 +390,16 @@
       "type": "agent",
       "title": "文档子代理",
       "summary": "编写/更新文档、注释、变更说明，保持与代码一致。",
-      "triggers": ["文档", "写文档", "注释", "更新说明", "changelog"],
-      "tags": ["文档"],
+      "triggers": [
+        "文档",
+        "写文档",
+        "注释",
+        "更新说明",
+        "changelog"
+      ],
+      "tags": [
+        "文档"
+      ],
       "activate": "schedule"
     },
     {
@@ -195,8 +407,17 @@
       "type": "rule",
       "title": "安全准则",
       "summary": "不硬编码密钥、外部输入零信任、防注入/XSS/路径穿越。",
-      "triggers": ["密钥", "硬编码", "注入", "XSS", "权限", "token"],
-      "tags": ["安全"],
+      "triggers": [
+        "密钥",
+        "硬编码",
+        "注入",
+        "XSS",
+        "权限",
+        "token"
+      ],
+      "tags": [
+        "安全"
+      ],
       "activate": "auto"
     },
     {
@@ -204,8 +425,17 @@
       "type": "rule",
       "title": "编码风格准则",
       "summary": "不可变优先、小函数小文件、命名达意、早返回、显式错误。",
-      "triggers": ["命名", "函数", "可读性", "代码风格", "规范"],
-      "tags": ["质量", "通用"],
+      "triggers": [
+        "命名",
+        "函数",
+        "可读性",
+        "代码风格",
+        "规范"
+      ],
+      "tags": [
+        "质量",
+        "通用"
+      ],
       "activate": "auto"
     },
     {
@@ -213,8 +443,16 @@
       "type": "rule",
       "title": "测试准则",
       "summary": "新功能/修 bug 先写测试，关键路径覆盖≥80%，测行为不测实现。",
-      "triggers": ["测试", "覆盖率", "TDD", "单测"],
-      "tags": ["测试", "质量"],
+      "triggers": [
+        "测试",
+        "覆盖率",
+        "TDD",
+        "单测"
+      ],
+      "tags": [
+        "测试",
+        "质量"
+      ],
       "activate": "auto"
     },
     {
@@ -222,8 +460,16 @@
       "type": "rule",
       "title": "Git 工作流准则",
       "summary": "语义化提交、提交小而聚焦、不 --force 共享分支。",
-      "triggers": ["提交", "分支", "commit", "PR", "rebase"],
-      "tags": ["通用"],
+      "triggers": [
+        "提交",
+        "分支",
+        "commit",
+        "PR",
+        "rebase"
+      ],
+      "tags": [
+        "通用"
+      ],
       "activate": "auto"
     },
     {
@@ -231,8 +477,17 @@
       "type": "rule",
       "title": "子代理委派准则",
       "summary": "广域搜索用只读子代理，改代码用 general-purpose，prompt 自包含。",
-      "triggers": ["子代理", "委派", "调度", "explore", "规划"],
-      "tags": ["通用", "架构"],
+      "triggers": [
+        "子代理",
+        "委派",
+        "调度",
+        "explore",
+        "规划"
+      ],
+      "tags": [
+        "通用",
+        "架构"
+      ],
       "activate": "auto"
     },
     {
@@ -240,8 +495,18 @@
       "type": "rule",
       "title": "性能与上下文预算准则",
       "summary": "简单任务用 lite、复杂推理用 reasoning；每项目启用 <10 连接器。",
-      "triggers": ["性能", "慢", "优化", "预算", "上下文", "模型选择"],
-      "tags": ["性能", "通用"],
+      "triggers": [
+        "性能",
+        "慢",
+        "优化",
+        "预算",
+        "上下文",
+        "模型选择"
+      ],
+      "tags": [
+        "性能",
+        "通用"
+      ],
       "activate": "auto"
     },
     {
@@ -249,8 +514,18 @@
       "type": "mcp",
       "title": "Context7（最新库文档）",
       "summary": "拉取依赖库的最新官方文档与 API，写代码时查用法。",
-      "triggers": ["查文档", "API 文档", "库文档", "最新用法", "这个库怎么用"],
-      "tags": ["通用", "前端", "后端"],
+      "triggers": [
+        "查文档",
+        "API 文档",
+        "库文档",
+        "最新用法",
+        "这个库怎么用"
+      ],
+      "tags": [
+        "通用",
+        "前端",
+        "后端"
+      ],
       "activate": "trust"
     },
     {
@@ -258,8 +533,16 @@
       "type": "mcp",
       "title": "Sequential Thinking（分步推理）",
       "summary": "结构化分步推理，复杂任务拆成可验证思考链。",
-      "triggers": ["分步推理", "复杂问题", "结构化思考", "多步推理"],
-      "tags": ["通用", "规划"],
+      "triggers": [
+        "分步推理",
+        "复杂问题",
+        "结构化思考",
+        "多步推理"
+      ],
+      "tags": [
+        "通用",
+        "规划"
+      ],
       "activate": "trust"
     },
     {
@@ -267,8 +550,15 @@
       "type": "expert",
       "title": "专家：规划",
       "summary": "专家中心里可一键拉起的规划顾问（对应 planner 子代理）。",
-      "triggers": ["规划咨询", "帮我规划", "方案顾问"],
-      "tags": ["规划", "架构"],
+      "triggers": [
+        "规划咨询",
+        "帮我规划",
+        "方案顾问"
+      ],
+      "tags": [
+        "规划",
+        "架构"
+      ],
       "activate": "open_expert"
     },
     {
@@ -276,8 +566,16 @@
       "type": "expert",
       "title": "专家：架构",
       "summary": "专家中心里可一键拉起的架构顾问。",
-      "triggers": ["架构咨询", "技术选型", "系统设计"],
-      "tags": ["架构", "后端", "前端"],
+      "triggers": [
+        "架构咨询",
+        "技术选型",
+        "系统设计"
+      ],
+      "tags": [
+        "架构",
+        "后端",
+        "前端"
+      ],
       "activate": "open_expert"
     },
     {
@@ -285,8 +583,14 @@
       "type": "expert",
       "title": "专家：TDD",
       "summary": "专家中心里可一键拉起的 TDD 顾问。",
-      "triggers": ["TDD 咨询", "测试设计"],
-      "tags": ["测试", "质量"],
+      "triggers": [
+        "TDD 咨询",
+        "测试设计"
+      ],
+      "tags": [
+        "测试",
+        "质量"
+      ],
       "activate": "open_expert"
     },
     {
@@ -294,8 +598,14 @@
       "type": "expert",
       "title": "专家：代码评审",
       "summary": "专家中心里可一键拉起的评审顾问。",
-      "triggers": ["评审咨询", "代码质量"],
-      "tags": ["质量", "测试"],
+      "triggers": [
+        "评审咨询",
+        "代码质量"
+      ],
+      "tags": [
+        "质量",
+        "测试"
+      ],
       "activate": "open_expert"
     },
     {
@@ -303,8 +613,13 @@
       "type": "expert",
       "title": "专家：安全评审",
       "summary": "专家中心里可一键拉起的安全顾问。",
-      "triggers": ["安全咨询", "漏洞排查"],
-      "tags": ["安全"],
+      "triggers": [
+        "安全咨询",
+        "漏洞排查"
+      ],
+      "tags": [
+        "安全"
+      ],
       "activate": "open_expert"
     },
     {
@@ -312,8 +627,13 @@
       "type": "expert",
       "title": "专家：构建排查",
       "summary": "专家中心里可一键拉起的构建报错顾问。",
-      "triggers": ["构建咨询", "编译错误"],
-      "tags": ["调试"],
+      "triggers": [
+        "构建咨询",
+        "编译错误"
+      ],
+      "tags": [
+        "调试"
+      ],
       "activate": "open_expert"
     },
     {
@@ -321,8 +641,14 @@
       "type": "expert",
       "title": "专家：端到端测试",
       "summary": "专家中心里可一键拉起的 e2e 测试顾问。",
-      "triggers": ["e2e 咨询", "测试链路"],
-      "tags": ["测试", "质量"],
+      "triggers": [
+        "e2e 咨询",
+        "测试链路"
+      ],
+      "tags": [
+        "测试",
+        "质量"
+      ],
       "activate": "open_expert"
     },
     {
@@ -330,8 +656,14 @@
       "type": "expert",
       "title": "专家：重构",
       "summary": "专家中心里可一键拉起的重构顾问。",
-      "triggers": ["重构咨询", "代码清理"],
-      "tags": ["重构", "质量"],
+      "triggers": [
+        "重构咨询",
+        "代码清理"
+      ],
+      "tags": [
+        "重构",
+        "质量"
+      ],
       "activate": "open_expert"
     },
     {
@@ -339,9 +671,336 @@
       "type": "expert",
       "title": "专家：文档",
       "summary": "专家中心里可一键拉起的文档顾问。",
-      "triggers": ["文档咨询", "写说明"],
-      "tags": ["文档"],
+      "triggers": [
+        "文档咨询",
+        "写说明"
+      ],
+      "tags": [
+        "文档"
+      ],
       "activate": "open_expert"
+    },
+    {
+      "id": "game-analysis",
+      "type": "skill",
+      "title": "游戏行业分析",
+      "summary": "游戏行业分析、竞品拆解、舆情与玩家反馈监控。",
+      "triggers": [
+        "竞品拆解",
+        "游戏分析",
+        "竞品分析",
+        "游戏行业",
+        "舆情",
+        "玩家反馈"
+      ],
+      "tags": [
+        "游戏",
+        "竞品",
+        "分析",
+        "策划"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "pptx-generator",
+      "type": "skill",
+      "title": "PPT 演示生成",
+      "summary": "生成/编辑 PowerPoint 演示文稿，做方案汇报与路演。",
+      "triggers": [
+        "汇报PPT",
+        "演示",
+        "幻灯片",
+        "方案汇报",
+        "做PPT",
+        "路演"
+      ],
+      "tags": [
+        "汇报",
+        "PPT",
+        "演示",
+        "策划"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "deck-generator",
+      "type": "skill",
+      "title": "AI 配图演示",
+      "summary": "用 AI 配图生成专业演示文稿。",
+      "triggers": [
+        "演示",
+        "幻灯片",
+        "AI配图",
+        "做deck"
+      ],
+      "tags": [
+        "PPT",
+        "演示"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "minimax-xlsx",
+      "type": "skill",
+      "title": "Excel 表格处理",
+      "summary": "创建/分析 Excel 表格，做数值表、配置表与数值平衡表。",
+      "triggers": [
+        "数据表格",
+        "Excel",
+        "数值表",
+        "配置表",
+        "数值平衡表",
+        "表格"
+      ],
+      "tags": [
+        "数据",
+        "表格",
+        "数值",
+        "策划"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "minimax-docx",
+      "type": "skill",
+      "title": "Word 文档处理",
+      "summary": "创建/编辑 Word 文档，写方案与设计文档。",
+      "triggers": [
+        "Word文档",
+        "方案文档",
+        "设计文档",
+        "写文档"
+      ],
+      "tags": [
+        "文档",
+        "Word",
+        "策划"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "minimax-pdf",
+      "type": "skill",
+      "title": "PDF 文档生成",
+      "summary": "生成/编辑高质量 PDF 文档与报告。",
+      "triggers": [
+        "PDF",
+        "报告PDF",
+        "导出PDF"
+      ],
+      "tags": [
+        "PDF",
+        "文档"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "md-to-html-report",
+      "type": "skill",
+      "title": "报告转 HTML 专题页",
+      "summary": "把报告/长文档做成好看好读、便于分享的 HTML 专题页。",
+      "triggers": [
+        "报告页",
+        "专题页",
+        "网页化报告",
+        "美化报告",
+        "汇报可视化",
+        "报告做成网页"
+      ],
+      "tags": [
+        "报告",
+        "可视化",
+        "分享"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "web-search-exa",
+      "type": "skill",
+      "title": "深度网络检索",
+      "summary": "AI 驱动的网络检索与深度调研，查竞品与资料。",
+      "triggers": [
+        "竞品调研",
+        "资料搜索",
+        "深度搜索",
+        "查资料",
+        "调研"
+      ],
+      "tags": [
+        "调研",
+        "搜索",
+        "竞品"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "market-researcher",
+      "type": "skill",
+      "title": "市场研究",
+      "summary": "市场分析与消费者洞察、机会识别。",
+      "triggers": [
+        "市场研究",
+        "用户调研",
+        "行业研究",
+        "市场机会"
+      ],
+      "tags": [
+        "市场",
+        "调研",
+        "竞品"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "huashu-design",
+      "type": "skill",
+      "title": "HTML 视觉设计",
+      "summary": "用 HTML 做高保真视觉产出（原型/PPT/信息图/动画/落地页）。",
+      "triggers": [
+        "视觉",
+        "原型",
+        "PPT美化",
+        "信息图",
+        "落地页",
+        "好看的页面"
+      ],
+      "tags": [
+        "视觉",
+        "设计",
+        "原型"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "summarize",
+      "type": "skill",
+      "title": "内容摘要",
+      "summary": "把网页/文件/视频摘要成要点。",
+      "triggers": [
+        "摘要",
+        "总结",
+        "长文压缩",
+        "提炼要点"
+      ],
+      "tags": [
+        "总结",
+        "阅读"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-docs",
+      "type": "skill",
+      "title": "腾讯文档",
+      "summary": "创建/编辑腾讯在线文档（文档/表格/幻灯片）。",
+      "triggers": [
+        "腾讯文档",
+        "在线文档",
+        "协作文档"
+      ],
+      "tags": [
+        "文档",
+        "协作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-survey",
+      "type": "skill",
+      "title": "腾讯问卷",
+      "summary": "腾讯问卷：做问卷/调查/投票/测评。",
+      "triggers": [
+        "问卷",
+        "调研问卷",
+        "投票",
+        "考试测评"
+      ],
+      "tags": [
+        "问卷",
+        "调研"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "news-summary",
+      "type": "skill",
+      "title": "资讯简报",
+      "summary": "获取并摘要每日新闻与行业动态。",
+      "triggers": [
+        "行业资讯",
+        "每日简报",
+        "新闻"
+      ],
+      "tags": [
+        "资讯",
+        "新闻"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "notebooklm-studio",
+      "type": "skill",
+      "title": "知识库工作室",
+      "summary": "把资料导入知识库，生成播客/报告/思维导图。",
+      "triggers": [
+        "知识库",
+        "资料整理",
+        "播客"
+      ],
+      "tags": [
+        "知识库",
+        "整理"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "obsidian",
+      "type": "skill",
+      "title": "Obsidian 笔记",
+      "summary": "管理 Obsidian 本地 Markdown 知识库。",
+      "triggers": [
+        "笔记",
+        "知识库",
+        "双链"
+      ],
+      "tags": [
+        "笔记",
+        "知识库"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "arxiv-reader",
+      "type": "skill",
+      "title": "论文深度阅读",
+      "summary": "深度阅读 arXiv 论文并产出笔记。",
+      "triggers": [
+        "论文",
+        "学术",
+        "arxiv",
+        "读论文"
+      ],
+      "tags": [
+        "学术",
+        "论文"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "content-factory",
+      "type": "skill",
+      "title": "内容工厂",
+      "summary": "把一份素材生成多平台内容（社媒/邮件/脚本）。",
+      "triggers": [
+        "内容创作",
+        "社媒",
+        "多平台"
+      ],
+      "tags": [
+        "内容",
+        "营销"
+      ],
+      "activate": "call_skill"
     }
   ]
 }
