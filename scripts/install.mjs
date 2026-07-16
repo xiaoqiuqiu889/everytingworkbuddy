@@ -84,7 +84,7 @@ const RULES_BLOCK = `${START}
 - 编码：不可变优先、小函数小文件、命名达意、早返回减嵌套、显式错误处理不吞异常；一致性 > 个人偏好；不写 YAGNI 抽象。
 - 测试：新功能/修 bug 先写测试（TDD：RED→GREEN→REFACTOR）；关键路径覆盖 ≥80%；测行为不测实现；不为绿色删测试。
 - Git：语义化提交 \`type(scope): subject\`；提交小而聚焦；不 \`--force\` 共享分支、不 \`--no-verify\`（除非用户明确要求）。
-- 委派：广域搜索/探索用只读子代理（Explore/Plan），改代码用 general-purpose；子代理 prompt 必须自包含；产出要亲自核对。
+- 委派：广域搜索/探索用只读子代理（Explore/Plan），改代码用 general-purpose；子代理 prompt 必须自包含；产出要亲自核对。**子代理读不到本 MEMORY（独立上下文），派实质任务给它时要把 EFW 编排外壳摘要（计划→干活→验收→沉淀 + 实质任务阈值）写进它的 prompt，否则它不会用 EFW**（详见 rules/agents.md）。
 - 上下文预算：不要一次性启用所有 MCP/连接器；每项目启用 <10 个，活动工具 <80；简单任务用 lite 模型、复杂推理用 reasoning。
 
 ### 第三层：能力触发纪律（全领域，不限于研发）
@@ -270,6 +270,10 @@ async function main() {
   await installAgents();        // 底座子代理
   await installUserAgents();    // 用户子代理
   console.log(`\nRESULT: ${ok} 完成 / ${skip} 跳过 / ${fail} 失败`);
+  console.log('\n💡 让"子 agent / 子代理"也遵循 EFW：');
+  console.log('   用户级 MEMORY.md 只对主对话生效，子 agent 是独立上下文、不读它。');
+  console.log(`   把 ${path.join(EFW_ROOT, 'examples', 'AGENTS.md')} 复制到你项目根（命名 AGENTS.md 或并入 CODEBUDDY.md），`);
+  console.log('   项目级文件每会话全量注入，子 agent 也会读到 EFW 编排外壳。');
   if (fail > 0) process.exit(1);
 }
 
