@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 // EFW 一键安装器 (install.mjs)
-// 跨平台（Windows / macOS / Linux）：把 EFW 配置包安装到用户级 ~/.workbuddy/
+// 跨平台（Windows / macOS / Linux）：把 EFW 配置包安装到用户级 ~/.workbuddy/ 或 ~/.codebuddy/
+// 用法：
+//   node scripts/install.mjs                 # 默认装到 WorkBuddy (~/.workbuddy)
+//   node scripts/install.mjs --product codebuddy   # 装到 CodeBuddy   (~/.codebuddy)
+//   node scripts/install.mjs --product=codebuddy
 // 幂等：可重复运行；已存在则刷新，避免重复。
 
 import { promises as fs } from 'node:fs';
@@ -11,7 +15,18 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EFW_ROOT = path.resolve(__dirname, '..');           // scripts/.. -> EFW 根
 const HOME = os.homedir();
-const WB = path.join(HOME, '.workbuddy');
+
+// ---------- 目标产品：workbuddy（默认） / codebuddy ----------
+function detectProduct() {
+  const i = process.argv.findIndex((a) => a === '--product' || a.startsWith('--product='));
+  if (i === -1) return 'workbuddy';
+  if (process.argv[i].startsWith('--product=')) return process.argv[i].split('=')[1] || 'workbuddy';
+  return process.argv[i + 1] || 'workbuddy';
+}
+const PRODUCT = ['codebuddy', 'workbuddy'].includes(detectProduct()) ? detectProduct() : 'workbuddy';
+const ROOT_NAME = PRODUCT === 'codebuddy' ? '.codebuddy' : '.workbuddy';
+const WB = path.join(HOME, ROOT_NAME);
+const RH = '~/' + ROOT_NAME; // 用于打印的简写
 
 let ok = 0, skip = 0, fail = 0;
 const done = (m) => { ok++; console.log(`  \u2713 ${m}`); };
@@ -37,7 +52,7 @@ async function installSkills() {
     const src = path.join(EFW_ROOT, 'skills', s, 'SKILL.md');
     if (!(await exists(src))) { bad(`源码缺失 skills/${s}/SKILL.md`); continue; }
     await fs.cp(path.join(EFW_ROOT, 'skills', s), path.join(dstRoot, s), { recursive: true });
-    done(`~/.workbuddy/skills/${s}`);
+    done(`${RH}/skills/${s}`);
   }
 }
 
@@ -68,7 +83,10 @@ async function installRules() {
     .replace(/\n?## EFW 研发准则[^\n]*\n(?:- .*\n)*/, '\n');
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '') + '\n';
   await fs.writeFile(memPath, cleaned + '\n' + RULES_BLOCK, 'utf8');
-  done('~/.workbuddy/MEMORY.md 已写入/刷新 EFW 研发准则');
+  done(`${RH}/MEMORY.md 已写入/刷新 EFW 研发准则`);
+  if (PRODUCT === 'codebuddy') {
+    note('CodeBuddy 的自动记忆在 memery/ 目录、不自动读 MEMORY.md；若要让研发准则每会话自动生效，请把上面写入的 EFW 研发准则块内容，手动粘贴进你的 CodeBuddy 记忆。');
+  }
 }
 
 // ---------- 3. MCP ----------
@@ -87,7 +105,7 @@ async function installMcp() {
       continue;
     }
     cur.mcpServers[name] = conf;
-    done(`~/.workbuddy/mcp.json <- ${name}`);
+    done(`${RH}/mcp.json <- ${name}`);
   }
   await fs.writeFile(dst, JSON.stringify(cur, null, 2) + '\n', 'utf8');
 }
@@ -101,7 +119,7 @@ async function installAgents() {
   const files = (await fs.readdir(srcRoot)).filter((f) => f.endsWith('.md') && f !== 'README.md');
   for (const f of files) {
     await fs.copyFile(path.join(srcRoot, f), path.join(dstRoot, f));
-    done(`~/.workbuddy/agents/${f}（参考素材）`);
+    done(`${RH}/agents/${f}（参考素材）`);
   }
 }
 
@@ -120,7 +138,7 @@ async function installUserSkills() {
     const src = path.join(srcRoot, name);
     if (!((await fs.stat(src)).isDirectory())) continue;
     await fs.cp(src, path.join(dstRoot, name), { recursive: true });
-    done(`~/.workbuddy/skills/${name}（用户覆盖/新增）`);
+    done(`${RH}/skills/${name}（用户覆盖/新增）`);
   }
 }
 
@@ -132,7 +150,7 @@ async function installUserAgents() {
   await ensureDir(dstRoot);
   for (const f of (await fs.readdir(srcRoot)).filter((f) => f.endsWith('.md') && f !== 'README.md')) {
     await fs.copyFile(path.join(srcRoot, f), path.join(dstRoot, f));
-    done(`~/.workbuddy/agents/${f}（用户）`);
+    done(`${RH}/agents/${f}（用户）`);
   }
 }
 
@@ -148,7 +166,7 @@ async function installUserMcp() {
     const txt = JSON.stringify(conf);
     if (/YOUR_|<|>|REPLACE_ME|API_KEY_HERE/.test(txt)) { note(`跳过含占位符的 ${name}`); continue; }
     cur.mcpServers[name] = conf;
-    done(`~/.workbuddy/mcp.json <- ${name}（用户）`);
+    done(`${RH}/mcp.json <- ${name}（用户）`);
   }
   await fs.writeFile(dst, JSON.stringify(cur, null, 2) + '\n', 'utf8');
 }
@@ -171,7 +189,7 @@ async function installUserRules() {
     .replace(new RegExp('\\n?' + USTART + '[\\s\\S]*?' + UEND + '\\n?'), '\n')
     .replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '') + '\n';
   await fs.writeFile(memPath, cleaned + '\n' + body, 'utf8');
-  done(`~/.workbuddy/MEMORY.md 已写入用户准则块（${files.length} 个）`);
+  done(`${RH}/MEMORY.md 已写入用户准则块（${files.length} 个）`);
 }
 
 // ---------- 6. 把能力索引 + 检索器打包进 efw-profile 技能（开箱即用检索）----------
@@ -182,19 +200,20 @@ async function bundleProfileAssets() {
   const catSrc = path.join(EFW_ROOT, 'catalog');
   if (await exists(catSrc)) {
     await fs.cp(catSrc, path.join(skillDir, 'catalog'), { recursive: true });
-    done('~/.workbuddy/skills/efw-profile/catalog（能力索引）');
+    done(`${RH}/skills/efw-profile/catalog（能力索引）`);
   }
   const m = path.join(EFW_ROOT, 'scripts', 'match.mjs');
   if (await exists(m)) {
     await ensureDir(path.join(skillDir, 'scripts'));
     await fs.copyFile(m, path.join(skillDir, 'scripts', 'match.mjs'));
-    done('~/.workbuddy/skills/efw-profile/scripts/match.mjs（检索器）');
+    done(`${RH}/skills/efw-profile/scripts/match.mjs（检索器）`);
   }
 }
 
 async function main() {
   console.log('EFW 一键安装器');
   console.log(`EFW_ROOT = ${EFW_ROOT}`);
+  console.log(`PRODUCT  = ${PRODUCT}`);
   console.log(`TARGET   = ${WB}`);
   await ensureDir(WB);
   await installSkills();        // 底座技能（先）

@@ -17,9 +17,20 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EFW = path.resolve(__dirname, "..");                 // scripts/.. -> EFW 根
 const EFW_SKILLS = path.join(EFW, "skills");
 const HOME = homedir();
-const SKILLS_HOME = path.join(HOME, ".workbuddy", "skills");
-const MEMORY = path.join(HOME, ".workbuddy", "MEMORY.md");
-const MCP = path.join(HOME, ".workbuddy", "mcp.json");
+
+// 目标产品：workbuddy（默认） / codebuddy
+function detectProduct() {
+  const i = process.argv.findIndex((a) => a === "--product" || a.startsWith("--product="));
+  if (i === -1) return "workbuddy";
+  if (process.argv[i].startsWith("--product=")) return process.argv[i].split("=")[1] || "workbuddy";
+  return process.argv[i + 1] || "workbuddy";
+}
+const PRODUCT = ["codebuddy", "workbuddy"].includes(detectProduct()) ? detectProduct() : "workbuddy";
+const ROOT_NAME = PRODUCT === "codebuddy" ? ".codebuddy" : ".workbuddy";
+
+const SKILLS_HOME = path.join(HOME, ROOT_NAME, "skills");
+const MEMORY = path.join(HOME, ROOT_NAME, "MEMORY.md");
+const MCP = path.join(HOME, ROOT_NAME, "mcp.json");
 
 const SKILLS = [
   "efw",
@@ -36,7 +47,7 @@ const fail = (m) => { failed++; console.log(`  \u2717 ${m}`); };
 // ---------- 1. MEMORY.md sentinel 准则块 ----------
 console.log("\n[memory] EFW 准则块完整性");
 if (!existsSync(MEMORY)) {
-  fail("缺失 ~/.workbuddy/MEMORY.md");
+  fail(`缺失 ~/${ROOT_NAME}/MEMORY.md`);
 } else {
   const txt = readFileSync(MEMORY, "utf8");
   const hasStart = txt.includes("<!-- EFW-RULES-START -->");

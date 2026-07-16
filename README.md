@@ -1,8 +1,10 @@
-# EFW — Everything For WorkBuddy
+# EFW — Everything For WorkBuddy / CodeBuddy
 
-> 对标 [Everything Claude Code](https://github.com/worldflowai/everything-claude-code)（Claude Code 的配置全家桶），为 **WorkBuddy** 重新打造的「开箱即用的全能工作助手配置包」。
+> 对标 [Everything Claude Code](https://github.com/worldflowai/everything-claude-code)（Claude Code 的配置全家桶），为 **WorkBuddy / CodeBuddy** 重新打造的「开箱即用的全能工作助手配置包」。
 
-EFW 把一套经过实战打磨的工作流、能力索引和使用纪律，用 WorkBuddy 原生机制一次性装好。你不用懂任何配置，装完直接说人话就能用。
+EFW 把一套经过实战打磨的工作流、能力索引和使用纪律，用 WorkBuddy / CodeBuddy 原生机制一次性装好。你不用懂任何配置，装完直接说人话就能用。
+
+> **同时兼容 CodeBuddy**：CodeBuddy 与 WorkBuddy 共用同一套技能（`skills/`）和 MCP（`mcp.json`）格式。EFW 安装器支持 `--product codebuddy`，一键把全部能力装到 `~/.codebuddy/`；能力检索也会自动识别两个产品已装的技能。
 
 ---
 
@@ -10,12 +12,14 @@ EFW 把一套经过实战打磨的工作流、能力索引和使用纪律，用 
 
 ### ① 首次安装：把链接发给 AI，让它自己装
 
-把下面这个仓库链接直接发给你的 WorkBuddy，说一句：
+把下面这个仓库链接直接发给你的 WorkBuddy（或 CodeBuddy），说一句：
 
 > 🔗 https://github.com/xiaoqiuqiu889/everytingworkbuddy
 > 「把这个工程在我的电脑中实现一遍」
 
 它会自动 **克隆仓库 → 运行安装 → 自检通过**，一次性装好全部能力。
+
+- **CodeBuddy 用户**：发给 CodeBuddy 时，安装器默认装到 WorkBuddy；请让它运行 `node scripts/install.mjs --product codebuddy`，即可装到 `~/.codebuddy/`。
 
 ### ② 自定义升级：告诉 AI 你是谁、做什么
 
@@ -23,7 +27,7 @@ EFW 把一套经过实战打磨的工作流、能力索引和使用纪律，用 
 
 > 「我是一名 **游戏策划**，我平时会 **写设计文档、做数值系统和竞品拆解**，让 EFW 帮我升级下我的 workbuddy。」
 
-EFW 会 **自动检索最适合你的能力组合** → 排好优先级 → 写进你的个人档案。之后 **每个新会话** WorkBuddy 都自动知道你是谁、该优先用哪些能力。
+EFW 会 **自动检索最适合你的能力组合** → 排好优先级 → 写进你的个人档案。之后 **每个新会话** 你的助手（WorkBuddy / CodeBuddy）都自动知道你是谁、该优先用哪些能力。
 
 ### 装完还需手动 1 步
 

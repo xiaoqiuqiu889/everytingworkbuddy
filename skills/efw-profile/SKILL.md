@@ -17,7 +17,7 @@ version: 1.0.0
 本技能同目录下的 `catalog/capabilities.json` 是**内置能力索引**：每条含 `type`（skill/agent/rule/mcp/expert）、`title`、`summary`、`triggers`（触发词）、`tags`（角色/工作维度）、`activate`（启用方式）。
 
 **索引不是封顶的**——真正的检索由 `scripts/match.mjs` 完成，它除了读这份内置索引，还会：
-- **动态发现你机器上已安装的全部技能**（`~/.workbuddy/skills/*/SKILL.md`，解析 frontmatter 的 name/description 自动纳入），含 WorkBuddy 内置技能（如 game-analysis / pptx-generator / minimax-xlsx / 市场研究等）；
+- **动态发现你机器上已安装的全部技能**（`~/.workbuddy/skills/*/SKILL.md` 与 `~/.codebuddy/skills/*/SKILL.md` 都会被扫描，解析 frontmatter 的 name/description 自动纳入），含 WorkBuddy / CodeBuddy 内置技能（如 game-analysis / pptx-generator / minimax-xlsx / 市场研究等）；
 - 动态扫描 `EFW/user/` 下你自建的技能/子代理；
 - 三者合并去重（内置优先），用「触发词 +3 / 标签 +2 / 中文 bigram + 英文词 语义重叠 +1」打分排序。
 
@@ -29,7 +29,7 @@ version: 1.0.0
 1. **采集自述**（不啰嗦）：角色、工作内容、技术栈、偏好、痛点。信息足够就不追问；明显缺失（如完全没提技术方向）才问 1 个关键问题。
 2. **检索匹配**：用索引排出最相关能力，按 `type` 分组。
 3. **产出清单**：每项给「为什么适合你」+「怎么启用」（`activate` 字段：call_skill 喊名/自动触发、schedule 调度子代理、auto 已自动生效、trust 需连接器信任、open_expert 侧栏点开）。
-4. **落档（开箱即用关键一步）**：把用户画像 + 推荐能力写入 `~/.workbuddy/MEMORY.md`，用独立标记块包裹：
+4. **落档（开箱即用关键一步）**：把用户画像 + 推荐能力写入用户级记忆文件（WorkBuddy 为 `~/.workbuddy/MEMORY.md`，CodeBuddy 为 `~/.codebuddy/MEMORY.md`），用独立标记块包裹：
    ```
    <!-- EFW-PROFILE-START -->
    ## 我的 EFW 画像
