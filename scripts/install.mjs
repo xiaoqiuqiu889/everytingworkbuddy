@@ -69,7 +69,11 @@ const RULES_BLOCK = `${START}
 
 **什么算"实质任务"（满足任一即是，别再靠手感判断）**：① 会产出文件/交付物（报告、PPT、网页、代码、设计稿…，含 .xlsx/.pptx/.docx/.pdf/.html 等）；或 ② 需要 ≥3 步；或 ③ 预计 ≥15 次工具调用。简单问答 / 查一条资料 / 闲聊不算。
 
-> 🚦 **完成定义（DoD，硬闸门）**：一个实质任务只有在跑完 **③验收** 后才算"完成"。**没跑 efw-verify（或等效的逐条结构化验收）之前，不许对用户说"做完了/已完成"。** 用领域技能（pdf/xlsx/pptx/docx/设计…）产文件也一样——文档/数据/设计任务最容易被当成"领域技能任务"而跳过闸门，切勿豁免。
+> ⛔ **0 号动作（机械默认，不等用户点名）**：一旦判定为实质任务，**你的第一个动作就是加载 \`efw\` 技能**（先于任何领域工具/脚本）。EFW 是"外壳"但载体是可选 skill——系统**不会**因为任务实质就自动加载它，**必须你显式发起**。这是一个具体动作，不是"有编排外壳的心态就行"。
+>
+> 🚫 **反"暗合"替代（别拿这些冒充走了 EFW）**：用 TaskCreate 拆任务 ≠ 走了外壳；自写校验脚本/肉眼看一眼 ≠ efw-verify 的逐条结构化签收；写条 memory 笔记 ≠ efw-learn 沉淀；"四步我心里过了一遍" ≠ 实际加载执行了 efw-*。**神似≠触发**，四步必须真的走技能。
+
+> 🚦 **完成定义（DoD，硬闸门）**：一个实质任务只有在跑完 **③验收** 后才算"完成"。**没跑 efw-verify（逐条结构化验收，不是自写脚本抽查）之前，不许对用户说"做完了/已完成"。** 用领域技能（pdf/xlsx/pptx/docx/设计…）产文件也一样——文档/数据/设计任务最容易被当成"领域技能任务"而跳过闸门，切勿豁免。
 >
 > 🔗 **把闸门钉进任务清单**：当你用 TaskCreate 拆解实质任务时，**最后一项固定加上"efw-verify 交付前验收 + efw-learn 沉淀（如够阈值）"**，让收尾闸门变成任务列表里绕不过去的一项，而不是靠临场记得。验收清单可直接从你拆的各项任务反推（每项任务 = 一条验收标准）。
 
@@ -274,10 +278,10 @@ async function main() {
   await installAgents();        // 底座子代理
   await installUserAgents();    // 用户子代理
   console.log(`\nRESULT: ${ok} 完成 / ${skip} 跳过 / ${fail} 失败`);
-  console.log('\n💡 让"子 agent / 子代理"也遵循 EFW：');
-  console.log('   用户级 MEMORY.md 只对主对话生效，子 agent 是独立上下文、不读它。');
-  console.log(`   把 ${path.join(EFW_ROOT, 'examples', 'AGENTS.md')} 复制到你项目根（命名 AGENTS.md 或并入 CODEBUDDY.md），`);
-  console.log('   项目级文件每会话全量注入，子 agent 也会读到 EFW 编排外壳。');
+  console.log('\n💡 让"子 agent / 子代理"也遵循 EFW（用户级 MEMORY.md 只对主对话生效，子 agent 不读它）：');
+  console.log(`   ① 把 ${path.join(EFW_ROOT, 'examples', 'AGENTS.md')} 复制到项目根（命名 AGENTS.md 或并入 CODEBUDDY.md）；`);
+  console.log(`   ② 把 ${path.join(EFW_ROOT, 'examples', 'efw-shell.rule.md')} 复制到项目的 .workbuddy/rules/efw-shell.md（alwaysApply，每会话注入、子 agent 也读）。`);
+  console.log('   两者都是项目级文件，触达面比用户级 MEMORY 广——含"实质任务先加载 efw"的 0 号动作与反暗合闸门。');
   if (fail > 0) process.exit(1);
 }
 

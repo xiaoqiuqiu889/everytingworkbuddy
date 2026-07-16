@@ -1,6 +1,6 @@
 ---
 name: efw
-description: "EFW 统一入口。收到任意实质性任务（研发/设计/文档/数据/规划等）时，先想再做，并自动路由到合适的 efw-* 子技能（plan-feature / tdd-workflow / code-review / build-fix / refactor-clean / security-review / verify / checkpoint / learn / github-push / profile）。用户说「用 efw」或「efw」时触发，也可用于「该用哪个 efw 技能」或「我该用哪些能力」的咨询。"
+description: "【实质任务的第一个动作，先于任何领域工具】任何会产出文件（.pdf/.xlsx/.pptx/.docx/.html/代码/设计稿…）、需 ≥3 步、或预计 ≥15 次工具调用的任务，动手前第一步先加载本技能——它是套在所有任务外的编排外壳（计划→干活→验收→沉淀），并自动路由到合适的 efw-* 子技能（plan-feature / tdd-workflow / code-review / build-fix / refactor-clean / security-review / verify / checkpoint / learn / github-push / profile）。领域技能（pdf / xlsx / pptx / docx / huashu-design / md-to-html-report 等）负责'干活'，但收尾的 efw-verify 逐条验收 + efw-learn 沉淀由本外壳强制、领域技能不豁免。用户说「用 efw」或报身份「我是…」也触发；也可用于「该用哪个 efw 技能 / 我该用哪些能力」的咨询。"
 description_zh: "EFW 统一入口，自动路由 9 个研发技能"
 description_en: "EFW entry point: route to the right efw-* skill"
 version: 1.0.0
@@ -10,6 +10,21 @@ agent_created: true
 # EFW — 统一入口
 
 你不一定要记住 9 个 efw-* 技能的名字。说「用 efw」或描述你的研发需求，本入口会**自动判断**该走哪个子技能，然后加载并遵循它。
+
+## ⛔ 第一动作：实质任务先加载 efw，不是可选
+
+> **默认行为（从现在起，不等用户点名）**：判定为实质任务（产出文件 / ≥3 步 / ≥15 工具调用，满足任一）→ **你的第一个动作就是加载 `efw`，先于任何领域工具（pdf/xlsx/脚本…）**。这是一个**具体动作**，不是"有这个心态就行"。
+
+**反"暗合"替代——以下都不算触发 EFW，别拿它们冒充：**
+
+| 你实际做了 | ≟ | EFW 要求的 | 判定 |
+| --- | --- | --- | --- |
+| 用 TaskCreate 拆了任务 | ≠ | 走了编排外壳 | ❌ 暗合≠触发 |
+| 自己写了个 python 校验脚本 / 肉眼看了一眼 | ≠ | `efw-verify` 逐条结构化签收 | ❌ 不算验收 |
+| 写了条 memory 笔记 | ≠ | `efw-learn` 沉淀（够阈值时存成可复用 skill） | ❌ 不算沉淀 |
+| "四步我心里都过了一遍" | ≠ | 实际加载并执行了 efw / efw-* | ❌ 神似≠走技能 |
+
+> 🚦 **DoD 硬闸门**：没跑 `efw-verify`（逐条对照验收标准签收）之前，**不许对用户说"做完了 / 已完成"**。文档 / 数据 / 设计任务（pdf/xlsx/pptx/docx）最容易被当成"纯领域技能任务"而跳过——**切勿豁免**。
 
 ## 路由表（需求信号 → 子技能）
 
