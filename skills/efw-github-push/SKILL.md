@@ -80,12 +80,28 @@ git show --stat <远端独有commit哈希>
 - 远端那笔是**无害改动**（如 README 微调）且**不冲突** → `git rebase origin/main` 后再 `git push`（此时是快进）。
 - **有冲突或不确定** → 停下，把远端独有提交告诉用户，让他拍板，不要硬 rebase。
 
+## token 从哪取（推之前先把源探一遍，别只撞 credential fill）
+
+标准流程第 2 步只试了凭据助手。若返回空，**先按下面顺序把其它正当源探一遍**，命中任一即可推：
+
+```bash
+# a) 环境变量（CI/沙箱常注入）
+for v in GH_TOKEN GITHUB_TOKEN GH_PAT GITHUB_PAT GIT_TOKEN; do
+  [ -n "$(printenv $v)" ] && echo "found $v" && TOKEN="$(printenv $v)"
+done
+# b) gh CLI（若已登录，有独立 token 存储）
+command -v gh >/dev/null && gh auth token 2>/dev/null   # 有输出即可用
+# c) 凭据助手（GCM/WCM，见标准流程第 2 步）
+git config --get-all credential.helper                  # 先看配了啥 helper
+printf 'protocol=https\nhost=github.com\n\n' | git credential fill 2>/dev/null | awk -F= '/^password=/{print $2}'
+```
+
 ## token 取不到怎么办（降级方案）
 
-`git credential fill` 返回空 = 沙箱里的 GCM/WCM 凭据缓存读不到（本机有、沙箱读不到）。
+以上三源全空 = 环境里**确实没有**可用 token（不是方法失败）。典型原因：凭据助手是 GCM 但**缓存为空**（`fill` 只会弹交互，被 `GIT_TERMINAL_PROMPT=0` 挡下），且无环境变量、无 gh 登录。
 **不要死循环重试，也不要试 PowerShell 花式绕过——直接降级。**
 
-1. 明确告诉用户：**"沙箱取不到 GitHub token，需要你本机推或给 PAT"**。
+1. 明确告诉用户：**"沙箱三个取源（凭据助手/环境变量/gh CLI）都没有可用 token，需要你本机推或给 PAT"**。
 2. **方案 A（最稳，首选）**：让用户在自己电脑终端跑（本机 GCM 有凭证，直接成）：
    ```bash
    git -C <仓库绝对路径> push origin main
