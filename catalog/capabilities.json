@@ -19,7 +19,25 @@
     "通用",
     "数据",
     "游戏",
-    "发布"
+    "发布",
+    "金融",
+    "搜索",
+    "学术",
+    "论文",
+    "营销",
+    "内容",
+    "浏览器",
+    "邮件",
+    "日历",
+    "天气",
+    "语音",
+    "图像",
+    "办公",
+    "协作",
+    "工具",
+    "引擎",
+    "商业",
+    "写作"
   ],
   "activate": {
     "call_skill": "对话中直接调用该技能（喊名或自动触发）",
@@ -1001,6 +1019,568 @@
         "营销"
       ],
       "activate": "call_skill"
+    },
+    {
+      "id": "neodata-financial-search",
+      "type": "skill",
+      "title": "金融数据搜索",
+      "summary": "自然语言查询股票/基金/指数/宏观/外汇等全品类金融数据，即问即答。",
+      "triggers": [
+        "查股票",
+        "金融数据",
+        "股价",
+        "基金",
+        "宏观数据",
+        "行情"
+      ],
+      "tags": [
+        "数据",
+        "金融",
+        "分析"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "macro-monitor",
+      "type": "skill",
+      "title": "宏观数据监控",
+      "summary": "每日自动监控宏观数据与政策，整理推送过去 24 小时要点。",
+      "triggers": [
+        "宏观监控",
+        "每日宏观",
+        "经济数据",
+        "政策追踪"
+      ],
+      "tags": [
+        "数据",
+        "金融",
+        "自动化"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "earnings-tracker",
+      "type": "skill",
+      "title": "财报追踪",
+      "summary": "扫描 A 股/美股财报日历，自动推送重要财报更新。",
+      "triggers": [
+        "财报",
+        "业绩预告",
+        " earnings",
+        "财报日历"
+      ],
+      "tags": [
+        "数据",
+        "金融"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "revenue-intelligence",
+      "type": "skill",
+      "title": "营收洞察",
+      "summary": "从销售通话/数据中提炼洞察，做营收归因与客户端报告。",
+      "triggers": [
+        "营收",
+        "销售分析",
+        "收入归因",
+        "客户报告"
+      ],
+      "tags": [
+        "数据",
+        "分析",
+        "商业"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "fintech-engineer",
+      "type": "skill",
+      "title": "金融科技工程",
+      "summary": "金融系统/支付/合规（PCI DSS、AML、KYC）专家支持。",
+      "triggers": [
+        "金融系统",
+        "支付",
+        "合规",
+        "fintech",
+        "AML"
+      ],
+      "tags": [
+        "金融",
+        "后端",
+        "安全"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "arxiv-watcher",
+      "type": "skill",
+      "title": "论文追踪",
+      "summary": "检索与摘要 arXiv 最新论文，可按主题生成每日 AI 论文简报。",
+      "triggers": [
+        "论文追踪",
+        "arxiv",
+        "最新研究",
+        "AI 论文",
+        "学术动态"
+      ],
+      "tags": [
+        "学术",
+        "论文",
+        "搜索"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "perplexity",
+      "type": "skill",
+      "title": "AI 搜索问答",
+      "summary": "用 Perplexity 做带引用的联网问答与深度调研。",
+      "triggers": [
+        "AI 搜索",
+        "联网问答",
+        "带引用查询",
+        "深度调研"
+      ],
+      "tags": [
+        "搜索",
+        "调研",
+        "学术"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "multi-search-engine",
+      "type": "skill",
+      "title": "多引擎搜索",
+      "summary": "聚合 17 个搜索引擎（中英文）做广域检索与交叉验证。",
+      "triggers": [
+        "多引擎搜索",
+        "全网搜索",
+        "搜索引擎",
+        "交叉验证"
+      ],
+      "tags": [
+        "搜索",
+        "调研"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "github-trending-cn",
+      "type": "skill",
+      "title": "GitHub 趋势（中文）",
+      "summary": "用 GitHub Search API 拉取每日/周/月热门仓库排行榜。",
+      "triggers": [
+        "GitHub 趋势",
+        "热门仓库",
+        "star 排行",
+        "开源风向"
+      ],
+      "tags": [
+        "前端",
+        "后端",
+        "调研"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "github-ai-trends",
+      "type": "skill",
+      "title": "GitHub AI 趋势",
+      "summary": "生成 GitHub AI/ML/LLM 方向热门项目榜单报告。",
+      "triggers": [
+        "AI 趋势",
+        "AI 仓库",
+        "大模型趋势",
+        "ML 排行"
+      ],
+      "tags": [
+        "前端",
+        "后端",
+        "调研"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "github",
+      "type": "skill",
+      "title": "GitHub 操作",
+      "summary": "用 gh CLI 管理 issue/PR/CI 与仓库查询。",
+      "triggers": [
+        "GitHub",
+        "gh",
+        "提 PR",
+        "issue",
+        "CI 状态"
+      ],
+      "tags": [
+        "通用",
+        "后端",
+        "前端"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "mcp-builder",
+      "type": "skill",
+      "title": "MCP 服务构建",
+      "summary": "构建高质量 MCP 服务，让 LLM 接入外部工具/API。",
+      "triggers": [
+        "MCP",
+        "构建连接器",
+        "接入外部服务",
+        "工具服务"
+      ],
+      "tags": [
+        "后端",
+        "工具",
+        "自动化"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "mcporter",
+      "type": "skill",
+      "title": "MCP 调用（mcporter）",
+      "summary": "列出/配置/调用任意 MCP server 的工具，含临时服务。",
+      "triggers": [
+        "调用 MCP",
+        "mcporter",
+        "MCP 工具",
+        "连接器调试"
+      ],
+      "tags": [
+        "工具",
+        "自动化",
+        "通用"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "skill-creator",
+      "type": "skill",
+      "title": "技能创建",
+      "summary": "创建/优化可复用 skill（SKILL.md + 配套脚本/参考）。",
+      "triggers": [
+        "创建技能",
+        "写 skill",
+        "做技能",
+        "skill 模板"
+      ],
+      "tags": [
+        "通用",
+        "学习",
+        "工具"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "skills-security-check",
+      "type": "skill",
+      "title": "技能安全审查",
+      "summary": "安装前对 skill 做静态安全审计，识别风险再安装。",
+      "triggers": [
+        "技能安全",
+        "skill 审计",
+        "审查技能",
+        "安全检查"
+      ],
+      "tags": [
+        "安全",
+        "工具"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "content-repurposer",
+      "type": "skill",
+      "title": "内容改写分发",
+      "summary": "把长内容改写成各平台适配的短内容片段。",
+      "triggers": [
+        "内容改写",
+        "多平台分发",
+        "社媒改编",
+        "二次创作"
+      ],
+      "tags": [
+        "内容",
+        "营销",
+        "写作"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "autoresearch",
+      "type": "skill",
+      "title": "自优化研究",
+      "summary": "Karpathy 式自优化：生成多变体、专家打分、演化优胜方案。",
+      "triggers": [
+        "自优化",
+        "自动研究",
+        "变体演化",
+        "研究自动化"
+      ],
+      "tags": [
+        "研究",
+        "学术",
+        "自动化"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "browser-use",
+      "type": "skill",
+      "title": "浏览器自动化",
+      "summary": "用 browser-use 自动浏览网页、点击、填表、抓数据。",
+      "triggers": [
+        "浏览器自动化",
+        "自动填表",
+        "网页操作",
+        "自动点击"
+      ],
+      "tags": [
+        "浏览器",
+        "自动化",
+        "工具"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "imap-smtp-email",
+      "type": "skill",
+      "title": "邮件收发",
+      "summary": "通过 IMAP/SMTP 读信、发信、检索与整理邮件。",
+      "triggers": [
+        "邮件",
+        "发邮件",
+        "读邮件",
+        "IMAP",
+        "SMTP"
+      ],
+      "tags": [
+        "通信",
+        "自动化",
+        "办公"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "caldav-calendar",
+      "type": "skill",
+      "title": "日历同步",
+      "summary": "同步/查询 CalDAV 日历（iCloud/Google/Fastmail 等）。",
+      "triggers": [
+        "日历",
+        "日程",
+        "CalDAV",
+        "提醒"
+      ],
+      "tags": [
+        "办公",
+        "自动化",
+        "通信"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "weather",
+      "type": "skill",
+      "title": "天气查询",
+      "summary": "获取当前天气与预报（无需密钥）。",
+      "triggers": [
+        "天气",
+        "气温",
+        "预报",
+        "下雨"
+      ],
+      "tags": [
+        "通用",
+        "查询"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "openai-image-gen",
+      "type": "skill",
+      "title": "AI 配图生成",
+      "summary": "批量生成配图（OpenAI Images API），含画廊页。",
+      "triggers": [
+        "生成图片",
+        "AI 配图",
+        "画图",
+        "配图"
+      ],
+      "tags": [
+        "图像",
+        "设计",
+        "内容"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "openai-whisper",
+      "type": "skill",
+      "title": "语音转文字",
+      "summary": "本地用 Whisper 把音频/会议录音转成文字稿。",
+      "triggers": [
+        "语音转文字",
+        "录音转写",
+        "字幕",
+        "whisper"
+      ],
+      "tags": [
+        "语音",
+        "办公",
+        "内容"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "premium-ppt-redesign-from-screenshots",
+      "type": "skill",
+      "title": "PPT 重设计",
+      "summary": "根据截图/草图重设计美化 PPT，提升视觉表现。",
+      "triggers": [
+        "PPT 重设计",
+        "美化幻灯片",
+        "改版 PPT",
+        "PPT 美化"
+      ],
+      "tags": [
+        "PPT",
+        "演示",
+        "设计"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "weixin-minigame-helper",
+      "type": "expert",
+      "title": "专家：微信小游戏",
+      "summary": "专家中心可一键拉起的微信小游戏开发顾问（玩法/性能/接入）。",
+      "triggers": [
+        "小游戏",
+        "微信小游戏",
+        "游戏开发咨询"
+      ],
+      "tags": [
+        "游戏",
+        "前端"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "frontend-design",
+      "type": "expert",
+      "title": "专家：前端设计",
+      "summary": "专家中心可一键拉起的前端/UI 设计顾问。",
+      "triggers": [
+        "前端设计咨询",
+        "UI 设计",
+        "界面设计"
+      ],
+      "tags": [
+        "前端",
+        "设计"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "algorithmic-art",
+      "type": "expert",
+      "title": "专家：算法艺术",
+      "summary": "专家中心可一键拉起的生成艺术/算法视觉顾问。",
+      "triggers": [
+        "算法艺术",
+        "生成艺术",
+        "视觉艺术"
+      ],
+      "tags": [
+        "设计",
+        "图像"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "doc-coauthoring",
+      "type": "expert",
+      "title": "专家：文档协作",
+      "summary": "专家中心可一键拉起的文档共写顾问。",
+      "triggers": [
+        "文档协作",
+        "共写",
+        "长篇文档"
+      ],
+      "tags": [
+        "文档",
+        "写作"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "web-artifacts-builder",
+      "type": "expert",
+      "title": "专家：Web 构建",
+      "summary": "专家中心可一键拉起的 Web 应用/原型构建顾问。",
+      "triggers": [
+        "Web 构建",
+        "做网页应用",
+        "前端原型"
+      ],
+      "tags": [
+        "前端",
+        "原型"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "executing-marketing-campaigns",
+      "type": "expert",
+      "title": "专家：营销活动",
+      "summary": "专家中心可一键拉起的营销活动执行顾问。",
+      "triggers": [
+        "营销活动",
+        "投放",
+        "增长"
+      ],
+      "tags": [
+        "营销",
+        "内容"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "xlsx",
+      "type": "expert",
+      "title": "专家：Excel 表格",
+      "summary": "专家中心可一键拉起的表格处理顾问（进阶于 minimax-xlsx）。",
+      "triggers": [
+        "表格咨询",
+        "Excel 专家",
+        "数据处理"
+      ],
+      "tags": [
+        "数据",
+        "表格"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "pptx",
+      "type": "expert",
+      "title": "专家：PPT 演示",
+      "summary": "专家中心可一键拉起的演示文稿顾问（进阶于 pptx-generator）。",
+      "triggers": [
+        "PPT 咨询",
+        "演示专家",
+        "幻灯片"
+      ],
+      "tags": [
+        "PPT",
+        "演示"
+      ],
+      "activate": "open_expert"
     }
   ]
 }

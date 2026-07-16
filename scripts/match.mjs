@@ -5,7 +5,7 @@
 //   echo "我是安全工程师" | node scripts/match.mjs --json
 //
 // 检索来源（自增长，不封顶）：
-//   1) catalog/capabilities.json —— EFW 精心标注的 37 条内置能力（triggers/tags 精准）
+//   1) catalog/capabilities.json —— EFW 精心标注的策展能力库（triggers/tags 精准，持续丰富，当前 87 条）
 //   2) ~/.workbuddy/skills/*/SKILL.md —— 你机器上已安装的全部技能（自动发现，含 WorkBuddy 内置技能）
 //   3) EFW/user/skills、EFW/user/agents —— 你自己拓展的能力
 // 对输入自述做 触发词/标签/语义 token 重叠 打分，输出最匹配的能力及理由。

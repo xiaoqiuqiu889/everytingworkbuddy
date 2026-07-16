@@ -56,7 +56,7 @@ for (const s of SKILLS) {
   const p = path.join(SKILLS_HOME, s, "SKILL.md");
   if (!existsSync(p)) { fail(`缺失 ${s}/SKILL.md`); continue; }
   const c = readFileSync(p, "utf8");
-  const fm = c.match(/^---\n([\s\S]*?)\n---/);
+  const fm = c.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!fm) { fail(`${s}: frontmatter 缺失`); continue; }
   const meta = fm[1];
   const miss = ["name:", "description:", "version:"].filter((k) => !meta.includes(k));
