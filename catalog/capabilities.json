@@ -1,814 +1,863 @@
 {
-  "version": "1.0.0",
-  "description": "EFW 能力索引：agent 据此检索用户所需能力。每条含 type/title/summary/triggers/tags/activate。",
-  "tags": [
-    "前端",
-    "后端",
-    "全栈",
-    "测试",
-    "质量",
-    "安全",
-    "架构",
-    "规划",
-    "重构",
-    "调试",
-    "性能",
-    "文档",
-    "自动化",
-    "学习",
-    "通用",
-    "数据",
-    "游戏",
-    "发布",
-    "金融",
-    "搜索",
-    "学术",
-    "论文",
-    "营销",
-    "内容",
-    "浏览器",
-    "邮件",
-    "日历",
-    "天气",
-    "语音",
-    "图像",
-    "办公",
-    "协作",
-    "工具",
-    "引擎",
-    "商业",
-    "写作"
-  ],
-  "activate": {
-    "call_skill": "对话中直接调用该技能（喊名或自动触发）",
-    "schedule": "作为子代理提示词，用 Agent/Task 调度复用",
-    "auto": "已写入用户级 MEMORY.md，每会话自动生效",
-    "trust": "需在连接器面板「信任」后才激活",
-    "open_expert": "从左侧「专家」面板点开对话"
-  },
   "capabilities": [
     {
-      "id": "efw",
+      "id": "pdf",
       "type": "skill",
-      "title": "EFW 统一入口（自动路由）",
-      "summary": "收到研发类需求时，自动判断并路由到对应的 efw-* 技能。",
+      "title": "PDF 解析 / 生成 / 转换",
+      "summary": "读取、提取、合并、拆分、压缩、加水印、对比差异 PDF，支持扫描件 OCR 与加密文档。",
       "triggers": [
-        "用 efw",
-        "路由",
-        "该用哪个技能",
-        "自动选技能",
-        "帮我选流程"
+        "pdf",
+        "提取 pdf 文字",
+        "合并 pdf",
+        "扫描件",
+        "合同 pdf",
+        "pdf 转 word"
       ],
       "tags": [
-        "通用"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-plan-feature",
-      "type": "skill",
-      "title": "功能规划",
-      "summary": "把功能/需求拆成可执行计划（架构 + 任务清单），先规划再动手。",
-      "triggers": [
-        "规划功能",
-        "做方案",
-        "拆任务",
-        "需求分析",
-        "设计功能",
-        "怎么实现"
-      ],
-      "tags": [
-        "规划",
-        "架构",
-        "前端",
-        "后端",
-        "通用"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-tdd-workflow",
-      "type": "skill",
-      "title": "TDD 工作流",
-      "summary": "测试驱动开发：先写失败测试再实现，RED→GREEN→REFACTOR。",
-      "triggers": [
-        "TDD",
-        "先写测试",
-        "测试驱动",
-        "写测试",
-        "实现功能",
-        "修 bug"
-      ],
-      "tags": [
-        "测试",
-        "质量",
-        "前端",
-        "后端"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-code-review",
-      "type": "skill",
-      "title": "代码评审",
-      "summary": "按固定清单审查正确性/可读性/安全性/边界，给出可落地修改建议。",
-      "triggers": [
-        "代码评审",
-        "审查代码",
-        "review",
-        "看代码",
-        "找问题",
-        "帮我看这段代码"
-      ],
-      "tags": [
-        "质量",
-        "测试",
-        "前端",
-        "后端"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-build-fix",
-      "type": "skill",
-      "title": "构建报错修复",
-      "summary": "构建/编译报错时先定位根因，杜绝「能编过但没修好」的假修复。",
-      "triggers": [
-        "构建报错",
-        "编译错误",
-        "构建失败",
-        "跑不通",
-        "build error",
-        "依赖问题"
-      ],
-      "tags": [
-        "调试",
-        "前端",
-        "后端"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-refactor-clean",
-      "type": "skill",
-      "title": "重构清理",
-      "summary": "重构与删除死代码，保持外部行为不变，改善结构可读性。",
-      "triggers": [
-        "重构",
-        "清理代码",
-        "死代码",
-        "优化结构",
-        "refactor",
-        "整理"
-      ],
-      "tags": [
-        "重构",
-        "质量",
-        "前端",
-        "后端"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-security-review",
-      "type": "skill",
-      "title": "安全审查",
-      "summary": "专查密钥硬编码/.env 进库/注入/XSS/路径穿越等风险，按风险定级。",
-      "triggers": [
-        "安全审查",
-        "漏洞",
-        "密钥硬编码",
-        "安全检查",
-        "security",
-        "会不会泄露"
-      ],
-      "tags": [
-        "安全",
-        "质量"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-verify",
-      "type": "skill",
-      "title": "验证闭环",
-      "summary": "收尾验证：跑测试→看覆盖率→红了就修，不到绿不收工。",
-      "triggers": [
-        "验证",
-        "收尾",
-        "测试覆盖率",
-        "验收",
-        "verify",
-        "确认没问题"
-      ],
-      "tags": [
-        "测试",
-        "质量",
-        "通用"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-checkpoint",
-      "type": "skill",
-      "title": "进度快照",
-      "summary": "干一半要停时存可恢复快照，下次能接着干。",
-      "triggers": [
-        "存快照",
-        "存档",
-        "暂停",
-        "checkpoint",
-        "恢复进度"
-      ],
-      "tags": [
-        "通用",
-        "学习"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-learn",
-      "type": "skill",
-      "title": "经验提炼",
-      "summary": "从会话中提炼可复用模式/踩坑，沉淀进记忆或技能。",
-      "triggers": [
-        "总结",
-        "提炼",
-        "沉淀经验",
-        "学到了什么",
-        "learn",
-        "复盘"
-      ],
-      "tags": [
-        "学习",
-        "通用"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "efw-profile",
-      "type": "skill",
-      "title": "个人能力检索（Profile）",
-      "summary": "用户自述角色与工作后，自动检索并推荐最匹配的能力组合，写入个人档案。",
-      "triggers": [
-        "我是",
-        "我需要",
-        "我是谁",
-        "我的角色",
-        "帮我检索能力",
-        "我该用哪些能力"
-      ],
-      "tags": [
-        "通用",
-        "规划"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "planner",
-      "type": "agent",
-      "title": "规划子代理",
-      "summary": "把模糊目标拆成带验收标准的执行计划，广域调研后给方案。",
-      "triggers": [
-        "规划",
-        "方案",
-        "拆解",
-        "计划",
-        "路线图"
-      ],
-      "tags": [
-        "规划",
-        "架构"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "architect",
-      "type": "agent",
-      "title": "架构子代理",
-      "summary": "做技术选型与系统设计，权衡方案并产出架构决策。",
-      "triggers": [
-        "架构",
-        "设计",
-        "技术选型",
-        "系统",
-        "模块划分"
-      ],
-      "tags": [
-        "架构",
-        "后端",
-        "前端"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "tdd-guide",
-      "type": "agent",
-      "title": "TDD 引导子代理",
-      "summary": "指导测试驱动开发，先写失败用例再实现。",
-      "triggers": [
-        "TDD",
-        "测试",
-        "先写测试",
-        "用例设计"
-      ],
-      "tags": [
-        "测试",
-        "质量"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "code-reviewer",
-      "type": "agent",
-      "title": "代码评审子代理",
-      "summary": "按清单评审代码，聚焦正确性/可读性/可维护性。",
-      "triggers": [
-        "评审",
-        "审查",
-        "review",
-        "挑毛病"
-      ],
-      "tags": [
-        "质量",
-        "测试"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "security-reviewer",
-      "type": "agent",
-      "title": "安全评审子代理",
-      "summary": "专查注入/XSS/越权/密钥泄露等安全缺陷。",
-      "triggers": [
-        "安全",
-        "漏洞",
-        "密钥",
-        "渗透",
-        "权限"
-      ],
-      "tags": [
-        "安全"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "build-error-resolver",
-      "type": "agent",
-      "title": "构建报错排查子代理",
-      "summary": "定位构建/编译/依赖报错根因并给修复。",
-      "triggers": [
-        "构建报错",
-        "编译错误",
-        "依赖问题",
-        "linker"
-      ],
-      "tags": [
-        "调试"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "e2e-runner",
-      "type": "agent",
-      "title": "端到端测试子代理",
-      "summary": "设计与执行 e2e/集成/冒烟测试，验证关键链路。",
-      "triggers": [
-        "e2e",
-        "端到端测试",
-        "集成测试",
-        "冒烟",
-        "链路验证"
-      ],
-      "tags": [
-        "测试",
-        "质量"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "refactor-cleaner",
-      "type": "agent",
-      "title": "重构清理子代理",
-      "summary": "识别并消除死代码/重复，改善结构不破坏行为。",
-      "triggers": [
-        "重构",
-        "清理",
-        "死代码",
-        "去重"
-      ],
-      "tags": [
-        "重构",
-        "质量"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "doc-updater",
-      "type": "agent",
-      "title": "文档子代理",
-      "summary": "编写/更新文档、注释、变更说明，保持与代码一致。",
-      "triggers": [
+        "办公",
         "文档",
+        "pdf",
+        "法务",
+        "财务",
+        "行政"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "docx",
+      "type": "skill",
+      "title": "Word 文档生成与编辑",
+      "summary": "创建、编辑、排版、格式化 .docx 文档（报告、合同、方案），支持 OpenXML 精细控制。",
+      "triggers": [
+        "word",
+        "docx",
         "写文档",
-        "注释",
-        "更新说明",
-        "changelog"
+        "方案",
+        "报告",
+        "合同模板",
+        "排版"
       ],
       "tags": [
-        "文档"
-      ],
-      "activate": "schedule"
-    },
-    {
-      "id": "security",
-      "type": "rule",
-      "title": "安全准则",
-      "summary": "不硬编码密钥、外部输入零信任、防注入/XSS/路径穿越。",
-      "triggers": [
-        "密钥",
-        "硬编码",
-        "注入",
-        "XSS",
-        "权限",
-        "token"
-      ],
-      "tags": [
-        "安全"
-      ],
-      "activate": "auto"
-    },
-    {
-      "id": "coding-style",
-      "type": "rule",
-      "title": "编码风格准则",
-      "summary": "不可变优先、小函数小文件、命名达意、早返回、显式错误。",
-      "triggers": [
-        "命名",
-        "函数",
-        "可读性",
-        "代码风格",
-        "规范"
-      ],
-      "tags": [
-        "质量",
-        "通用"
-      ],
-      "activate": "auto"
-    },
-    {
-      "id": "testing",
-      "type": "rule",
-      "title": "测试准则",
-      "summary": "新功能/修 bug 先写测试，关键路径覆盖≥80%，测行为不测实现。",
-      "triggers": [
-        "测试",
-        "覆盖率",
-        "TDD",
-        "单测"
-      ],
-      "tags": [
-        "测试",
-        "质量"
-      ],
-      "activate": "auto"
-    },
-    {
-      "id": "git-workflow",
-      "type": "rule",
-      "title": "Git 工作流准则",
-      "summary": "语义化提交、提交小而聚焦、不 --force 共享分支。",
-      "triggers": [
-        "提交",
-        "分支",
-        "commit",
-        "PR",
-        "rebase"
-      ],
-      "tags": [
-        "通用"
-      ],
-      "activate": "auto"
-    },
-    {
-      "id": "agents",
-      "type": "rule",
-      "title": "子代理委派准则",
-      "summary": "广域搜索用只读子代理，改代码用 general-purpose，prompt 自包含。",
-      "triggers": [
-        "子代理",
-        "委派",
-        "调度",
-        "explore",
-        "规划"
-      ],
-      "tags": [
-        "通用",
-        "架构"
-      ],
-      "activate": "auto"
-    },
-    {
-      "id": "performance",
-      "type": "rule",
-      "title": "性能与上下文预算准则",
-      "summary": "简单任务用 lite、复杂推理用 reasoning；每项目启用 <10 连接器。",
-      "triggers": [
-        "性能",
-        "慢",
-        "优化",
-        "预算",
-        "上下文",
-        "模型选择"
-      ],
-      "tags": [
-        "性能",
-        "通用"
-      ],
-      "activate": "auto"
-    },
-    {
-      "id": "context7",
-      "type": "mcp",
-      "title": "Context7（最新库文档）",
-      "summary": "拉取依赖库的最新官方文档与 API，写代码时查用法。",
-      "triggers": [
-        "查文档",
-        "API 文档",
-        "库文档",
-        "最新用法",
-        "这个库怎么用"
-      ],
-      "tags": [
-        "通用",
-        "前端",
-        "后端"
-      ],
-      "activate": "trust"
-    },
-    {
-      "id": "sequential-thinking",
-      "type": "mcp",
-      "title": "Sequential Thinking（分步推理）",
-      "summary": "结构化分步推理，复杂任务拆成可验证思考链。",
-      "triggers": [
-        "分步推理",
-        "复杂问题",
-        "结构化思考",
-        "多步推理"
-      ],
-      "tags": [
-        "通用",
-        "规划"
-      ],
-      "activate": "trust"
-    },
-    {
-      "id": "efw-planner",
-      "type": "expert",
-      "title": "专家：规划",
-      "summary": "专家中心里可一键拉起的规划顾问（对应 planner 子代理）。",
-      "triggers": [
-        "规划咨询",
-        "帮我规划",
-        "方案顾问"
-      ],
-      "tags": [
-        "规划",
-        "架构"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-architect",
-      "type": "expert",
-      "title": "专家：架构",
-      "summary": "专家中心里可一键拉起的架构顾问。",
-      "triggers": [
-        "架构咨询",
-        "技术选型",
-        "系统设计"
-      ],
-      "tags": [
-        "架构",
-        "后端",
-        "前端"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-tdd-guide",
-      "type": "expert",
-      "title": "专家：TDD",
-      "summary": "专家中心里可一键拉起的 TDD 顾问。",
-      "triggers": [
-        "TDD 咨询",
-        "测试设计"
-      ],
-      "tags": [
-        "测试",
-        "质量"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-code-reviewer",
-      "type": "expert",
-      "title": "专家：代码评审",
-      "summary": "专家中心里可一键拉起的评审顾问。",
-      "triggers": [
-        "评审咨询",
-        "代码质量"
-      ],
-      "tags": [
-        "质量",
-        "测试"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-security-reviewer",
-      "type": "expert",
-      "title": "专家：安全评审",
-      "summary": "专家中心里可一键拉起的安全顾问。",
-      "triggers": [
-        "安全咨询",
-        "漏洞排查"
-      ],
-      "tags": [
-        "安全"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-build-error-resolver",
-      "type": "expert",
-      "title": "专家：构建排查",
-      "summary": "专家中心里可一键拉起的构建报错顾问。",
-      "triggers": [
-        "构建咨询",
-        "编译错误"
-      ],
-      "tags": [
-        "调试"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-e2e-runner",
-      "type": "expert",
-      "title": "专家：端到端测试",
-      "summary": "专家中心里可一键拉起的 e2e 测试顾问。",
-      "triggers": [
-        "e2e 咨询",
-        "测试链路"
-      ],
-      "tags": [
-        "测试",
-        "质量"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-refactor-cleaner",
-      "type": "expert",
-      "title": "专家：重构",
-      "summary": "专家中心里可一键拉起的重构顾问。",
-      "triggers": [
-        "重构咨询",
-        "代码清理"
-      ],
-      "tags": [
-        "重构",
-        "质量"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "efw-doc-updater",
-      "type": "expert",
-      "title": "专家：文档",
-      "summary": "专家中心里可一键拉起的文档顾问。",
-      "triggers": [
-        "文档咨询",
-        "写说明"
-      ],
-      "tags": [
-        "文档"
-      ],
-      "activate": "open_expert"
-    },
-    {
-      "id": "game-analysis",
-      "type": "skill",
-      "title": "游戏行业分析",
-      "summary": "游戏行业分析、竞品拆解、舆情与玩家反馈监控。",
-      "triggers": [
-        "竞品拆解",
-        "游戏分析",
-        "竞品分析",
-        "游戏行业",
-        "舆情",
-        "玩家反馈"
-      ],
-      "tags": [
-        "游戏",
-        "竞品",
-        "分析",
-        "策划"
+        "办公",
+        "文档",
+        "word",
+        "写作",
+        "产品",
+        "行政"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "pptx-generator",
+      "id": "xlsx",
       "type": "skill",
-      "title": "PPT 演示生成",
-      "summary": "生成/编辑 PowerPoint 演示文稿，做方案汇报与路演。",
+      "title": "Excel 表格读写与分析",
+      "summary": "创建、读取、编辑、校验 .xlsx，做数据清洗、透视表、图表、公式与多 sheet 汇总。",
       "triggers": [
-        "汇报PPT",
-        "演示",
-        "幻灯片",
-        "方案汇报",
-        "做PPT",
-        "路演"
+        "excel",
+        "xlsx",
+        "表格",
+        "做表",
+        "数据表",
+        "透视表",
+        "csv"
       ],
       "tags": [
+        "办公",
+        "表格",
+        "excel",
+        "数据",
+        "财务",
+        "运营"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "pptx",
+      "type": "skill",
+      "title": "PPT 演示文稿生成",
+      "summary": "从零生成、编辑、读取 PowerPoint（封面/目录/内容/分节/总结），原生可编辑元素。",
+      "triggers": [
+        "ppt",
+        "pptx",
+        "幻灯片",
+        "演示",
         "汇报",
-        "PPT",
+        "做 ppt"
+      ],
+      "tags": [
+        "办公",
+        "ppt",
         "演示",
-        "策划"
+        "汇报",
+        "产品"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "deck-generator",
+      "id": "pdfkit",
       "type": "skill",
-      "title": "AI 配图演示",
-      "summary": "用 AI 配图生成专业演示文稿。",
+      "title": "PDF 全能解析（pdfkit，高热度）",
+      "summary": "加密/扫描/多页合同/长研报自动提取文字表格金额印章，批量拆分对比，一键导出 Excel。",
       "triggers": [
-        "演示",
-        "幻灯片",
-        "AI配图",
-        "做deck"
+        "pdf 提取",
+        "合同解析",
+        "pdfkit",
+        "扫描合同",
+        "pdf 转表格"
       ],
       "tags": [
-        "PPT",
-        "演示"
+        "办公",
+        "pdf",
+        "法务",
+        "财务",
+        "行政"
       ],
-      "activate": "call_skill"
+      "activate": "install"
+    },
+    {
+      "id": "ocr-local",
+      "type": "skill",
+      "title": "本地离线票据 OCR（OCR-Local）",
+      "summary": "本地识别增值税发票/火车票/打车票/手写单，提取金额税号导出 Excel，不上云保隐私。",
+      "triggers": [
+        "发票",
+        "ocr",
+        "票据",
+        "报销",
+        "识别图片文字",
+        "扫描件识别"
+      ],
+      "tags": [
+        "财务",
+        "ocr",
+        "报销",
+        "办公",
+        "本地"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "markitdown",
+      "type": "skill",
+      "title": "文档转 Markdown（markitdown）",
+      "summary": "PDF/Word/PPT/图片(OCR)/音频(转写)/网页 URL 统一转成结构干净的 Markdown。",
+      "triggers": [
+        "转 markdown",
+        "markitdown",
+        "文档转 md",
+        "pdf 转 md",
+        "摘取文字"
+      ],
+      "tags": [
+        "办公",
+        "文档",
+        "转换",
+        "写作",
+        "研究"
+      ],
+      "activate": "install"
     },
     {
       "id": "minimax-xlsx",
       "type": "skill",
-      "title": "Excel 表格处理",
-      "summary": "创建/分析 Excel 表格，做数值表、配置表与数值平衡表。",
+      "title": "Excel 大师（minimax-xlsx）",
+      "summary": "对话式创建/读取/编辑/校验 xlsx，生成数据集、透视表、图表、公式、单元格格式。",
       "triggers": [
-        "数据表格",
-        "Excel",
-        "数值表",
-        "配置表",
-        "数值平衡表",
-        "表格"
+        "excel 大师",
+        "minimax-xlsx",
+        "生成表格",
+        "做报表",
+        "数据建模"
       ],
       "tags": [
-        "数据",
         "表格",
-        "数值",
-        "策划"
+        "excel",
+        "数据",
+        "财务",
+        "分析"
       ],
       "activate": "call_skill"
     },
     {
       "id": "minimax-docx",
       "type": "skill",
-      "title": "Word 文档处理",
-      "summary": "创建/编辑 Word 文档，写方案与设计文档。",
+      "title": "Word 专业生成（minimax-docx）",
+      "summary": "OpenXML SDK 精细生成、编辑、格式化 .docx 文档与报告。",
       "triggers": [
-        "Word文档",
-        "方案文档",
-        "设计文档",
-        "写文档"
+        "minimax-docx",
+        "写 word",
+        "专业文档",
+        "报告生成"
       ],
       "tags": [
         "文档",
-        "Word",
-        "策划"
+        "word",
+        "写作",
+        "办公"
       ],
       "activate": "call_skill"
     },
     {
       "id": "minimax-pdf",
       "type": "skill",
-      "title": "PDF 文档生成",
-      "summary": "生成/编辑高质量 PDF 文档与报告。",
+      "title": "PDF 视觉级生成（minimax-pdf）",
+      "summary": "注重设计质感地生成 PDF 报告/文档，适合对外正式材料。",
       "triggers": [
-        "PDF",
-        "报告PDF",
-        "导出PDF"
+        "minimax-pdf",
+        "生成 pdf",
+        "设计感 pdf",
+        "报告 pdf"
       ],
       "tags": [
-        "PDF",
+        "pdf",
+        "文档",
+        "设计",
+        "办公"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-docs",
+      "type": "skill",
+      "title": "腾讯文档（在线协作文档）",
+      "summary": "新建/编辑/管理腾讯文档（文档/Word/Excel/幻灯片/多维表），团队协作云端同步。",
+      "triggers": [
+        "腾讯文档",
+        "在线文档",
+        "云文档",
+        "协作文档",
+        "多维表"
+      ],
+      "tags": [
+        "办公",
+        "协作",
+        "腾讯生态",
         "文档"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-survey",
+      "type": "skill",
+      "title": "腾讯问卷（问卷/表单/投票）",
+      "summary": "创建问卷、调查、表单、投票、考试、测评，支持 DSL 文本建题。",
+      "triggers": [
+        "问卷",
+        "调研",
+        "表单",
+        "投票",
+        "考试",
+        "测评"
+      ],
+      "tags": [
+        "办公",
+        "调研",
+        "运营",
+        "产品"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-docs-routing",
+      "type": "skill",
+      "title": "本地 Office/WPS 路由",
+      "summary": "本地 doc/docx/xls/xlsx/ppt/pptx 的读写路由入口，兼容 WPS。",
+      "triggers": [
+        "本地 office",
+        "wps",
+        "打开文档",
+        "本地文件"
+      ],
+      "tags": [
+        "办公",
+        "文档",
+        "本地"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-local-office-edit",
+      "type": "skill",
+      "title": "本地 Office 实时编辑",
+      "summary": "通过 editor_sdk 实时读写本机 Office/WPS 文件，所见即所得。",
+      "triggers": [
+        "实时编辑 office",
+        "改本地文档",
+        "编辑 word"
+      ],
+      "tags": [
+        "办公",
+        "文档",
+        "本地"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "batch-file-process",
+      "type": "skill",
+      "title": "本地批量文件处理",
+      "summary": "深度读取授权文件夹，批量重命名/合并拆分/格式互转/OCR/清理重复/自动归档。",
+      "triggers": [
+        "批量处理文件",
+        "批量重命名",
+        "合并文档",
+        "文件归档",
+        "清理重复"
+      ],
+      "tags": [
+        "办公",
+        "文件",
+        "自动化",
+        "行政"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "data-analysis",
+      "type": "skill",
+      "title": "数据分析与清洗",
+      "summary": "上传数据文件自动分析、清洗异常、同环比计算、多维拆解，输出结论。",
+      "triggers": [
+        "数据分析",
+        "清洗数据",
+        "分析表格",
+        "统计",
+        "异常标记"
+      ],
+      "tags": [
+        "数据",
+        "分析",
+        "办公",
+        "运营",
+        "财务"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "data-viz",
+      "type": "skill",
+      "title": "数据可视化图表",
+      "summary": "根据数据自动生成柱状/折线/饼图等商务图表，支持可编辑元素。",
+      "triggers": [
+        "可视化",
+        "画图表",
+        "柱状图",
+        "趋势图",
+        "饼图",
+        "图表"
+      ],
+      "tags": [
+        "数据",
+        "可视化",
+        "汇报",
+        "分析"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "excel-master",
+      "type": "skill",
+      "title": "Excel 数据建模",
+      "summary": "生成数据集、透视表、图表、公式，做财务模型与报表。",
+      "triggers": [
+        "excel 建模",
+        "数据模型",
+        "做报表",
+        "财务模型"
+      ],
+      "tags": [
+        "excel",
+        "数据",
+        "财务",
+        "分析"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "report-gen",
+      "type": "skill",
+      "title": "数据报告自动生成",
+      "summary": "原始数据表→分析→图表→完整汇报文稿一站式输出。",
+      "triggers": [
+        "生成报告",
+        "数据报告",
+        "自动汇报",
+        "周报数据"
+      ],
+      "tags": [
+        "数据",
+        "报告",
+        "汇报",
+        "自动化"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "pptx-generator",
+      "type": "skill",
+      "title": "PPT 生成器（pptx-generator）",
+      "summary": "用 AI 配图与一致设计快速生成演示文稿，含图表与图标布局。",
+      "triggers": [
+        "ppt 生成",
+        "pptx-generator",
+        "做幻灯片",
+        "汇报 ppt"
+      ],
+      "tags": [
+        "ppt",
+        "演示",
+        "设计",
+        "汇报"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "premium-ppt-redesign-from-screenshots",
+      "type": "skill",
+      "title": "PPT 重设计（截图美化）",
+      "summary": "基于参考截图或粗糙内容重设计美化 PPT，提升版式与质感。",
+      "triggers": [
+        "ppt 美化",
+        "重设计 ppt",
+        "ppt 排版",
+        "改 ppt"
+      ],
+      "tags": [
+        "ppt",
+        "设计",
+        "演示"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "ardot-slides",
+      "type": "skill",
+      "title": "幻灯片设计（ardot-slides）",
+      "summary": "游戏/活动日历类与数据报告型幻灯片的原生可编辑设计。",
+      "triggers": [
+        "幻灯片",
+        "活动日历 ppt",
+        "数据报告 ppt",
+        "ardot"
+      ],
+      "tags": [
+        "ppt",
+        "设计",
+        "演示"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "deck-generator",
+      "type": "skill",
+      "title": "专业演示文稿生成（deck-generator）",
+      "summary": "生成带 AI 配图的专业 pitch deck / 演示，支持风格预设。",
+      "triggers": [
+        "deck",
+        "路演 ppt",
+        "融资 ppt",
+        "演示文稿"
+      ],
+      "tags": [
+        "ppt",
+        "设计",
+        "演示",
+        "创业"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "report-ppt",
+      "type": "skill",
+      "title": "数据分析汇报 PPT",
+      "summary": "读取 Excel/CSV 自动分析并生成可视化商务 PPT。",
+      "triggers": [
+        "数据 ppt",
+        "业绩汇报",
+        "竞品分析 ppt",
+        "成本分析 ppt"
+      ],
+      "tags": [
+        "ppt",
+        "数据",
+        "汇报"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "humanizer-zh",
+      "type": "skill",
+      "title": "中文去 AI 痕迹（humanizer-zh）",
+      "summary": "去除文本中的 AI 腔调，使表达更自然像人写，高热度写作技能。",
+      "triggers": [
+        "去 ai 痕迹",
+        "humanizer",
+        "润色",
+        "改得像人写",
+        "去机械感"
+      ],
+      "tags": [
+        "写作",
+        "润色",
+        "内容",
+        "运营"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "article-rule-kit",
+      "type": "skill",
+      "title": "内容合规自检（article-rule-kit）",
+      "summary": "内容运营文章格式与合规自检，避免违规表述。",
+      "triggers": [
+        "内容合规",
+        "文章自检",
+        "审核",
+        "article-rule-kit"
+      ],
+      "tags": [
+        "写作",
+        "内容",
+        "运营",
+        "合规"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "writing-assistant",
+      "type": "skill",
+      "title": "通用写作助手",
+      "summary": "大纲、草稿、改写、扩写、缩写各类中文与英文文本。",
+      "triggers": [
+        "写文章",
+        "写文案",
+        "写作",
+        "草稿",
+        "改写",
+        "扩写"
+      ],
+      "tags": [
+        "写作",
+        "内容",
+        "办公"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "copywriting",
+      "type": "skill",
+      "title": "营销文案撰写",
+      "summary": "生成广告语、卖点、种草文、小红书/抖音风格文案。",
+      "triggers": [
+        "文案",
+        "广告语",
+        "种草",
+        "卖点",
+        "营销文案"
+      ],
+      "tags": [
+        "写作",
+        "营销",
+        "内容",
+        "运营"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "headline-gen",
+      "type": "skill",
+      "title": "标题与金句生成",
+      "summary": "生成吸引点击的标题、公众号标题、短视频标题与金句。",
+      "triggers": [
+        "标题",
+        "金句",
+        "起标题",
+        "slogan"
+      ],
+      "tags": [
+        "写作",
+        "营销",
+        "内容"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "summary",
+      "type": "skill",
+      "title": "摘要与提炼",
+      "summary": "长文/会议/网页/视频提炼要点摘要，支持多语言。",
+      "triggers": [
+        "摘要",
+        "总结",
+        "提炼要点",
+        "归纳"
+      ],
+      "tags": [
+        "写作",
+        "效率",
+        "研究",
+        "办公"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "rewrite",
+      "type": "skill",
+      "title": "文章改写与洗稿",
+      "summary": "保持原意重写文章，换角度/换风格/降重。",
+      "triggers": [
+        "改写",
+        "洗稿",
+        "重写",
+        "换说法",
+        "降重"
+      ],
+      "tags": [
+        "写作",
+        "内容",
+        "运营"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "translate",
+      "type": "skill",
+      "title": "翻译与本地化",
+      "summary": "中英及多语种互译，保留术语与语气，支持本地化。",
+      "triggers": [
+        "翻译",
+        "中英互译",
+        "本地化",
+        "多语言"
+      ],
+      "tags": [
+        "写作",
+        "语言",
+        "办公"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "seo-article",
+      "type": "skill",
+      "title": "SEO 文章生成",
+      "summary": "围绕关键词生成符合搜索优化的文章结构与内容。",
+      "triggers": [
+        "seo",
+        "搜索引擎优化",
+        "关键词文章",
+        "baidu-seo"
+      ],
+      "tags": [
+        "写作",
+        "营销",
+        "seo",
+        "运营"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "web-search",
+      "type": "skill",
+      "title": "联网检索与聚合（web-search）",
+      "summary": "联网搜索并聚合信息，高热度基础能力，几乎所有研究的前提。",
+      "triggers": [
+        "搜索",
+        "联网",
+        "查资料",
+        "web search",
+        "找信息"
+      ],
+      "tags": [
+        "研究",
+        "搜索",
+        "信息",
+        "办公"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "web-search-exa",
+      "type": "skill",
+      "title": "神经网络搜索（web-search-exa）",
+      "summary": "Exa 语义搜索、内容提取、公司与人物研究、代码搜索。",
+      "triggers": [
+        "exa",
+        "语义搜索",
+        "深度搜索",
+        "research"
+      ],
+      "tags": [
+        "研究",
+        "搜索",
+        "ai"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "multi-search-engine",
+      "type": "skill",
+      "title": "多搜索引擎聚合（17 引擎）",
+      "summary": "一次查询覆盖 8 个中文 + 9 个全球引擎，支持高级语法与时间过滤。",
+      "triggers": [
+        "多引擎搜索",
+        "聚合搜索",
+        "搜全网"
+      ],
+      "tags": [
+        "研究",
+        "搜索",
+        "信息"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "market-researcher",
+      "type": "skill",
+      "title": "市场研究员",
+      "summary": "TAM 估算、竞品格局、趋势分析，带引用来源。",
+      "triggers": [
+        "市场研究",
+        "竞品分析",
+        "tam",
+        "行业分析",
+        "市场规模"
+      ],
+      "tags": [
+        "研究",
+        "市场",
+        "商业",
+        "产品"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "competitor-analysis",
+      "type": "skill",
+      "title": "竞品拆解",
+      "summary": "系统性拆解竞品功能、定价、用户与策略，输出对比报告。",
+      "triggers": [
+        "竞品拆解",
+        "竞品分析",
+        "对标",
+        "swot"
+      ],
+      "tags": [
+        "研究",
+        "市场",
+        "产品",
+        "游戏"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "deep-research",
+      "type": "skill",
+      "title": "深度调研报告",
+      "summary": "对复杂问题做多轮检索与综合，输出带证据链的深度报告。",
+      "triggers": [
+        "深度研究",
+        "调研报告",
+        "课题研究",
+        "行业报告"
+      ],
+      "tags": [
+        "研究",
+        "报告",
+        "决策"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "perplexity",
+      "type": "skill",
+      "title": "AI 联网问答（Perplexity）",
+      "summary": "带引用的联网问答，快速获取 grounded 答案。",
+      "triggers": [
+        "perplexity",
+        "联网问答",
+        "引用回答"
+      ],
+      "tags": [
+        "研究",
+        "搜索",
+        "问答"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "news-summary",
+      "type": "skill",
+      "title": "资讯简报（news-summary）",
+      "summary": "每日新闻更新与简报，追踪世界与行业动态。",
+      "triggers": [
+        "新闻",
+        "资讯",
+        "简报",
+        "日报",
+        "动态"
+      ],
+      "tags": [
+        "研究",
+        "资讯",
+        "办公"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "arxiv-reader",
+      "type": "skill",
+      "title": "arXiv 论文深读",
+      "summary": "指定 arXiv id/url，用 LLM Agent 分类与深度阅读，输出笔记。",
+      "triggers": [
+        "arxiv",
+        "读论文",
+        "论文笔记",
+        "论文总结"
+      ],
+      "tags": [
+        "研究",
+        "学术",
+        "ai"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "github-trending-cn",
+      "type": "skill",
+      "title": "GitHub 趋势监控（github-trending-cn）",
+      "summary": "用 GitHub Search API 抓取每日/周/月热门开源项目榜单。",
+      "triggers": [
+        "github 趋势",
+        "开源榜单",
+        "热门项目",
+        "trending"
+      ],
+      "tags": [
+        "开发",
+        "研究",
+        "开源"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "huashu-design",
+      "type": "skill",
+      "title": "HTML 视觉设计（huashu-design）",
+      "summary": "用 HTML 做高保真原型/PPT/动画/信息图/落地页，反 AI slop 设计纪律。",
+      "triggers": [
+        "做个好看的页面",
+        "原型",
+        "html 视觉",
+        "信息图",
+        "落地页",
+        "封面"
+      ],
+      "tags": [
+        "设计",
+        "html",
+        "视觉",
+        "前端"
       ],
       "activate": "call_skill"
     },
@@ -816,389 +865,500 @@
       "id": "md-to-html-report",
       "type": "skill",
       "title": "报告转 HTML 专题页",
-      "summary": "把报告/长文档做成好看好读、便于分享的 HTML 专题页。",
+      "summary": "把 Markdown/文档报告美化成好看好读好分享的单文件 HTML 专题页。",
       "triggers": [
-        "报告页",
+        "报告转网页",
+        "html 报告",
         "专题页",
-        "网页化报告",
-        "美化报告",
-        "汇报可视化",
-        "报告做成网页"
+        "美化报告"
       ],
       "tags": [
-        "报告",
-        "可视化",
-        "分享"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "web-search-exa",
-      "type": "skill",
-      "title": "深度网络检索",
-      "summary": "AI 驱动的网络检索与深度调研，查竞品与资料。",
-      "triggers": [
-        "竞品调研",
-        "资料搜索",
-        "深度搜索",
-        "查资料",
-        "调研"
-      ],
-      "tags": [
-        "调研",
-        "搜索",
-        "竞品"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "market-researcher",
-      "type": "skill",
-      "title": "市场研究",
-      "summary": "市场分析与消费者洞察、机会识别。",
-      "triggers": [
-        "市场研究",
-        "用户调研",
-        "行业研究",
-        "市场机会"
-      ],
-      "tags": [
-        "市场",
-        "调研",
-        "竞品"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "huashu-design",
-      "type": "skill",
-      "title": "HTML 视觉设计",
-      "summary": "用 HTML 做高保真视觉产出（原型/PPT/信息图/动画/落地页）。",
-      "triggers": [
-        "视觉",
-        "原型",
-        "PPT美化",
-        "信息图",
-        "落地页",
-        "好看的页面"
-      ],
-      "tags": [
-        "视觉",
         "设计",
-        "原型"
+        "报告",
+        "html",
+        "视觉"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "summarize",
+      "id": "image-gen",
       "type": "skill",
-      "title": "内容摘要",
-      "summary": "把网页/文件/视频摘要成要点。",
+      "title": "AI 图像生成",
+      "summary": "文生图/图生图批量生成配图、插画、概念图。",
       "triggers": [
-        "摘要",
-        "总结",
-        "长文压缩",
-        "提炼要点"
+        "生成图片",
+        "配图",
+        "插画",
+        "文生图",
+        "ai 绘画"
       ],
       "tags": [
-        "总结",
-        "阅读"
+        "设计",
+        "图像",
+        "创作",
+        "ai"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "tencent-docs",
+      "id": "video-gen",
       "type": "skill",
-      "title": "腾讯文档",
-      "summary": "创建/编辑腾讯在线文档（文档/表格/幻灯片）。",
+      "title": "AI 视频生成",
+      "summary": "文生视频/图生视频，生成短视频与动态素材。",
       "triggers": [
-        "腾讯文档",
-        "在线文档",
-        "协作文档"
+        "生成视频",
+        "文生视频",
+        "短视频",
+        "ai 视频"
       ],
       "tags": [
-        "文档",
-        "协作"
+        "设计",
+        "视频",
+        "创作",
+        "ai"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "tencent-survey",
+      "id": "3d-model",
       "type": "skill",
-      "title": "腾讯问卷",
-      "summary": "腾讯问卷：做问卷/调查/投票/测评。",
+      "title": "3D 模型与视频特效",
+      "summary": "文生/图生 3D 模型，以及基于模板的图片视频特效（拥抱/变身等）。",
       "triggers": [
-        "问卷",
-        "调研问卷",
-        "投票",
-        "考试测评"
+        "3d 模型",
+        "生成 3d",
+        "视频特效",
+        "图生 3d"
       ],
       "tags": [
-        "问卷",
-        "调研"
+        "设计",
+        "3d",
+        "视频",
+        "ai"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "news-summary",
+      "id": "art-design",
       "type": "skill",
-      "title": "资讯简报",
-      "summary": "获取并摘要每日新闻与行业动态。",
+      "title": "艺术插画设计",
+      "summary": "生成艺术风格插画、海报与装饰素材。",
       "triggers": [
-        "行业资讯",
-        "每日简报",
-        "新闻"
+        "插画",
+        "艺术",
+        "海报",
+        "配图风格"
       ],
       "tags": [
-        "资讯",
-        "新闻"
+        "设计",
+        "图像",
+        "创作"
       ],
-      "activate": "call_skill"
+      "activate": "install"
     },
     {
-      "id": "notebooklm-studio",
+      "id": "logo-design",
       "type": "skill",
-      "title": "知识库工作室",
-      "summary": "把资料导入知识库，生成播客/报告/思维导图。",
+      "title": "Logo 与品牌视觉",
+      "summary": "生成 logo、品牌色板与基础视觉规范。",
       "triggers": [
-        "知识库",
-        "资料整理",
-        "播客"
+        "logo",
+        "做 logo",
+        "品牌视觉",
+        "商标"
       ],
       "tags": [
-        "知识库",
-        "整理"
+        "设计",
+        "品牌",
+        "图像"
       ],
-      "activate": "call_skill"
+      "activate": "install"
     },
     {
-      "id": "obsidian",
+      "id": "poster-design",
       "type": "skill",
-      "title": "Obsidian 笔记",
-      "summary": "管理 Obsidian 本地 Markdown 知识库。",
+      "title": "海报与封面设计",
+      "summary": "生成活动海报、公众号封面、电商主图。",
       "triggers": [
-        "笔记",
-        "知识库",
-        "双链"
+        "海报",
+        "封面",
+        "主图",
+        "活动图"
       ],
       "tags": [
-        "笔记",
-        "知识库"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "arxiv-reader",
-      "type": "skill",
-      "title": "论文深度阅读",
-      "summary": "深度阅读 arXiv 论文并产出笔记。",
-      "triggers": [
-        "论文",
-        "学术",
-        "arxiv",
-        "读论文"
-      ],
-      "tags": [
-        "学术",
-        "论文"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "content-factory",
-      "type": "skill",
-      "title": "内容工厂",
-      "summary": "把一份素材生成多平台内容（社媒/邮件/脚本）。",
-      "triggers": [
-        "内容创作",
-        "社媒",
-        "多平台"
-      ],
-      "tags": [
-        "内容",
+        "设计",
+        "图像",
         "营销"
       ],
+      "activate": "install"
+    },
+    {
+      "id": "ui-mockup",
+      "type": "skill",
+      "title": "UI/App 原型与 Mockup",
+      "summary": "生成 App/网页界面原型与 iOS/Android mockup。",
+      "triggers": [
+        "ui 原型",
+        "app 界面",
+        "mockup",
+        "界面设计"
+      ],
+      "tags": [
+        "设计",
+        "前端",
+        "产品"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "html-deploy",
+      "type": "skill",
+      "title": "网页一键部署（html-deploy）",
+      "summary": "从想法到可访问 URL 秒级部署静态站点。",
+      "triggers": [
+        "部署网页",
+        "上线",
+        "html deploy",
+        "发网站"
+      ],
+      "tags": [
+        "前端",
+        "部署",
+        "设计"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "cloudstudio-deploy",
+      "type": "skill",
+      "title": "CloudStudio 云端部署",
+      "summary": "将本地静态站点部署到 CloudStudio 沙箱，获得访问 URL。",
+      "triggers": [
+        "云端部署",
+        "cloudstudio",
+        "部署站点"
+      ],
+      "tags": [
+        "前端",
+        "部署",
+        "云"
+      ],
       "activate": "call_skill"
     },
     {
-      "id": "neodata-financial-search",
+      "id": "agent-browser",
       "type": "skill",
-      "title": "金融数据搜索",
-      "summary": "自然语言查询股票/基金/指数/宏观/外汇等全品类金融数据，即问即答。",
+      "title": "浏览器自动化（agent-browser）",
+      "summary": "真实 Chromium 驱动，点按钮/填表/滚动/截图/结构化抽取数据。",
       "triggers": [
-        "查股票",
-        "金融数据",
-        "股价",
-        "基金",
-        "宏观数据",
-        "行情"
+        "浏览器自动化",
+        "agent-browser",
+        "网页操作",
+        "自动填表",
+        "截图网页"
       ],
       "tags": [
-        "数据",
-        "金融",
-        "分析"
+        "自动化",
+        "浏览器",
+        "采集",
+        "运营"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "macro-monitor",
+      "id": "playwright-cli",
       "type": "skill",
-      "title": "宏观数据监控",
-      "summary": "每日自动监控宏观数据与政策，整理推送过去 24 小时要点。",
+      "title": "Playwright 浏览器测试",
+      "summary": "导航网页、点击、填表、截图、提取数据，用于测试与采集。",
       "triggers": [
-        "宏观监控",
-        "每日宏观",
-        "经济数据",
-        "政策追踪"
+        "playwright",
+        "网页测试",
+        "e2e",
+        "浏览器脚本"
+      ],
+      "tags": [
+        "开发",
+        "测试",
+        "浏览器"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "browser-use",
+      "type": "skill",
+      "title": "浏览器任务（browser-use）",
+      "summary": "用自然语言驱动浏览器完成多步任务与数据提取。",
+      "triggers": [
+        "browser-use",
+        "网页任务",
+        "自动浏览"
+      ],
+      "tags": [
+        "自动化",
+        "浏览器",
+        "ai"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "web-scraper",
+      "type": "skill",
+      "title": "网页数据采集",
+      "summary": "从无 API 的网页结构化抓取数据，存表或入库。",
+      "triggers": [
+        "爬虫",
+        "抓取数据",
+        "采集网页",
+        "scrape"
       ],
       "tags": [
         "数据",
-        "金融",
+        "采集",
         "自动化"
       ],
-      "activate": "call_skill"
+      "activate": "install"
     },
     {
-      "id": "earnings-tracker",
+      "id": "screenshot",
       "type": "skill",
-      "title": "财报追踪",
-      "summary": "扫描 A 股/美股财报日历，自动推送重要财报更新。",
+      "title": "网页截图与监控",
+      "summary": "整页/区域截图，用于监控与视觉校验。",
       "triggers": [
-        "财报",
-        "业绩预告",
-        " earnings",
-        "财报日历"
+        "截图",
+        "网页截图",
+        "监控截图"
+      ],
+      "tags": [
+        "浏览器",
+        "自动化",
+        "运营"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "form-fill",
+      "type": "skill",
+      "title": "表单自动填写",
+      "summary": "自动填写网页表单、批量提交、数据录入。",
+      "triggers": [
+        "自动填表",
+        "表单录入",
+        "批量提交"
+      ],
+      "tags": [
+        "自动化",
+        "浏览器",
+        "办公"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "price-monitor",
+      "type": "skill",
+      "title": "竞品价格监控",
+      "summary": "定时抓取竞品页面价格变化，生成监控报表。",
+      "triggers": [
+        "价格监控",
+        "竞品监控",
+        "盯价"
+      ],
+      "tags": [
+        "运营",
+        "采集",
+        "自动化"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "data-extraction",
+      "type": "skill",
+      "title": "结构化数据抽取",
+      "summary": "从网页/文档抽取字段，整理成结构化表格。",
+      "triggers": [
+        "抽取数据",
+        "字段提取",
+        "信息抽取"
       ],
       "tags": [
         "数据",
-        "金融"
+        "采集",
+        "自动化"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "efw",
+      "type": "skill",
+      "title": "EFW 研发流程统一入口",
+      "summary": "自动路由到合适的 efw-* 子技能（规划/TDD/评审/修复/重构/安全/验证）。",
+      "triggers": [
+        "用 efw",
+        "研发流程",
+        "工程规范"
+      ],
+      "tags": [
+        "开发",
+        "工程",
+        "路由"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "revenue-intelligence",
+      "id": "efw-plan-feature",
       "type": "skill",
-      "title": "营收洞察",
-      "summary": "从销售通话/数据中提炼洞察，做营收归因与客户端报告。",
+      "title": "功能方案规划",
+      "summary": "把功能/需求拆成可执行实现计划再编码。",
       "triggers": [
-        "营收",
-        "销售分析",
-        "收入归因",
-        "客户报告"
+        "规划功能",
+        "方案设计",
+        "实现计划",
+        "技术设计"
       ],
       "tags": [
-        "数据",
-        "分析",
-        "商业"
+        "开发",
+        "规划",
+        "工程"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "fintech-engineer",
+      "id": "efw-tdd-workflow",
       "type": "skill",
-      "title": "金融科技工程",
-      "summary": "金融系统/支付/合规（PCI DSS、AML、KYC）专家支持。",
+      "title": "测试驱动开发（TDD）",
+      "summary": "RED→GREEN→REFACTOR 流程，先写测试再实现。",
       "triggers": [
-        "金融系统",
-        "支付",
-        "合规",
-        "fintech",
-        "AML"
+        "tdd",
+        "测试驱动",
+        "先写测试",
+        "写单测"
       ],
       "tags": [
-        "金融",
-        "后端",
-        "安全"
+        "开发",
+        "测试",
+        "工程"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "arxiv-watcher",
+      "id": "efw-code-review",
       "type": "skill",
-      "title": "论文追踪",
-      "summary": "检索与摘要 arXiv 最新论文，可按主题生成每日 AI 论文简报。",
+      "title": "代码评审",
+      "summary": "评审正确性、可读性、可维护性与一致性，输出 diff/PR 反馈。",
       "triggers": [
-        "论文追踪",
-        "arxiv",
-        "最新研究",
-        "AI 论文",
-        "学术动态"
+        "代码评审",
+        "review",
+        "cr",
+        "看代码"
       ],
       "tags": [
-        "学术",
-        "论文",
-        "搜索"
+        "开发",
+        "质量",
+        "工程"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "perplexity",
+      "id": "efw-build-fix",
       "type": "skill",
-      "title": "AI 搜索问答",
-      "summary": "用 Perplexity 做带引用的联网问答与深度调研。",
+      "title": "构建错误修复",
+      "summary": "从根因诊断并修复编译/构建错误，而非压制。",
       "triggers": [
-        "AI 搜索",
-        "联网问答",
-        "带引用查询",
-        "深度调研"
+        "构建报错",
+        "编译错误",
+        "build fail",
+        "修报错"
       ],
       "tags": [
-        "搜索",
-        "调研",
-        "学术"
+        "开发",
+        "调试",
+        "工程"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "multi-search-engine",
+      "id": "efw-refactor-clean",
       "type": "skill",
-      "title": "多引擎搜索",
-      "summary": "聚合 17 个搜索引擎（中英文）做广域检索与交叉验证。",
+      "title": "重构与死代码清理",
+      "summary": "重构代码、移除重复/死代码，不改外部行为。",
       "triggers": [
-        "多引擎搜索",
-        "全网搜索",
-        "搜索引擎",
-        "交叉验证"
+        "重构",
+        "清理代码",
+        "去重",
+        "refactor"
       ],
       "tags": [
-        "搜索",
-        "调研"
+        "开发",
+        "质量",
+        "工程"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "github-trending-cn",
+      "id": "efw-security-review",
       "type": "skill",
-      "title": "GitHub 趋势（中文）",
-      "summary": "用 GitHub Search API 拉取每日/周/月热门仓库排行榜。",
+      "title": "安全评审",
+      "summary": "查找漏洞与密钥泄露，按风险分级。",
       "triggers": [
-        "GitHub 趋势",
-        "热门仓库",
-        "star 排行",
-        "开源风向"
+        "安全评审",
+        "漏洞",
+        "安全扫描",
+        "secret 泄露"
       ],
       "tags": [
-        "前端",
-        "后端",
-        "调研"
+        "开发",
+        "安全",
+        "工程"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "github-ai-trends",
+      "id": "efw-verify",
       "type": "skill",
-      "title": "GitHub AI 趋势",
-      "summary": "生成 GitHub AI/ML/LLM 方向热门项目榜单报告。",
+      "title": "验证闭环",
+      "summary": "测试→覆盖→红则修的验证循环，收尾前确认。",
       "triggers": [
-        "AI 趋势",
-        "AI 仓库",
-        "大模型趋势",
-        "ML 排行"
+        "验证",
+        "verify",
+        "跑测试",
+        "确认完成"
       ],
       "tags": [
-        "前端",
-        "后端",
-        "调研"
+        "开发",
+        "测试",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "efw-checkpoint",
+      "type": "skill",
+      "title": "验证状态快照",
+      "summary": "保存可恢复快照，便于后续会话续做。",
+      "triggers": [
+        "快照",
+        "checkpoint",
+        "存档进度"
+      ],
+      "tags": [
+        "开发",
+        "工程"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "efw-learn",
+      "type": "skill",
+      "title": "经验沉淀",
+      "summary": "把本次会话可复用模式提炼进记忆。",
+      "triggers": [
+        "沉淀经验",
+        "learn",
+        "总结方法"
+      ],
+      "tags": [
+        "开发",
+        "工程",
+        "记忆"
       ],
       "activate": "call_skill"
     },
@@ -1206,381 +1366,1343 @@
       "id": "github",
       "type": "skill",
       "title": "GitHub 操作",
-      "summary": "用 gh CLI 管理 issue/PR/CI 与仓库查询。",
+      "summary": "用 gh CLI 管理 issue/PR/CI/API。",
       "triggers": [
-        "GitHub",
-        "gh",
-        "提 PR",
-        "issue",
-        "CI 状态"
+        "github",
+        "提 pr",
+        "建 issue",
+        "合并分支"
       ],
       "tags": [
-        "通用",
-        "后端",
-        "前端"
+        "开发",
+        "协作",
+        "git"
       ],
       "activate": "call_skill"
     },
     {
       "id": "mcp-builder",
       "type": "skill",
-      "title": "MCP 服务构建",
-      "summary": "构建高质量 MCP 服务，让 LLM 接入外部工具/API。",
+      "title": "MCP 服务器构建",
+      "summary": "构建高质量 MCP 服务器，定义工具与资源。",
       "triggers": [
-        "MCP",
-        "构建连接器",
-        "接入外部服务",
-        "工具服务"
+        "mcp 构建",
+        "做连接器",
+        "mcp server"
       ],
       "tags": [
-        "后端",
-        "工具",
-        "自动化"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "mcporter",
-      "type": "skill",
-      "title": "MCP 调用（mcporter）",
-      "summary": "列出/配置/调用任意 MCP server 的工具，含临时服务。",
-      "triggers": [
-        "调用 MCP",
-        "mcporter",
-        "MCP 工具",
-        "连接器调试"
-      ],
-      "tags": [
-        "工具",
-        "自动化",
-        "通用"
+        "开发",
+        "mcp",
+        "集成"
       ],
       "activate": "call_skill"
     },
     {
       "id": "skill-creator",
       "type": "skill",
-      "title": "技能创建",
-      "summary": "创建/优化可复用 skill（SKILL.md + 配套脚本/参考）。",
+      "title": "技能创建器",
+      "summary": "把重复性工作流自然语言封装成可复用技能。",
       "triggers": [
         "创建技能",
-        "写 skill",
-        "做技能",
-        "skill 模板"
+        "造技能",
+        "skill-creator",
+        "封装工作流"
       ],
       "tags": [
-        "通用",
-        "学习",
-        "工具"
+        "开发",
+        "效率",
+        "技能"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "skills-security-check",
+      "id": "skill-scanner",
       "type": "skill",
-      "title": "技能安全审查",
-      "summary": "安装前对 skill 做静态安全审计，识别风险再安装。",
+      "title": "技能安全审查（skill-scanner）",
+      "summary": "安装社区技能前做本地静态安全审计。",
       "triggers": [
-        "技能安全",
-        "skill 审计",
-        "审查技能",
-        "安全检查"
+        "技能审查",
+        "skill-scanner",
+        "安全审计"
       ],
       "tags": [
         "安全",
-        "工具"
+        "技能",
+        "质量"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "content-repurposer",
+      "id": "find-skills",
       "type": "skill",
-      "title": "内容改写分发",
-      "summary": "把长内容改写成各平台适配的短内容片段。",
+      "title": "技能发现（find-skills）",
+      "summary": "按需求搜索并安装匹配的技能。",
       "triggers": [
-        "内容改写",
-        "多平台分发",
-        "社媒改编",
-        "二次创作"
+        "找技能",
+        "装技能",
+        "find-skills",
+        "推荐技能"
       ],
       "tags": [
-        "内容",
-        "营销",
-        "写作"
+        "技能",
+        "效率",
+        "发现"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "autoresearch",
+      "id": "zoom-out",
       "type": "skill",
-      "title": "自优化研究",
-      "summary": "Karpathy 式自优化：生成多变体、专家打分、演化优胜方案。",
+      "title": "代码库理解（zoom-out）",
+      "summary": "快速理解陌生代码库结构与意图。",
       "triggers": [
-        "自优化",
-        "自动研究",
-        "变体演化",
-        "研究自动化"
+        "理解代码库",
+        "看项目",
+        "zoom-out",
+        "代码导航"
       ],
       "tags": [
+        "开发",
         "研究",
-        "学术",
-        "自动化"
+        "工程"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "wb-finance-skill",
+      "type": "skill",
+      "title": "金融总入口（wb-finance-skill）",
+      "summary": "股票/基金/ETF/宏观/外汇/财报/估值/量化总入口。",
+      "triggers": [
+        "金融",
+        "投资",
+        "股票",
+        "理财",
+        "wb-finance"
+      ],
+      "tags": [
+        "金融",
+        "数据",
+        "投资"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "browser-use",
+      "id": "westock-data",
       "type": "skill",
-      "title": "浏览器自动化",
-      "summary": "用 browser-use 自动浏览网页、点击、填表、抓数据。",
+      "title": "金融结构化数据（westock-data）",
+      "summary": "A/港/美股、ETF、指数、期货、外汇、可转债行情与财报研报新闻。",
       "triggers": [
-        "浏览器自动化",
-        "自动填表",
-        "网页操作",
-        "自动点击"
+        "行情",
+        "财报",
+        "研报",
+        "股价",
+        "westock"
       ],
       "tags": [
-        "浏览器",
-        "自动化",
+        "金融",
+        "数据",
+        "投资"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "westock-tool",
+      "type": "skill",
+      "title": "选股 / 选基工具（westock-tool）",
+      "summary": "按条件/策略/标签/事件/排行批量筛选股票或 ETF。",
+      "triggers": [
+        "选股",
+        "选基",
+        "筛选股票",
+        "etf"
+      ],
+      "tags": [
+        "金融",
+        "投资",
         "工具"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "neodata-financial-search",
+      "type": "skill",
+      "title": "自然语言金融搜索",
+      "summary": "自然语言查全品类金融数据，含财报/资金流/研报。",
+      "triggers": [
+        "金融搜索",
+        "查数据",
+        "资金流向",
+        "neodata"
+      ],
+      "tags": [
+        "金融",
+        "数据",
+        "投资"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "fintech-engineer",
+      "type": "skill",
+      "title": "金融科技工程师",
+      "summary": "支付/银行/合规(PCI/AML/KYC)系统集成专家。",
+      "triggers": [
+        "金融科技",
+        "支付",
+        "银行系统",
+        "fintech"
+      ],
+      "tags": [
+        "金融",
+        "工程",
+        "合规"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "earnings-tracker",
+      "type": "skill",
+      "title": "财报追踪（earnings-tracker）",
+      "summary": "扫描 A 股/美股财报日历，推送重要财报更新。",
+      "triggers": [
+        "财报日历",
+        "财报提醒",
+        "earnings"
+      ],
+      "tags": [
+        "金融",
+        "财报",
+        "投资"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "revenue-intelligence",
+      "type": "skill",
+      "title": "营收洞察（revenue-intelligence）",
+      "summary": "从销售通话提取洞察、归因模型、生成客户报告。",
+      "triggers": [
+        "营收",
+        "销售分析",
+        "收入洞察",
+        "revenue"
+      ],
+      "tags": [
+        "金融",
+        "数据",
+        "商业"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "macro-monitor",
+      "type": "skill",
+      "title": "宏观数据监控（macro-monitor）",
+      "summary": "每日监控免费宏观数据源，整合过去 24h 数据与政策。",
+      "triggers": [
+        "宏观",
+        "经济数据",
+        "宏观监控",
+        "macro"
+      ],
+      "tags": [
+        "金融",
+        "宏观",
+        "数据"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "qq-email",
+      "type": "skill",
+      "title": "QQ 邮箱收发",
+      "summary": "Node 脚本读写 QQ 邮箱 IMAP/SMTP，凭据走环境变量。",
+      "triggers": [
+        "qq 邮箱",
+        "收邮件",
+        "发邮件",
+        "qq email"
+      ],
+      "tags": [
+        "办公",
+        "邮件",
+        "通讯"
       ],
       "activate": "call_skill"
     },
     {
       "id": "imap-smtp-email",
       "type": "skill",
-      "title": "邮件收发",
-      "summary": "通过 IMAP/SMTP 读信、发信、检索与整理邮件。",
+      "title": "IMAP/SMTP 通用邮件",
+      "summary": "通用 IMAP/SMTP 读取与发送邮件、搜索、标记。",
       "triggers": [
         "邮件",
-        "发邮件",
-        "读邮件",
-        "IMAP",
-        "SMTP"
+        "imap",
+        "smtp",
+        "收信",
+        "发信"
       ],
       "tags": [
-        "通信",
-        "自动化",
-        "办公"
+        "办公",
+        "邮件",
+        "通讯"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "himalaya",
+      "type": "skill",
+      "title": "Himalaya 邮件管理",
+      "summary": "用 himalaya CLI 管理邮件（列出/读取/撰写/回复）。",
+      "triggers": [
+        "himalaya",
+        "命令行邮件",
+        "邮件管理"
+      ],
+      "tags": [
+        "办公",
+        "邮件",
+        "cli"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "tencent-meeting-mcp",
+      "type": "skill",
+      "title": "腾讯会议（tencent-meeting-mcp）",
+      "summary": "腾讯会议创建/管理/查询，需按版本加载。",
+      "triggers": [
+        "腾讯会议",
+        "会议",
+        "预约会议",
+        "meeting"
+      ],
+      "tags": [
+        "办公",
+        "会议",
+        "腾讯生态"
       ],
       "activate": "call_skill"
     },
     {
       "id": "caldav-calendar",
       "type": "skill",
-      "title": "日历同步",
-      "summary": "同步/查询 CalDAV 日历（iCloud/Google/Fastmail 等）。",
+      "title": "CalDAV 日历同步",
+      "summary": "同步与查询 CalDAV 日历（iCloud/Google/Fastmail/Nextcloud）。",
       "triggers": [
         "日历",
+        "caldav",
         "日程",
-        "CalDAV",
         "提醒"
       ],
       "tags": [
         "办公",
-        "自动化",
-        "通信"
+        "日历",
+        "效率"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "weather",
+      "id": "teamchat-pro",
       "type": "skill",
-      "title": "天气查询",
-      "summary": "获取当前天气与预报（无需密钥）。",
+      "title": "企业微信消息聚合（TeamChat Pro）",
+      "summary": "打通企微群/私聊，抓每日消息提取待办与要点，定时生成简报。",
       "triggers": [
-        "天气",
-        "气温",
-        "预报",
-        "下雨"
+        "企微聚合",
+        "企业微信",
+        "消息简报",
+        "teamchat"
       ],
       "tags": [
-        "通用",
-        "查询"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "openai-image-gen",
-      "type": "skill",
-      "title": "AI 配图生成",
-      "summary": "批量生成配图（OpenAI Images API），含画廊页。",
-      "triggers": [
-        "生成图片",
-        "AI 配图",
-        "画图",
-        "配图"
-      ],
-      "tags": [
-        "图像",
-        "设计",
-        "内容"
-      ],
-      "activate": "call_skill"
-    },
-    {
-      "id": "openai-whisper",
-      "type": "skill",
-      "title": "语音转文字",
-      "summary": "本地用 Whisper 把音频/会议录音转成文字稿。",
-      "triggers": [
-        "语音转文字",
-        "录音转写",
-        "字幕",
-        "whisper"
-      ],
-      "tags": [
-        "语音",
         "办公",
-        "内容"
+        "通讯",
+        "企微",
+        "自动化"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "wechat-bot",
+      "type": "skill",
+      "title": "微信 / 企微 Bot",
+      "summary": "通过微信/企业微信发指令远程派活，成品推回 IM。",
+      "triggers": [
+        "微信 bot",
+        "企微 bot",
+        "远程指令",
+        "im bot"
+      ],
+      "tags": [
+        "通讯",
+        "自动化",
+        "腾讯生态"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "feishu-bot",
+      "type": "skill",
+      "title": "飞书 Bot 与多维表格",
+      "summary": "飞书机器人通知 + 多维表格读写联动，自动化数据同步。",
+      "triggers": [
+        "飞书",
+        "多维表格",
+        "feishu",
+        "表格联动"
+      ],
+      "tags": [
+        "办公",
+        "通讯",
+        "飞书",
+        "自动化"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "ima-knowledge",
+      "type": "skill",
+      "title": "IMA 私有知识库",
+      "summary": "搭建本地私有知识库，基于 RAG 仅调取内部资料作答。",
+      "triggers": [
+        "知识库",
+        "ima",
+        "私有知识库",
+        "rag"
+      ],
+      "tags": [
+        "知识",
+        "办公",
+        "检索"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "obsidian",
+      "type": "skill",
+      "title": "Obsidian 笔记管理",
+      "summary": "操作 Obsidian 仓库（Markdown 笔记）与自动化。",
+      "triggers": [
+        "obsidian",
+        "笔记",
+        "双链",
+        "知识库"
+      ],
+      "tags": [
+        "知识",
+        "笔记",
+        "效率"
       ],
       "activate": "call_skill"
     },
     {
-      "id": "premium-ppt-redesign-from-screenshots",
+      "id": "notebooklm-studio",
       "type": "skill",
-      "title": "PPT 重设计",
-      "summary": "根据截图/草图重设计美化 PPT，提升视觉表现。",
+      "title": "NotebookLM 工作室",
+      "summary": "导入来源生成播客/视频/报告/测验/思维导图。",
       "triggers": [
-        "PPT 重设计",
-        "美化幻灯片",
-        "改版 PPT",
-        "PPT 美化"
+        "notebooklm",
+        "播客",
+        "知识整理",
+        "学习"
       ],
       "tags": [
-        "PPT",
-        "演示",
+        "知识",
+        "学习",
+        "ai"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "knowledge-base",
+      "type": "skill",
+      "title": "企业知识库搭建",
+      "summary": "批量入库制度/手册/文档，RAG 检索，沉淀第二大脑。",
+      "triggers": [
+        "知识库搭建",
+        "文档沉淀",
+        "企业知识库"
+      ],
+      "tags": [
+        "知识",
+        "办公",
+        "检索"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "doc-coauthoring",
+      "type": "skill",
+      "title": "文档协同写作",
+      "summary": "多人/多专家协同撰写与整合长篇文档。",
+      "triggers": [
+        "协同写作",
+        "共同创作",
+        "文档协作"
+      ],
+      "tags": [
+        "写作",
+        "协作",
+        "知识"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "second-brain",
+      "type": "skill",
+      "title": "第二大脑 / 个人 Wiki",
+      "summary": "把分散资料组织成可检索的个人知识系统。",
+      "triggers": [
+        "第二大脑",
+        "个人知识库",
+        "wiki",
+        "知识管理"
+      ],
+      "tags": [
+        "知识",
+        "效率",
+        "笔记"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "market-research-expert",
+      "type": "expert",
+      "title": "市场研究专家",
+      "summary": "市场格局、用户、竞品与趋势的专项研究顾问。",
+      "triggers": [
+        "市场专家",
+        "市场顾问",
+        "行业咨询"
+      ],
+      "tags": [
+        "专家",
+        "市场",
+        "研究",
+        "商业"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "ui-design-expert",
+      "type": "expert",
+      "title": "UI 设计专家",
+      "summary": "界面与交互设计、视觉规范、可用性评审。",
+      "triggers": [
+        "ui 专家",
+        "设计顾问",
+        "界面设计"
+      ],
+      "tags": [
+        "专家",
+        "设计",
+        "前端"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "code-review-expert",
+      "type": "expert",
+      "title": "代码评审专家",
+      "summary": "深度代码质量与架构评审顾问。",
+      "triggers": [
+        "代码评审专家",
+        "cr 专家"
+      ],
+      "tags": [
+        "专家",
+        "开发",
+        "质量"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "legal-expert",
+      "type": "expert",
+      "title": "法律专家",
+      "summary": "合同、合规、涉诉与法规核验顾问。",
+      "triggers": [
+        "法律专家",
+        "法务顾问",
+        "合规"
+      ],
+      "tags": [
+        "专家",
+        "法务",
+        "合规"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "finance-expert",
+      "type": "expert",
+      "title": "金融专家",
+      "summary": "投资、估值、风控与财报分析顾问。",
+      "triggers": [
+        "金融专家",
+        "投资顾问",
+        "财务顾问"
+      ],
+      "tags": [
+        "专家",
+        "金融",
+        "投资"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "writing-expert",
+      "type": "expert",
+      "title": "写作专家",
+      "summary": "长文、文案、品牌内容的写作与润色顾问。",
+      "triggers": [
+        "写作专家",
+        "文案顾问"
+      ],
+      "tags": [
+        "专家",
+        "写作",
+        "内容"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "data-expert",
+      "type": "expert",
+      "title": "数据分析专家",
+      "summary": "指标体系、分析方法与可视化顾问。",
+      "triggers": [
+        "数据专家",
+        "分析顾问"
+      ],
+      "tags": [
+        "专家",
+        "数据",
+        "分析"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "product-expert",
+      "type": "expert",
+      "title": "产品专家",
+      "summary": "需求、PRD、增长与产品策略顾问。",
+      "triggers": [
+        "产品专家",
+        "产品顾问",
+        "prd"
+      ],
+      "tags": [
+        "专家",
+        "产品",
+        "商业"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "hr-expert",
+      "type": "expert",
+      "title": "HR 专家",
+      "summary": "招聘、薪酬、绩效与组织顾问。",
+      "triggers": [
+        "hr 专家",
+        "人力顾问"
+      ],
+      "tags": [
+        "专家",
+        "hr",
+        "组织"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "ops-expert",
+      "type": "expert",
+      "title": "运营专家",
+      "summary": "用户、内容、活动与增长运营顾问。",
+      "triggers": [
+        "运营专家",
+        "运营顾问"
+      ],
+      "tags": [
+        "专家",
+        "运营",
+        "增长"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "frontend-design-expert",
+      "type": "expert",
+      "title": "前端设计专家",
+      "summary": "前端界面设计与实现顾问。",
+      "triggers": [
+        "前端专家",
+        "frontend 顾问"
+      ],
+      "tags": [
+        "专家",
+        "前端",
         "设计"
       ],
-      "activate": "call_skill"
+      "activate": "open_expert"
     },
     {
-      "id": "weixin-minigame-helper",
+      "id": "pptx-expert",
       "type": "expert",
-      "title": "专家：微信小游戏",
-      "summary": "专家中心可一键拉起的微信小游戏开发顾问（玩法/性能/接入）。",
+      "title": "PPT 专家",
+      "summary": "演示结构与视觉设计的专项顾问。",
+      "triggers": [
+        "ppt 专家",
+        "演示顾问"
+      ],
+      "tags": [
+        "专家",
+        "ppt",
+        "设计"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "xlsx-expert",
+      "type": "expert",
+      "title": "Excel 专家",
+      "summary": "表格建模、函数与自动化顾问。",
+      "triggers": [
+        "excel 专家",
+        "表格顾问"
+      ],
+      "tags": [
+        "专家",
+        "excel",
+        "数据"
+      ],
+      "activate": "open_expert"
+    },
+    {
+      "id": "weixin-minigame-expert",
+      "type": "expert",
+      "title": "微信小游戏专家",
+      "summary": "微信小游戏开发与设计顾问。",
       "triggers": [
         "小游戏",
         "微信小游戏",
-        "游戏开发咨询"
+        "minigame"
       ],
       "tags": [
+        "专家",
         "游戏",
         "前端"
       ],
       "activate": "open_expert"
     },
     {
-      "id": "frontend-design",
-      "type": "expert",
-      "title": "专家：前端设计",
-      "summary": "专家中心可一键拉起的前端/UI 设计顾问。",
+      "id": "context7",
+      "type": "mcp",
+      "title": "Context7（实时文档）",
+      "summary": "实时查询主流框架/库最新官方文档，避免过时 API。",
       "triggers": [
-        "前端设计咨询",
-        "UI 设计",
-        "界面设计"
+        "context7",
+        "查文档",
+        "最新 api",
+        "官方文档"
       ],
       "tags": [
-        "前端",
-        "设计"
+        "mcp",
+        "文档",
+        "开发"
       ],
-      "activate": "open_expert"
+      "activate": "trust"
     },
     {
-      "id": "algorithmic-art",
-      "type": "expert",
-      "title": "专家：算法艺术",
-      "summary": "专家中心可一键拉起的生成艺术/算法视觉顾问。",
+      "id": "sequential-thinking",
+      "type": "mcp",
+      "title": "Sequential Thinking（推理）",
+      "summary": "复杂问题的内部推理草稿纸，减少逻辑跳跃。",
       "triggers": [
-        "算法艺术",
-        "生成艺术",
-        "视觉艺术"
+        "sequential-thinking",
+        "复杂推理",
+        "思考链"
       ],
       "tags": [
-        "设计",
-        "图像"
+        "mcp",
+        "推理",
+        "ai"
       ],
-      "activate": "open_expert"
+      "activate": "trust"
     },
     {
-      "id": "doc-coauthoring",
-      "type": "expert",
-      "title": "专家：文档协作",
-      "summary": "专家中心可一键拉起的文档共写顾问。",
+      "id": "tencent-docs-mcp",
+      "type": "mcp",
+      "title": "腾讯文档 MCP",
+      "summary": "打通腾讯文档读写，内容创作→沉淀一条链。",
       "triggers": [
-        "文档协作",
-        "共写",
-        "长篇文档"
+        "腾讯文档 mcp",
+        "文档连接器"
       ],
       "tags": [
+        "mcp",
+        "腾讯生态",
+        "文档"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "feishu-mcp",
+      "type": "mcp",
+      "title": "飞书 MCP",
+      "summary": "飞书多维表格/文档/消息集成。",
+      "triggers": [
+        "飞书 mcp",
+        "feishu 连接器"
+      ],
+      "tags": [
+        "mcp",
+        "飞书",
+        "协作"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "github-mcp",
+      "type": "mcp",
+      "title": "GitHub MCP",
+      "summary": "代码仓库、issue、PR 的 MCP 集成。",
+      "triggers": [
+        "github mcp",
+        "仓库连接器"
+      ],
+      "tags": [
+        "mcp",
+        "开发",
+        "协作"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "notion-mcp",
+      "type": "mcp",
+      "title": "Notion MCP",
+      "summary": "Notion 页面与数据库读写集成。",
+      "triggers": [
+        "notion mcp",
+        "notion 连接器"
+      ],
+      "tags": [
+        "mcp",
+        "知识",
+        "协作"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "financial-data-mcp",
+      "type": "mcp",
+      "title": "金融数据 MCP（恒生聚源）",
+      "summary": "选股/研报/基金分析的专业金融数据连接器。",
+      "triggers": [
+        "金融 mcp",
+        "行情连接器",
+        "恒生聚源"
+      ],
+      "tags": [
+        "mcp",
+        "金融",
+        "数据"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "legal-mcp",
+      "type": "mcp",
+      "title": "法律 MCP（华宇元典）",
+      "summary": "法规+案例+企业涉诉核验连接器。",
+      "triggers": [
+        "法律 mcp",
+        "法务连接器",
+        "华宇元典"
+      ],
+      "tags": [
+        "mcp",
+        "法务",
+        "合规"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "database-mcp",
+      "type": "mcp",
+      "title": "数据库 MCP",
+      "summary": "连接业务数据库读取/写入，让 AI 够得着业务系统。",
+      "triggers": [
+        "数据库 mcp",
+        "db 连接器",
+        "sql 连接器"
+      ],
+      "tags": [
+        "mcp",
+        "数据",
+        "集成"
+      ],
+      "activate": "trust"
+    },
+    {
+      "id": "rule-security",
+      "type": "rule",
+      "title": "安全准则",
+      "summary": "不硬编码密钥、零信任外部输入、防注入/XSS/路径穿越。",
+      "triggers": [
+        "安全规则",
+        "密钥管理",
+        "安全规范"
+      ],
+      "tags": [
+        "规则",
+        "安全",
+        "工程"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-coding",
+      "type": "rule",
+      "title": "编码规范",
+      "summary": "不可变优先、小函数小文件、命名达意、早返回、显式错误处理。",
+      "triggers": [
+        "编码规范",
+        "代码风格",
+        "coding style"
+      ],
+      "tags": [
+        "规则",
+        "工程",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-testing",
+      "type": "rule",
+      "title": "测试准则",
+      "summary": "新功能/修 bug 先写测试，关键路径覆盖≥80%，测行为不测实现。",
+      "triggers": [
+        "测试规范",
+        "tdd 规则",
+        "测试覆盖"
+      ],
+      "tags": [
+        "规则",
+        "测试",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-git",
+      "type": "rule",
+      "title": "Git 提交规范",
+      "summary": "语义化提交 type(scope):subject，提交小聚焦，不 --force/--no-verify。",
+      "triggers": [
+        "git 规范",
+        "提交规范",
+        "commit 规范"
+      ],
+      "tags": [
+        "规则",
+        "git",
+        "工程"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-doc",
+      "type": "rule",
+      "title": "文档与表达规范",
+      "summary": "表达精准胜过噱头，术语准确，避免语义不准的营销黑话。",
+      "triggers": [
+        "文档规范",
+        "表达规范",
+        "用词准确"
+      ],
+      "tags": [
+        "规则",
+        "写作",
+        "质量"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-prompt",
+      "type": "rule",
+      "title": "提示词工程规范",
+      "summary": "目标+输入+格式+约束写具体，沉淀可复用模板。",
+      "triggers": [
+        "提示词规范",
+        "prompt 规范",
+        "指令具体"
+      ],
+      "tags": [
+        "规则",
+        "提示词",
+        "效率"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "rule-privacy",
+      "type": "rule",
+      "title": "隐私与权限准则",
+      "summary": "仅授权工作目录，禁止全盘读取，敏感数据单独权限。",
+      "triggers": [
+        "隐私规则",
+        "权限规范",
+        "数据安全"
+      ],
+      "tags": [
+        "规则",
+        "隐私",
+        "安全"
+      ],
+      "activate": "auto"
+    },
+    {
+      "id": "agent-planner",
+      "type": "agent",
+      "title": "规划子代理（planner）",
+      "summary": "模糊设计目标→带验收标准的计划。",
+      "triggers": [
+        "规划代理",
+        "planner",
+        "做计划"
+      ],
+      "tags": [
+        "代理",
+        "规划",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-architect",
+      "type": "agent",
+      "title": "架构子代理（architect）",
+      "summary": "系统设计/架构权衡顾问。",
+      "triggers": [
+        "架构代理",
+        "architect",
+        "系统设计"
+      ],
+      "tags": [
+        "代理",
+        "架构",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-doc-updater",
+      "type": "agent",
+      "title": "文档子代理（doc-updater）",
+      "summary": "GDD/设计文档撰写与维护。",
+      "triggers": [
+        "文档代理",
+        "doc-updater",
+        "写文档"
+      ],
+      "tags": [
+        "代理",
         "文档",
         "写作"
       ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-code-reviewer",
+      "type": "agent",
+      "title": "代码评审子代理",
+      "summary": "只读评审代码质量与风险。",
+      "triggers": [
+        "评审代理",
+        "code-reviewer"
+      ],
+      "tags": [
+        "代理",
+        "开发",
+        "质量"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-build-error-resolver",
+      "type": "agent",
+      "title": "构建错误子代理",
+      "summary": "诊断并修复构建/编译错误。",
+      "triggers": [
+        "构建代理",
+        "build-error-resolver"
+      ],
+      "tags": [
+        "代理",
+        "调试",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-refactor-cleaner",
+      "type": "agent",
+      "title": "重构子代理",
+      "summary": "重构与死代码清理。",
+      "triggers": [
+        "重构代理",
+        "refactor-cleaner"
+      ],
+      "tags": [
+        "代理",
+        "质量",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-security-reviewer",
+      "type": "agent",
+      "title": "安全评审子代理",
+      "summary": "安全漏洞与密钥泄露评审。",
+      "triggers": [
+        "安全代理",
+        "security-reviewer"
+      ],
+      "tags": [
+        "代理",
+        "安全",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-tdd-guide",
+      "type": "agent",
+      "title": "TDD 引导子代理",
+      "summary": "引导测试驱动开发流程。",
+      "triggers": [
+        "tdd 代理",
+        "tdd-guide"
+      ],
+      "tags": [
+        "代理",
+        "测试",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-explore",
+      "type": "agent",
+      "title": "探索子代理（Explore）",
+      "summary": "广域代码库/文件搜索与探索。",
+      "triggers": [
+        "探索代理",
+        "explore",
+        "搜代码"
+      ],
+      "tags": [
+        "代理",
+        "研究",
+        "工程"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "agent-general-purpose",
+      "type": "agent",
+      "title": "通用子代理",
+      "summary": "多步自主任务执行（读写文件、运行命令）。",
+      "triggers": [
+        "通用代理",
+        "general-purpose",
+        "子代理"
+      ],
+      "tags": [
+        "代理",
+        "通用",
+        "自动化"
+      ],
+      "activate": "invoke_agent"
+    },
+    {
+      "id": "wf-scheduled-report",
+      "type": "workflow",
+      "title": "定时报表工作流",
+      "summary": "定时读取数据→分析→生成报表→推送渠道，无人值守。",
+      "triggers": [
+        "定时报表",
+        "周报自动化",
+        "自动推送"
+      ],
+      "tags": [
+        "工作流",
+        "自动化",
+        "报表"
+      ],
+      "activate": "schedule"
+    },
+    {
+      "id": "wf-auto-file-org",
+      "type": "skill",
+      "title": "文件自动分类归档",
+      "summary": "监控下载/桌面文件夹，按类型自动移动归档并加日期前缀。",
+      "triggers": [
+        "自动归档",
+        "文件分类",
+        "下载整理"
+      ],
+      "tags": [
+        "工作流",
+        "文件",
+        "自动化"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "wf-multi-expert",
+      "type": "workflow",
+      "title": "多专家并行协同",
+      "summary": "多领域专家 Agent 并行处理复杂任务，效率倍增。",
+      "triggers": [
+        "多专家",
+        "并行协同",
+        "虚拟团队"
+      ],
+      "tags": [
+        "工作流",
+        "专家",
+        "协作"
+      ],
       "activate": "open_expert"
     },
     {
-      "id": "web-artifacts-builder",
-      "type": "expert",
-      "title": "专家：Web 构建",
-      "summary": "专家中心可一键拉起的 Web 应用/原型构建顾问。",
+      "id": "wf-approval",
+      "type": "workflow",
+      "title": "审批 / 确认流",
+      "summary": "多步骤任务先出方案，人工确认后执行，降低出错。",
       "triggers": [
-        "Web 构建",
-        "做网页应用",
-        "前端原型"
+        "审批流",
+        "确认后执行",
+        "plan 模式"
       ],
       "tags": [
-        "前端",
-        "原型"
+        "工作流",
+        "协作",
+        "安全"
       ],
-      "activate": "open_expert"
+      "activate": "auto"
     },
     {
-      "id": "executing-marketing-campaigns",
-      "type": "expert",
-      "title": "专家：营销活动",
-      "summary": "专家中心可一键拉起的营销活动执行顾问。",
+      "id": "wf-data-sync",
+      "type": "workflow",
+      "title": "跨系统数据同步",
+      "summary": "企微/飞书/CRM/本地表之间定时双向同步。",
       "triggers": [
-        "营销活动",
-        "投放",
-        "增长"
+        "数据同步",
+        "跨系统",
+        "自动同步"
       ],
       "tags": [
-        "营销",
-        "内容"
+        "工作流",
+        "自动化",
+        "集成"
       ],
-      "activate": "open_expert"
+      "activate": "schedule"
     },
     {
-      "id": "xlsx",
-      "type": "expert",
-      "title": "专家：Excel 表格",
-      "summary": "专家中心可一键拉起的表格处理顾问（进阶于 minimax-xlsx）。",
+      "id": "wf-content-pipeline",
+      "type": "workflow",
+      "title": "内容生产流水线",
+      "summary": "一源内容多形态分发（社媒/邮件/脚本/标题）。",
       "triggers": [
-        "表格咨询",
-        "Excel 专家",
-        "数据处理"
+        "内容流水线",
+        "多平台分发",
+        "内容工厂"
       ],
       "tags": [
+        "工作流",
+        "内容",
+        "营销"
+      ],
+      "activate": "install"
+    },
+    {
+      "id": "bom-calc",
+      "type": "skill",
+      "title": "BOM 物料成本核算",
+      "summary": "制造业多层级 BOM 自动累加物料、核算成本、校验逻辑。",
+      "triggers": [
+        "bom",
+        "物料核算",
+        "成本测算",
+        "制造"
+      ],
+      "tags": [
+        "制造",
+        "财务",
         "数据",
-        "表格"
+        "工程"
       ],
-      "activate": "open_expert"
+      "activate": "install"
     },
     {
-      "id": "pptx",
-      "type": "expert",
-      "title": "专家：PPT 演示",
-      "summary": "专家中心可一键拉起的演示文稿顾问（进阶于 pptx-generator）。",
+      "id": "game-analysis",
+      "type": "skill",
+      "title": "游戏行业分析（game-analysis）",
+      "summary": "竞品拆解、舆情/负评预期、玩家研究与上线策略分析。",
       "triggers": [
-        "PPT 咨询",
-        "演示专家",
-        "幻灯片"
+        "游戏分析",
+        "竞品拆解",
+        "游戏策划",
+        "玩家研究"
       ],
       "tags": [
-        "PPT",
-        "演示"
+        "游戏",
+        "研究",
+        "市场",
+        "产品"
       ],
-      "activate": "open_expert"
+      "activate": "call_skill"
+    },
+    {
+      "id": "content-factory",
+      "type": "skill",
+      "title": "多agent内容工厂（content-factory）",
+      "summary": "一源内容生成社媒/邮件/脚本/标题等多形态。",
+      "triggers": [
+        "内容工厂",
+        "多形态内容",
+        "内容分发"
+      ],
+      "tags": [
+        "内容",
+        "营销",
+        "自动化"
+      ],
+      "activate": "call_skill"
+    },
+    {
+      "id": "autoresearch",
+      "type": "skill",
+      "title": "自驱动研究（autoresearch）",
+      "summary": "生成多变体并用专家模拟面板评分、演化优胜方案。",
+      "triggers": [
+        "自驱动研究",
+        "autoresearch",
+        "方案演化"
+      ],
+      "tags": [
+        "研究",
+        "ai",
+        "优化"
+      ],
+      "activate": "call_skill"
     }
   ]
 }
