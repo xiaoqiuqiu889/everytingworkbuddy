@@ -4,11 +4,25 @@
 
 ---
 
+## 🚀 一键安装（推荐）
+
+不想一步步手动配？EFW 自带安装器，一行命令完成 skills + rules + mcp + agents 的全部安装与刷新：
+
+```bash
+node "（EFW 根目录）/scripts/install.mjs"
+```
+
+- 跨平台（Windows / macOS / Linux），**幂等**：可重复运行，已存在则刷新。
+- 装完自动把 9 个 efw-* 技能装到用户级、把研发准则写入 MEMORY.md、把无密钥 MCP 合入 mcp.json、把 9 个子代理提示词复制到用户级。
+- 下面「手动操作 3 步」仅在你想**只装一部分**或排查问题时使用。
+
+---
+
 ## ✅ 已自动完成（无需操作）
 
 | 项目 | 状态 | 位置 |
 | --- | --- | --- |
-| 6 个研发工作流 Skills | ✅ 已安装并登记 | `~/.workbuddy/skills/efw-*` |
+| 9 个研发工作流 Skills | ✅ 已安装并登记 | `~/.workbuddy/skills/efw-*` |
 | 研发准则核心红线 | ✅ 已并入用户级记忆（全局生效） | `~/.workbuddy/MEMORY.md` |
 | 2 个无密钥第三方 MCP | ✅ 已写入配置 | `~/.workbuddy/mcp.json` |
 | 9 个子代理提示词 | ✅ 就位（按需复用） | `EFW/agents/` |

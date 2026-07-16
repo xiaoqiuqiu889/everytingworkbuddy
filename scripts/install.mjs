@@ -22,6 +22,7 @@ const exists = async (p) => { try { await fs.access(p); return true; } catch { r
 const ensureDir = async (p) => { await fs.mkdir(p, { recursive: true }); };
 
 const SKILLS = [
+  'efw',
   'efw-tdd-workflow', 'efw-plan-feature', 'efw-code-review', 'efw-build-fix',
   'efw-refactor-clean', 'efw-security-review', 'efw-verify', 'efw-checkpoint', 'efw-learn',
 ];
@@ -51,7 +52,8 @@ const RULES_BLOCK = `${START}
 - Git：语义化提交 \`type(scope): subject\`；提交小而聚焦；不 \`--force\` 共享分支、不 \`--no-verify\`（除非用户明确要求）。
 - 委派：广域搜索/探索用只读子代理（Explore/Plan），改代码用 general-purpose；子代理 prompt 必须自包含；产出要亲自核对。
 - 上下文预算：不要一次性启用所有 MCP/连接器；每项目启用 <10 个，活动工具 <80；简单任务用 lite 模型、复杂推理用 reasoning。
-- 可用研发技能（已装用户级，共 9 个）：\`efw-tdd-workflow\` / \`efw-plan-feature\` / \`efw-code-review\` / \`efw-build-fix\` / \`efw-refactor-clean\` / \`efw-security-review\` / \`efw-verify\` / \`efw-checkpoint\` / \`efw-learn\`。
+- 可用研发技能（已装用户级，共 9 个研发流程技能 + efw 统一入口）：\`efw\`（自动路由） / \`efw-tdd-workflow\` / \`efw-plan-feature\` / \`efw-code-review\` / \`efw-build-fix\` / \`efw-refactor-clean\` / \`efw-security-review\` / \`efw-verify\` / \`efw-checkpoint\` / \`efw-learn\`。
+- **Skill 触发纪律（核心诉求）**：收到研发类需求时，**先**对照 9 个 efw-* 的 description（或说「用 efw」由统一入口自动路由）判断是否匹配，**主动加载并遵守**——不要求用户喊"用 efw-xxx"。常见映射：规划/方案→efw-plan-feature，TDD/先写测试→efw-tdd-workflow，审查/PR→efw-code-review，构建报错→efw-build-fix，重构/死代码→efw-refactor-clean，安全/漏洞→efw-security-review，收尾验证→efw-verify，存快照→efw-checkpoint，提炼沉淀→efw-learn。请求模糊时**主动问一句**而不是乱猜。
 ${END}
 `;
 

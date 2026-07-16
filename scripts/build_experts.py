@@ -7,7 +7,7 @@ import json
 import os
 from pathlib import Path
 
-EFW_ROOT = Path(r"D:\codebuddycn\EFW")
+EFW_ROOT = Path(__file__).resolve().parent.parent
 EXPERTS_DIR = Path(os.environ.get("WORKBUDDY_CONFIG_DIR", str(Path.home() / ".workbuddy"))) / "plugins" / "marketplaces" / "my-experts" / "plugins"
 
 # 9 个专家元数据。src = EFW/agents 下的源文件名；name = 专家 kebab 名（agentName=文件名）。

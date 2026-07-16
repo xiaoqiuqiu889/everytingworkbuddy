@@ -40,6 +40,7 @@ EFW/
 ├── skills/              # 核心研发工作流技能（源文件，安装到用户级）
 ├── rules/               # 6 份研发准则（安全/编码/测试/Git/委派/性能）
 ├── mcp/                 # MCP 连接器推荐清单 + 授权指引
+├── scripts/             # install.mjs 一键安装器 / verify-efw.mjs 自检 / build_experts.py 专家包生成
 └── automations/         # 定时任务定义（替代 hooks）
 ```
 
