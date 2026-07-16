@@ -1,0 +1,31 @@
+---
+name: efw-verify
+description: "Run the verification loop: tests → coverage → red returns to fix. Use after implementation or before declaring done. Mirrors everything-claude-code /verify."
+description_zh: "验证循环：跑测试→看覆盖率→红则回到修复"
+description_en: "Verification loop: tests, coverage, fix on red"
+version: 1.0.0
+agent_created: true
+---
+
+# Verify — 验证循环 (EFW)
+
+实现后或宣布完成前，跑一遍验证循环，确保不是「看着像好了」。
+
+## 循环
+
+1. **跑测试**：运行项目测试套件（单测 + 集成，按项目约定命令）。
+2. **看覆盖率**：检查改动路径的覆盖率，关键路径目标 **≥ 80%**。列出未覆盖的分支与原因。
+3. **红的就回去**：只要有失败或关键路径未达标，**回到实现/修复**，不要宣布完成。修复后重跑，直到绿。
+4. **报状态**：给出 通过/失败、覆盖率、未覆盖分支、遗留风险。
+
+## 何时用
+
+- 一个功能/bug 实现完，准备收尾时。
+- 重构后确认行为未变。
+- CI 红了需要本地复现与定位。
+
+## 原则
+
+- **绿是门槛不是目标**：覆盖率数字好看但关键路径没测，不算过。
+- **不要为绿而绿**：不删测试、不弱化断言来骗过循环。
+- 看不到测试命令时，先问项目用哪个 runner，不要盲猜。

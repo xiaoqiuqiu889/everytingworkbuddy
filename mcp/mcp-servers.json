@@ -1,0 +1,38 @@
+{
+  "_comment": "EFW MCP 参考清单。无密钥的两个已写入 ~/.workbuddy/mcp.json 并可直接用。需密钥的在 _templates 里，用时复制进 mcp.json 并替换占位符，切勿提交真实密钥。",
+
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "description": "Up-to-date library docs and code examples. No API key required."
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Structured step-by-step reasoning. No API key required."
+    }
+  },
+
+  "_templates_need_api_key": {
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--access-token", "YOUR_SUPABASE_TOKEN_HERE"],
+      "description": "Supabase 数据库/项目管理。需 access token。"
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": { "BRAVE_API_KEY": "YOUR_BRAVE_KEY_HERE" },
+      "description": "Brave 网络搜索。需 API key。"
+    },
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "@vercel/mcp-adapter"],
+      "env": { "VERCEL_TOKEN": "YOUR_VERCEL_TOKEN_HERE" },
+      "description": "Vercel 部署管理。需 token。（以官方最新包名为准）"
+    }
+  },
+
+  "_note_github": "GitHub 不用第三方 MCP —— 直接用 WorkBuddy 官方 GitHub 连接器一键授权，无需密钥。"
+}

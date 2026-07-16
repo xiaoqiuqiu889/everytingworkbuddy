@@ -1,0 +1,46 @@
+---
+name: efw-plan-feature
+description: "Break a feature or requirement into an executable implementation plan before coding. Use when the user asks to plan a feature, design an approach, or invokes /plan. Produces file-level steps with acceptance criteria and risks."
+description_zh: "把需求拆成可执行的实现计划，先规划后编码"
+description_en: "Plan a feature into executable steps before coding"
+version: 1.0.0
+agent_created: true
+---
+
+# Plan Feature (EFW)
+
+在写代码之前，把需求拆成一份**具体到文件与函数级别**的实现计划。适用于中大型改动、不确定如何下手时。
+
+## 步骤
+
+1. **理解现状**：读相关代码/文档，弄清约束与依赖。不清楚的列为「待澄清」，不臆造。
+2. **拆分**：分解为 3–8 个有明确产出的步骤，标注依赖（可并行 / 必须串行）。
+3. **每步定义**：涉及文件、核心改动、验收标准。
+4. **风险**：最易出错处、回滚点、性能/安全隐患。
+5. **确认后再执行**：计划本身不改代码；给用户过目或按其模式决定是否继续。
+
+## 输出模板
+
+```
+## 目标
+一句话说清。
+
+## 现状与约束
+- ...
+
+## 待澄清（如有）
+- 需要拍板的点
+
+## 实现步骤
+1. [path/to/file] 做什么 —— 验收：...
+2. ...
+
+## 风险与回滚
+- 风险 → 应对
+```
+
+## 原则
+
+- 具体到能让别人照着做。
+- 最小可行改动优先，避免过度设计（YAGNI）。
+- 需求本身有问题时，先质疑需求。

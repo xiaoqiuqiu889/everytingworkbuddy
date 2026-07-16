@@ -1,0 +1,118 @@
+#!/usr/bin/env node
+// EFW 一键安装器 (install.mjs)
+// 跨平台（Windows / macOS / Linux）：把 EFW 配置包安装到用户级 ~/.workbuddy/
+// 幂等：可重复运行；已存在则刷新，避免重复。
+
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const EFW_ROOT = path.resolve(__dirname, '..');           // scripts/.. -> EFW 根
+const HOME = os.homedir();
+const WB = path.join(HOME, '.workbuddy');
+
+let ok = 0, skip = 0, fail = 0;
+const done = (m) => { ok++; console.log(`  \u2713 ${m}`); };
+const note = (m) => { skip++; console.log(`  \u2192 ${m}`); };
+const bad  = (m) => { fail++; console.log(`  \u2717 ${m}`); };
+
+const exists = async (p) => { try { await fs.access(p); return true; } catch { return false; } };
+const ensureDir = async (p) => { await fs.mkdir(p, { recursive: true }); };
+
+const SKILLS = [
+  'efw-tdd-workflow', 'efw-plan-feature', 'efw-code-review', 'efw-build-fix',
+  'efw-refactor-clean', 'efw-security-review', 'efw-verify', 'efw-checkpoint', 'efw-learn',
+];
+
+// ---------- 1. Skills ----------
+async function installSkills() {
+  console.log('\n[skills]');
+  const dstRoot = path.join(WB, 'skills');
+  await ensureDir(dstRoot);
+  for (const s of SKILLS) {
+    const src = path.join(EFW_ROOT, 'skills', s, 'SKILL.md');
+    if (!(await exists(src))) { bad(`源码缺失 skills/${s}/SKILL.md`); continue; }
+    await fs.cp(path.join(EFW_ROOT, 'skills', s), path.join(dstRoot, s), { recursive: true });
+    done(`~/.workbuddy/skills/${s}`);
+  }
+}
+
+// ---------- 2. Rules -> MEMORY.md ----------
+const START = '<!-- EFW-RULES-START -->';
+const END = '<!-- EFW-RULES-END -->';
+const RULES_BLOCK = `${START}
+## EFW 研发准则（工程/写代码场景生效，效仿 Everything Claude Code）
+- 完整配置包在 \`${EFW_ROOT}\`（agents / skills / rules / mcp / automations）。做软件工程任务时遵循以下红线；非研发场景（写作/设计/查询等）不受此约束。
+- 安全：绝不硬编码密钥/token/密码，一律走环境变量；\`.env\` 不进库；外部输入零信任（防注入/XSS/路径穿越）；示例不写真实凭据。
+- 编码：不可变优先、小函数小文件、命名达意、早返回减嵌套、显式错误处理不吞异常；一致性 > 个人偏好；不写 YAGNI 抽象。
+- 测试：新功能/修 bug 先写测试（TDD：RED→GREEN→REFACTOR）；关键路径覆盖 ≥80%；测行为不测实现；不为绿色删测试。
+- Git：语义化提交 \`type(scope): subject\`；提交小而聚焦；不 \`--force\` 共享分支、不 \`--no-verify\`（除非用户明确要求）。
+- 委派：广域搜索/探索用只读子代理（Explore/Plan），改代码用 general-purpose；子代理 prompt 必须自包含；产出要亲自核对。
+- 上下文预算：不要一次性启用所有 MCP/连接器；每项目启用 <10 个，活动工具 <80；简单任务用 lite 模型、复杂推理用 reasoning。
+- 可用研发技能（已装用户级，共 9 个）：\`efw-tdd-workflow\` / \`efw-plan-feature\` / \`efw-code-review\` / \`efw-build-fix\` / \`efw-refactor-clean\` / \`efw-security-review\` / \`efw-verify\` / \`efw-checkpoint\` / \`efw-learn\`。
+${END}
+`;
+
+async function installRules() {
+  console.log('\n[rules]');
+  const memPath = path.join(WB, 'MEMORY.md');
+  let content = (await exists(memPath)) ? await fs.readFile(memPath, 'utf8') : '';
+  // 移除旧 EFW 块（sentinel 包裹的，或旧的无 sentinel 标题块）
+  let cleaned = content
+    .replace(new RegExp('\\n?' + START + '[\\s\\S]*?' + END + '\\n?'), '\n')
+    .replace(/\n?## EFW 研发准则[^\n]*\n(?:- .*\n)*/, '\n');
+  cleaned = cleaned.replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '') + '\n';
+  await fs.writeFile(memPath, cleaned + '\n' + RULES_BLOCK, 'utf8');
+  done('~/.workbuddy/MEMORY.md 已写入/刷新 EFW 研发准则');
+}
+
+// ---------- 3. MCP ----------
+async function installMcp() {
+  console.log('\n[mcp]');
+  const src = path.join(EFW_ROOT, 'mcp', 'mcp-servers.json');
+  const dst = path.join(WB, 'mcp.json');
+  const srcCfg = JSON.parse(await fs.readFile(src, 'utf8'));
+  const servers = srcCfg.mcpServers || {};
+  const cur = (await exists(dst)) ? JSON.parse(await fs.readFile(dst, 'utf8')) : { mcpServers: {} };
+  if (!cur.mcpServers) cur.mcpServers = {};
+  for (const [name, conf] of Object.entries(servers)) {
+    const txt = JSON.stringify(conf);
+    if (/YOUR_|<|>|REPLACE_ME|API_KEY_HERE/.test(txt)) {
+      note(`跳过含占位符的 ${name}（需手动填密钥后才启用）`);
+      continue;
+    }
+    cur.mcpServers[name] = conf;
+    done(`~/.workbuddy/mcp.json <- ${name}`);
+  }
+  await fs.writeFile(dst, JSON.stringify(cur, null, 2) + '\n', 'utf8');
+}
+
+// ---------- 4. Agents（参考素材，落用户级以便任意对话读取）----------
+async function installAgents() {
+  console.log('\n[agents]');
+  const srcRoot = path.join(EFW_ROOT, 'agents');
+  const dstRoot = path.join(WB, 'agents');
+  await ensureDir(dstRoot);
+  const files = (await fs.readdir(srcRoot)).filter((f) => f.endsWith('.md') && f !== 'README.md');
+  for (const f of files) {
+    await fs.copyFile(path.join(srcRoot, f), path.join(dstRoot, f));
+    done(`~/.workbuddy/agents/${f}（参考素材）`);
+  }
+}
+
+async function main() {
+  console.log('EFW 一键安装器');
+  console.log(`EFW_ROOT = ${EFW_ROOT}`);
+  console.log(`TARGET   = ${WB}`);
+  await ensureDir(WB);
+  await installSkills();
+  await installRules();
+  await installMcp();
+  await installAgents();
+  console.log(`\nRESULT: ${ok} 完成 / ${skip} 跳过 / ${fail} 失败`);
+  if (fail > 0) process.exit(1);
+}
+
+main().catch((e) => { console.error(e); process.exit(1); });

@@ -1,0 +1,42 @@
+---
+name: efw-security-review
+description: "Security review to find vulnerabilities and secret leaks, graded by risk. Use when the user asks for a security review, audit, or invokes /security-review. Covers secrets, injection, auth, data protection, dependencies."
+description_zh: "安全审查：漏洞与密钥泄露，按风险分级"
+description_en: "Security review: vulnerabilities and secret leaks"
+version: 1.0.0
+agent_created: true
+---
+
+# Security Review (EFW)
+
+发现代码中的**漏洞与敏感信息泄露**，按风险等级给出修复建议。
+
+## 检查清单
+
+1. **敏感信息**：硬编码密钥/密码/token/API key？`.env` 被提交？日志打印敏感数据？
+2. **注入类**：SQL 注入、命令注入、路径穿越、模板注入、XSS？外部输入是否校验/转义？
+3. **认证授权**：鉴权可绕过？权限校验是否在服务端？会话/token 安全？
+4. **数据保护**：传输加密（HTTPS/TLS）？敏感数据静态加密？PII 合规？
+5. **依赖安全**：是否使用已知漏洞版本？
+6. **不安全默认值**：CORS 过宽？调试模式开启？错误信息泄露内部结构？
+7. **反序列化 / 文件上传 / SSRF**：不可信数据处理路径安全？
+
+## 输出格式
+
+```
+## 🔴 严重（Critical）—— 立即修复
+- 位置 → 漏洞类型 → 攻击场景 → 修复方案
+
+## 🟠 高危 / 🟡 中危
+- ...
+
+## ✅ 已确认安全
+- ...
+```
+
+## 原则
+
+- 零信任外部输入。
+- 纵深防御，不依赖单一防线。
+- **绝不建议硬编码密钥，示例不写真实凭据。**
+- 不确定是否为漏洞时标「需人工确认」并说明疑点。
