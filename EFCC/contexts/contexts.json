@@ -1,0 +1,9 @@
+{
+  "_comment": "EFCC 模式切换配置。Claude Code 通过 ~/.claude/settings.json 的 'contexts' 或项目级 CLAUDE.md 注入；Codex 通过 /mode-* 斜杠命令触发。每个模式都是一个提示词片段。",
+  "modes": {
+    "dev":     { "file": "contexts/dev.md",     "description": "开发模式：TDD/Plan 优先，实现代码" },
+    "review":  { "file": "contexts/review.md",  "description": "审查模式：code-review / security-review 优先" },
+    "research":{ "file": "contexts/research.md","description": "研究模式：查资料、重来源、不夸大" },
+    "ship":    { "file": "contexts/ship.md",    "description": "交付模式：验收闸门强化 + 交付清单" }
+  }
+}

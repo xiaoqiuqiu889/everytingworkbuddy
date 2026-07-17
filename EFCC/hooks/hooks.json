@@ -1,0 +1,41 @@
+{
+  "_comment": "EFCC Claude Code 钩子清单。install.mjs 会把这段合并进 ~/.claude/settings.json 的 hooks 段。每个 hook 独立文件、跨平台 Node、带 --self-test。",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Write\" || tool == \"Edit\" || tool == \"MultiEdit\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/EFCC/hooks/efcc-safety/pre-tool-safety.js\""
+          }
+        ],
+        "description": "EFCC 安全检查：禁写 .env/key/credential 文件、检测硬编码密钥"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Bash\" || tool == \"Edit\" || tool == \"Write\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/EFCC/hooks/efcc-auto-learn/post-tool-learn.js\""
+          }
+        ],
+        "description": "EFCC 自动学习：检测可沉淀模式，温和提示 /efc-learn"
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/EFCC/hooks/efcc-session-brief/session-start-brief.js\""
+          }
+        ],
+        "description": "EFCC 会话简报：检测 Claude/Codex 端就位状态，输出到 stderr"
+      }
+    ]
+  }
+}

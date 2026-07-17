@@ -1,0 +1,24 @@
+{
+  "_comment_seed": "★ 初始种子缓存（手填，标注 seed=true）。来源：github.com/* 公开页面 2026-07-16。popularity.mjs 联网+有认证时跑一次会覆盖。注意：GitHub 子目录无 star，本缓存只到仓库级；技能提及数（search API）需要 gh 认证才能拉，种子里为空数组，run 时填。",
+  "_sources": {
+    "anthropics/skills": "https://github.com/anthropics/skills (162k★ / 19.1kf / 17 skills)",
+    "affaan-m/ECC": "https://github.com/affaan-m/ECC (230k★)",
+    "obra/superpowers": "https://github.com/obra/superpowers (256k★)",
+    "addyosmani/agent-skills": "https://github.com/addyosmani/agent-skills (78.7k★)",
+    "anthropics/claude-cookbooks": "https://github.com/anthropics/claude-cookbooks (49k★)",
+    "openai/codex": "https://github.com/openai/codex (98.8k★)",
+    "anthropics/claude-code": "https://github.com/anthropics/claude-code (138k★)"
+  },
+  "fetched_at": 1752681600000,
+  "seed": true,
+  "repos": {
+    "anthropics/skills":          { "stars": 162000, "forks": 19100, "weight": 1.0, "fetched_at": 1752681600000 },
+    "affaan-m/ECC":               { "stars": 230000, "forks": 35000, "weight": 1.0, "fetched_at": 1752681600000 },
+    "obra/superpowers":           { "stars": 256000, "forks": 23000, "weight": 0.8, "fetched_at": 1752681600000 },
+    "addyosmani/agent-skills":    { "stars":  78700, "forks":  8450, "weight": 0.8, "fetched_at": 1752681600000 },
+    "anthropics/claude-cookbooks":{ "stars":  49000, "forks":  5000, "weight": 0.5, "fetched_at": 1752681600000 },
+    "openai/codex":               { "stars":  98800, "forks":  7000, "weight": 0.5, "fetched_at": 1752681600000 },
+    "anthropics/claude-code":     { "stars": 138000, "forks": 12000, "weight": 0.5, "fetched_at": 1752681600000 }
+  },
+  "skill_mentions": {}
+}

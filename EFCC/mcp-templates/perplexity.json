@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "perplexity": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-perplexity-ask"],
+      "env": { "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY" }
+    }
+  }
+}

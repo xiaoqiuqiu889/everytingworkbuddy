@@ -1,0 +1,54 @@
+{
+  "_comment": "EFCC 生态热度采集的预置 GitHub 仓库列表。每个仓库按 stars+forks 拿到粗粒度热度，再对其子目录里的技能名在 issue/PR 做提及统计（细粒度）。EFCC 自身（efcc-native）不打分。",
+  "repos": [
+    {
+      "owner": "anthropics",
+      "name": "skills",
+      "skill_paths": "auto",
+      "weight": 1.0,
+      "note": "Anthropic 官方 17 个技能 (docx/pdf/pptx/xlsx 等)。子目录无 star，靠 issue/PR 提及频次排序。"
+    },
+    {
+      "owner": "affaan-m",
+      "name": "ECC",
+      "skill_paths": "auto",
+      "weight": 1.0,
+      "note": "Claude 生态 ECC 插件市场，278 技能 + 67 子代理（与本机 ~/.claude/plugins/marketplaces/ecc 一致）"
+    },
+    {
+      "owner": "obra",
+      "name": "superpowers",
+      "skill_paths": "auto",
+      "weight": 0.8,
+      "note": "Agentic skills 框架，社区第一"
+    },
+    {
+      "owner": "addyosmani",
+      "name": "agent-skills",
+      "skill_paths": "auto",
+      "weight": 0.8,
+      "note": "Google 工程师的工程技能集，78k star"
+    },
+    {
+      "owner": "anthropics",
+      "name": "claude-cookbooks",
+      "skill_paths": "skip",
+      "weight": 0.5,
+      "note": "仅作粗粒度 star 信号（不含独立技能目录）"
+    },
+    {
+      "owner": "openai",
+      "name": "codex",
+      "skill_paths": "skip",
+      "weight": 0.5,
+      "note": "Codex 生态基础，仅仓库级热度"
+    },
+    {
+      "owner": "anthropics",
+      "name": "claude-code",
+      "skill_paths": "skip",
+      "weight": 0.5,
+      "note": "Claude Code CLI"
+    }
+  ]
+}

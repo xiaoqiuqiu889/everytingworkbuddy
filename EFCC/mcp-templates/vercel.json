@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "vercel": {
+      "command": "npx",
+      "args": ["-y", "@vercel/mcp-adapter"],
+      "env": { "VERCEL_TOKEN": "YOUR_VERCEL_TOKEN" }
+    }
+  }
+}
