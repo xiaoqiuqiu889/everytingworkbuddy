@@ -9,9 +9,11 @@
 //   node scripts/install.mjs --target claude # 只装 Claude
 //   node scripts/install.mjs --target codex  # 只装 Codex
 //   node scripts/install.mjs --target both   # 两端都装（同默认）
+//   node scripts/install.mjs --no-backup     # 不写备份（CI 用）
+//   node scripts/install.mjs --dry-run       # 只打印不写入
 // 幂等：可重复运行；已存在则刷新，sentinel 块整体替换，不重复堆叠。
 
-import { promises as fs } from 'node:fs';
+import { promises as fs, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -20,8 +22,22 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EFCC_ROOT = path.resolve(__dirname, '..');
 const HOME = os.homedir();
 
+// ---------- CLI 标志 ----------
+const NO_BACKUP = process.argv.includes('--no-backup');
+const DRY_RUN = process.argv.includes('--dry-run');
+
 // ---------- 目标平台 ----------
 function detectTarget() {
+  // 如果 agent 在 Claude Code 会话里调用，自动识别
+  if (process.env.CLAUDE_CODE === '1' || process.env.CLAUDE_PROJECT_DIR) {
+    console.log('检测到 Claude Code 环境，默认只装 Claude 端');
+    return 'claude';
+  }
+  // Codex CLI 常见标识
+  if (process.env.CODEX_CLI === '1' || process.env.OPENAI_API_KEY && process.env.CODEX_ENV) {
+    console.log('检测到 Codex CLI 环境，默认只装 Codex 端');
+    return 'codex';
+  }
   const i = process.argv.findIndex((a) => a === '--target' || a.startsWith('--target='));
   if (i === -1) return 'both';
   if (process.argv[i].startsWith('--target=')) return process.argv[i].split('=')[1] || 'both';
@@ -34,14 +50,49 @@ const DO_CODEX = TARGET === 'codex' || TARGET === 'both';
 
 const CLAUDE = path.join(HOME, '.claude');
 const CODEX = path.join(HOME, '.codex');
+const BACKUP_DIR = path.join(HOME, '.efcc', 'backups', Date.now().toString());
 
 let ok = 0, skip = 0, fail = 0;
-const done = (m) => { ok++; console.log(`  ✓ ${m}`); };
+const done = (m) => { if (DRY_RUN) { skip++; console.log(`  → ${m}（dry-run）`); } else { ok++; console.log(`  ✓ ${m}`); } };
 const note = (m) => { skip++; console.log(`  → ${m}`); };
 const bad = (m) => { fail++; console.log(`  ✗ ${m}`); };
 
 const exists = async (p) => { try { await fs.access(p); return true; } catch { return false; } };
 const ensureDir = async (p) => { await fs.mkdir(p, { recursive: true }); };
+
+const BACKUP_TARGETS = [
+  path.join(HOME, '.claude.json'),
+  path.join(HOME, '.codex', 'config.toml'),
+  path.join(CLAUDE, 'settings.json'),
+  path.join(CLAUDE, 'CLAUDE.md'),
+  path.join(CODEX, 'AGENTS.md'),
+];
+
+async function backupFile(p) {
+  if (NO_BACKUP || DRY_RUN) return;
+  if (!(await exists(p))) return;
+  try {
+    mkdirSync(BACKUP_DIR, { recursive: true });
+    const base = path.basename(p);
+    const dest = path.join(BACKUP_DIR, `${base}.bak`);
+    await fs.copyFile(p, dest);
+    try { fs.chmodSync(dest, 0o600); } catch {}
+  } catch (e) {
+    console.error(`[backup] 备份 ${p} 失败: ${e.message}`);
+  }
+}
+
+async function safeWriteFile(p, content, label) {
+  if (DRY_RUN) { note(`${label}（dry-run，未写入）`); return; }
+  await backupFile(p);
+  await ensureDir(path.dirname(p));
+  await fs.writeFile(p, content, 'utf8');
+}
+
+async function safeMkdir(p) {
+  if (DRY_RUN) return;
+  await fs.mkdir(p, { recursive: true });
+}
 
 const SKILLS = [
   'efc',
@@ -117,8 +168,7 @@ async function writeMemoryBlock(memPath, platform, label) {
     .replace(new RegExp('\\n?' + START + '[\\s\\S]*?' + END + '\\n?'), '\n')
     .replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '');
   const body = (cleaned ? cleaned + '\n\n' : '') + rulesBlock(platform);
-  await ensureDir(path.dirname(memPath));
-  await fs.writeFile(memPath, body + '\n', 'utf8');
+  await safeWriteFile(memPath, body + '\n', label);
   done(`${label} 已写入/刷新 EFCC 编排外壳纪律块`);
 }
 
@@ -129,12 +179,16 @@ async function installClaude() {
   console.log('\n========== [Claude] ~/.claude ==========');
   console.log('[claude/skills]');
   const dstRoot = path.join(CLAUDE, 'skills');
-  await ensureDir(dstRoot);
+  await safeMkdir(dstRoot);
   for (const s of SKILLS) {
     const src = path.join(EFCC_ROOT, 'skills', s);
     if (!(await exists(path.join(src, 'SKILL.md')))) { bad(`源缺失 skills/${s}/SKILL.md`); continue; }
-    await fs.cp(src, path.join(dstRoot, s), { recursive: true });
-    done(`~/.claude/skills/${s}`);
+    if (!DRY_RUN) {
+      await fs.cp(src, path.join(dstRoot, s), { recursive: true });
+      done(`~/.claude/skills/${s}`);
+    } else {
+      note(`~/.claude/skills/${s}（dry-run，未写入）`);
+    }
   }
   await bundleProfileAssets(dstRoot);
   await installUserSkills(dstRoot);
@@ -143,7 +197,7 @@ async function installClaude() {
   await installUserRules(path.join(CLAUDE, 'CLAUDE.md'));
   console.log('[claude/agents]');
   const agDst = path.join(CLAUDE, 'agents');
-  await ensureDir(agDst);
+  await safeMkdir(agDst);
   await copyAgents(agDst, 'claude');
   console.log('[claude/mcp]');
   await installClaudeMcp();
@@ -161,7 +215,13 @@ async function installClaudeHooks() {
   if (await exists(settingsPath)) {
     try { settings = JSON.parse(await fs.readFile(settingsPath, 'utf8')); } catch (e) { bad(`settings.json 解析失败: ${e.message}`); return; }
   }
-  if (!settings.hooks) settings.hooks = {};
+  if (DRY_RUN) {
+    // dry-run 也做完整合并计算，只是不写入
+    if (!settings.hooks) settings.hooks = {};
+  } else {
+    await backupFile(settingsPath);
+    if (!settings.hooks) settings.hooks = {};
+  }
 
   // 把 ${CLAUDE_PROJECT_DIR}/EFCC 替换为 EFCC_ROOT 绝对路径（仅匹配该模板，不全局替换 /）
   const replacePath = (obj) => {
@@ -195,7 +255,7 @@ async function installClaudeHooks() {
     settings.hooks[hookType] = [...filtered, ...replacePath(entries)];
     done(`~/.claude/settings.json hooks.${hookType} 已合并 EFCC hooks`);
   }
-  await fs.writeFile(settingsPath, JSON.stringify(settings, null, 2) + '\n', 'utf8');
+  await safeWriteFile(settingsPath, JSON.stringify(settings, null, 2) + '\n', 'settings.json');
 }
 
 async function installClaudeMcp() {
@@ -212,7 +272,7 @@ async function installClaudeMcp() {
     cur.mcpServers[name] = clean;
     done(`~/.claude.json <- mcpServers.${name}`);
   }
-  await fs.writeFile(dst, JSON.stringify(cur, null, 2) + '\n', 'utf8');
+  await safeWriteFile(dst, JSON.stringify(cur, null, 2) + '\n', 'MCP Claude 配置');
 }
 
 // ============================================================
@@ -222,23 +282,31 @@ async function installCodex() {
   console.log('\n========== [Codex] ~/.codex ==========');
   console.log('[codex/prompts]');
   const promptsDir = path.join(CODEX, 'prompts');
-  await ensureDir(promptsDir);
+  await safeMkdir(promptsDir);
   for (const s of SKILLS) {
     const src = path.join(EFCC_ROOT, 'skills', s, 'SKILL.md');
     if (!(await exists(src))) { bad(`源缺失 skills/${s}/SKILL.md`); continue; }
     const body = await skillToPrompt(await fs.readFile(src, 'utf8'), s);
-    await fs.writeFile(path.join(promptsDir, `${s}.md`), body, 'utf8');
+    await safeWriteFile(path.join(promptsDir, `${s}.md`), body, `~/.codex/prompts/${s}.md`);
     done(`~/.codex/prompts/${s}.md（斜杠命令 /${s}）`);
   }
   const assets = path.join(CODEX, 'efcc-assets');
-  await ensureDir(assets);
+  await safeMkdir(assets);
   if (await exists(path.join(EFCC_ROOT, 'catalog'))) {
-    await fs.cp(path.join(EFCC_ROOT, 'catalog'), path.join(assets, 'catalog'), { recursive: true });
-    done('~/.codex/efcc-assets/catalog（能力索引）');
+    if (!DRY_RUN) {
+      await fs.cp(path.join(EFCC_ROOT, 'catalog'), path.join(assets, 'catalog'), { recursive: true });
+      done('~/.codex/efcc-assets/catalog（能力索引）');
+    } else {
+      note('~/.codex/efcc-assets/catalog（dry-run，未写入）');
+    }
   }
   if (await exists(path.join(EFCC_ROOT, 'scripts', 'match.mjs'))) {
-    await fs.copyFile(path.join(EFCC_ROOT, 'scripts', 'match.mjs'), path.join(assets, 'match.mjs'));
-    done('~/.codex/efcc-assets/match.mjs（检索器）');
+    if (!DRY_RUN) {
+      await fs.copyFile(path.join(EFCC_ROOT, 'scripts', 'match.mjs'), path.join(assets, 'match.mjs'));
+      done('~/.codex/efcc-assets/match.mjs（检索器）');
+    } else {
+      note('~/.codex/efcc-assets/match.mjs（dry-run，未写入）');
+    }
   }
   await installUserPrompts(promptsDir);
   console.log('[codex/rules]');
@@ -269,7 +337,7 @@ async function installCodexMcp() {
   if (!(await exists(src))) { note('mcp 源缺失，跳过'); return; }
   const servers = (JSON.parse(await fs.readFile(src, 'utf8')).mcpServers) || {};
   const dst = path.join(CODEX, 'config.toml');
-  await ensureDir(CODEX);
+  await safeMkdir(CODEX);
   let toml = (await exists(dst)) ? await fs.readFile(dst, 'utf8') : '';
   for (const [name, conf] of Object.entries(servers)) {
     if (/YOUR_|<|>|REPLACE_ME|API_KEY_HERE/.test(JSON.stringify(conf))) { note(`跳过含占位符的 ${name}`); continue; }
@@ -284,7 +352,7 @@ async function installCodexMcp() {
     toml += block;
     done(`~/.codex/config.toml <- [mcp_servers.${name}]`);
   }
-  await fs.writeFile(dst, toml, 'utf8');
+  await safeWriteFile(dst, toml, 'MCP Codex 配置');
 }
 
 // ============================================================
@@ -294,29 +362,39 @@ async function bundleProfileAssets(skillsRoot) {
   const skillDir = path.join(skillsRoot, 'efc-profile');
   if (!(await exists(skillDir))) return;
   if (await exists(path.join(EFCC_ROOT, 'catalog'))) {
-    await fs.cp(path.join(EFCC_ROOT, 'catalog'), path.join(skillDir, 'catalog'), { recursive: true });
-    done('efc-profile/catalog（能力索引已打包）');
+    if (!DRY_RUN) {
+      await fs.cp(path.join(EFCC_ROOT, 'catalog'), path.join(skillDir, 'catalog'), { recursive: true });
+      done('efc-profile/catalog（能力索引已打包）');
+    } else {
+      note('efc-profile/catalog（dry-run，未写入）');
+    }
   }
   const m = path.join(EFCC_ROOT, 'scripts', 'match.mjs');
   if (await exists(m)) {
-    await ensureDir(path.join(skillDir, 'scripts'));
-    await fs.copyFile(m, path.join(skillDir, 'scripts', 'match.mjs'));
-    done('efc-profile/scripts/match.mjs（检索器已打包）');
+    if (!DRY_RUN) {
+      await safeMkdir(path.join(skillDir, 'scripts'));
+      await fs.copyFile(m, path.join(skillDir, 'scripts', 'match.mjs'));
+      done('efc-profile/scripts/match.mjs（检索器已打包）');
+    } else {
+      note('efc-profile/scripts/match.mjs（dry-run，未写入）');
+    }
   }
 }
 
 async function copyAgents(dstRoot, platform) {
   const srcRoot = path.join(EFCC_ROOT, 'agents');
   if (!(await exists(srcRoot))) { note('agents 源缺失'); return; }
-  await ensureDir(dstRoot);
+  await safeMkdir(dstRoot);
   const files = (await fs.readdir(srcRoot)).filter((f) => f.endsWith('.md') && f !== 'README.md');
   for (const f of files) {
     if (platform === 'codex') {
       const raw = await fs.readFile(path.join(srcRoot, f), 'utf8');
-      await fs.writeFile(path.join(dstRoot, `agent-${f}`), raw, 'utf8');
+      await safeWriteFile(path.join(dstRoot, `agent-${f}`), raw, `agent-${f}`);
       done(`~/.codex/prompts/agent-${f}（子代理提示词，可 /agent-${f.replace(/\.md$/, '')}）`);
     } else {
-      await fs.copyFile(path.join(srcRoot, f), path.join(dstRoot, f));
+      const src = path.join(srcRoot, f);
+      const dst = path.join(dstRoot, f);
+      if (!DRY_RUN) { await fs.copyFile(src, dst); } else { note(`~/.claude/agents/${f}（dry-run，未写入）`); }
       done(`~/.claude/agents/${f}`);
     }
   }
@@ -334,8 +412,12 @@ async function installUserSkills(dstRoot) {
     const src = path.join(srcRoot, name);
     try { if (!(await fs.stat(src)).isDirectory()) continue; } catch { continue; }
     if (!(await exists(path.join(src, 'SKILL.md')))) continue;
-    await fs.cp(src, path.join(dstRoot, name), { recursive: true });
-    done(`skills/${name}（用户覆盖/新增）`);
+    if (!DRY_RUN) {
+      await fs.cp(src, path.join(dstRoot, name), { recursive: true });
+      done(`skills/${name}（用户覆盖/新增）`);
+    } else {
+      note(`skills/${name}（用户覆盖/新增，dry-run）`);
+    }
   }
 }
 
@@ -346,7 +428,7 @@ async function installUserPrompts(promptsDir) {
     const src = path.join(srcRoot, name, 'SKILL.md');
     if (!(await exists(src))) continue;
     const body = await skillToPrompt(await fs.readFile(src, 'utf8'), name);
-    await fs.writeFile(path.join(promptsDir, `${name}.md`), body, 'utf8');
+    await safeWriteFile(path.join(promptsDir, `${name}.md`), body, `~/.codex/prompts/${name}.md`);
     done(`~/.codex/prompts/${name}.md（用户覆盖/新增）`);
   }
 }
@@ -366,22 +448,28 @@ async function installUserRules(memPath) {
   const cleaned = content
     .replace(new RegExp('\\n?' + USTART + '[\\s\\S]*?' + UEND + '\\n?'), '\n')
     .replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '');
-  await fs.writeFile(memPath, cleaned + '\n\n' + body, 'utf8');
+  await safeWriteFile(memPath, cleaned + '\n\n' + body, '用户准则');
   done(`${path.basename(memPath)} 已写入用户准则块（${files.length} 个）`);
 }
 
 // ============================================================
 async function main() {
+  if (DRY_RUN) console.log('[DRY-RUN] 不会写入任何文件\n');
+  if (NO_BACKUP) console.log('[NO-BACKUP] 不会创建配置备份\n');
   console.log('EFCC 一键安装器 — Everything For Claude & Codex');
   console.log(`EFCC_ROOT = ${EFCC_ROOT}`);
   console.log(`TARGET    = ${TARGET}`);
   if (DO_CLAUDE) await installClaude();
   if (DO_CODEX) await installCodex();
   console.log(`\nRESULT: ${ok} 完成 / ${skip} 跳过 / ${fail} 失败`);
+  if (!NO_BACKUP && !DRY_RUN && (await exists(BACKUP_DIR))) {
+    console.log(`\n📦 配置已备份到 ${BACKUP_DIR}`);
+  }
   console.log('\n💡 让"子代理 / 别的会话"也遵循 EFCC：');
   console.log(`   • 项目级：把 ${path.join(EFCC_ROOT, 'examples', 'AGENTS.md')} 复制到项目根（Claude 用 CLAUDE.md，Codex 用 AGENTS.md），每会话注入、子代理也读。`);
   console.log('   • Codex：prompts 是手动斜杠命令，四步外壳的"常驻性"靠 ~/.codex/AGENTS.md（已写入）保证。');
   console.log('   • MCP：Claude 写入 ~/.claude.json、Codex 写入 ~/.codex/config.toml；context7 / sequential-thinking 无需密钥。');
+  console.log('\n🚀 新会话中说「用 efc」或直接描述需求，即可触发四步编排外壳。');
   if (fail > 0) process.exit(1);
 }
 

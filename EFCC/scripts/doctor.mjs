@@ -7,7 +7,7 @@
 // Exit 0 = 无失败项；Exit 1 = 存在失败项（警告不阻塞）。
 // 不做实际 npx 拉起（避免下载污染），仅校验声明与文件一致性。
 
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync as fsStatSync } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -121,7 +121,34 @@ function doctorCodex() {
   }
 }
 
-// ---------- 公共：EFCC 源健康 ----------
+function doctorBackup() {
+  console.log('\n[backup] EFCC 配置备份');
+  const backupRoot = path.join(HOME, '.efcc', 'backups');
+  if (!existsSync(backupRoot)) { warn('尚无备份目录（运行 install.mjs 后会创建）'); return; }
+  const dirs = [];
+  for (const d of readDirSafe(backupRoot)) {
+    const p = path.join(backupRoot, d);
+    try {
+      const st = fsStatSync(p);
+      if (st.isDirectory()) dirs.push({ name: d, mtime: st.mtimeMs });
+    } catch {}
+  }
+  if (dirs.length === 0) { warn('备份目录存在但无备份'); return; }
+  dirs.sort((a, b) => b.mtime - a.mtime);
+  const nonEmpty = dirs.find((d) => {
+    const p = path.join(backupRoot, d.name);
+    try { return readdirSync(p).length > 0; }
+    catch { return false; }
+  });
+  if (!nonEmpty) { warn('备份目录存在但无有效备份'); return; }
+  const latestPath = path.join(backupRoot, nonEmpty.name);
+  const files = readDirSafe(latestPath);
+  pass(`最新备份: ${latestPath}（${files.length} 个文件）`);
+}
+
+function readDirSafe(p) {
+  try { return readdirSync(p); } catch { return []; }
+}
 function doctorSource() {
   console.log('\n[source] EFCC 源健康');
   const cat = path.join(EFCC, 'catalog', 'capabilities.json');
@@ -139,6 +166,7 @@ function doctorSource() {
 
 console.log('EFCC 双平台自检 (doctor)');
 console.log(`TARGET = ${TARGET}`);
+doctorBackup();
 doctorSource();
 if (DO_CLAUDE) doctorClaude();
 if (DO_CODEX) doctorCodex();

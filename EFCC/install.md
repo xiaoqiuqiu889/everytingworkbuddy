@@ -1,10 +1,17 @@
 # EFCC 安装与启用指引（Claude & Codex 双平台）
 
-一条命令即可让整套 EFCC 配置在 Claude 与 Codex 里生效。安装器帮你完成所有**自动生效**的部分，剩下的是少量**需要你点一下界面/授权**的部分。
+**最快方式：把 GitHub 链接甩给你的 Claude/Codex：**
+
+> 请把这个工程在我的电脑中实现一遍，然后运行安装和自检：
+> **https://github.com/xiaoqiuqiu889/everytingworkbuddy/tree/EFCC**
+
+Agent 会自己 clone 仓库、运行安装脚本、并完成双平台健康检查。
 
 ---
 
-## 🚀 一键安装
+## 🚀 命令行一键安装
+
+如果你已经手动 clone 了仓库，在仓库根目录运行：
 
 ```bash
 node EFCC/scripts/install.mjs                  # 默认两端都装
